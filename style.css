@@ -72,7 +72,7 @@ header .navbar {
 }
 
 .navbar-inverse {
-	background: rgba(0, 0, 0, 0.65) !important;
+	background: rgba(0, 0, 0, 1) !important;
 }
 
 #myNavbar ul li {
@@ -121,7 +121,8 @@ header .navbar {
 /************ Home css ************/
 
 #home {
-	
+	top: 95px;
+	background: url(img/home.jpg) no-repeat center center;
 	background-size: cover;
 	position: relative;
 	justify-content: center;
@@ -156,7 +157,6 @@ header .navbar {
 
 .overlay {
 	position: absolute;
-	background: rgba(242, 0, 0, .55);
 	top: 0;
 	left: 0;
 	right: 0;
@@ -187,7 +187,7 @@ header .navbar {
 
 /********** SERVICE AREA**************/
 #service {
-	padding: 80px 0 160px;
+	padding: 130px 0 160px;
 	background-color: #000;
 	color: #fff;
 }
@@ -204,7 +204,6 @@ video {
 	font-weight: normal;
 	color: #fff;
 }
-
 .section-heading span {
 	color: #f20101;
 }
@@ -214,7 +213,10 @@ video {
 	margin-top: 50px;
 	transition: all 0.6s;
 }
-
+.single-item  h5 {
+	font-size: 14px;
+	font-weight: 200;
+	}
 .single-item i {
 	font-size: 80px;
 	color: #f20101;
