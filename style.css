@@ -210,6 +210,17 @@ header .navbar {
 	margin-top: 35px;
 }
 
+
+.put {
+	margin-top: 17px;
+	margin-bottom: 17px;
+}
+.reasons_block .put img {
+
+	min-width: 75%;
+	height: 200px;
+}
+
 .reasons_round {
 	display: flex;
 	justify-content: center;
@@ -226,7 +237,7 @@ header .navbar {
 }
 
 .reasons_subtitle {
-	line-height: 21px;
+	line-height: 26px;
 	color: black;
 	font-size: 17px;
 	font-weight: 600;
@@ -234,9 +245,9 @@ header .navbar {
 
 .reasons_text {
 	color: #202020;
-	font-size: 15px;
-	font-weight: 300;
-	line-height: 21px;
+	font-size: 18px;
+	font-weight: 400;
+	line-height: 24px;
 }
 
 .label {
@@ -265,9 +276,10 @@ header .navbar {
 
 .title {
 	position: relative;
-	margin-bottom: 0;
+	margin-bottom: 20px;
 	margin-top: 38px;
-	color: #222222;
+	top: 15px;
+	color: red;
 	font-size: 38px;
 	line-height: 38px;
 	font-weight: 700;
@@ -301,7 +313,8 @@ header .navbar {
 	background-color: #000;
 	color: #fff;
 }
-.car{
+
+.car {
 	padding: 30px 0 50px;
 }
 
