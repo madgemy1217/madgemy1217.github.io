@@ -126,13 +126,13 @@ header .navbar {
 
 #home {
 	top: 95px;
-	background: url(img/home.jpg) no-repeat center center;
+	background: url(img/bgg.jpg) no-repeat center center;
 	background-size: cover;
 	position: relative;
 	justify-content: center;
 	flex-direction: column;
 	display: flex;
-	height: 700px;
+	height: 1000px;
 }
 
 .home-text {
@@ -140,6 +140,15 @@ header .navbar {
 	color: #fff;
 	font-size: 30px;
 	font-weight: 1000;
+	height: 400px;
+}
+
+.home-text h2 {
+	position: relative;
+	font-size: 70px;
+	font-weight: 1000;
+	top: 120px;
+	color: gold;
 }
 
 .home-text h1 {
