@@ -1,0 +1,108 @@
+Uri: https://mbu-olimp.ru/
+File Name: B:\WebCopy\mbu-olimp.ru\index.htm
+Content Type: text/html
+
+Uri: https://mbu-olimp.ru/olimp.png
+File Name: B:\WebCopy\mbu-olimp.ru\olimp.png
+Content Type: image/png
+
+Uri: https://mbu-olimp.ru/manifest.json
+File Name: B:\WebCopy\mbu-olimp.ru\manifest.json
+Content Type: application/json
+
+Uri: https://mbu-olimp.ru/static/css/main.14296184.chunk.css
+File Name: B:\WebCopy\mbu-olimp.ru\static\css\main.14296184.chunk.css
+Content Type: text/css
+
+Uri: https://mbu-olimp.ru/static/js/2.df52f1c4.chunk.js
+File Name: B:\WebCopy\mbu-olimp.ru\static\js\2.df52f1c4.chunk.js
+Content Type: application/javascript
+
+Uri: https://mbu-olimp.ru/static/js/main.8514d060.chunk.js
+File Name: B:\WebCopy\mbu-olimp.ru\static\js\main.8514d060.chunk.js
+Content Type: application/javascript
+
+Uri: https://mbu-olimp.ru/static/media/als-sector-bold.3ca4ed3b.eot
+File Name: B:\WebCopy\mbu-olimp.ru\static\media\als-sector-bold.3ca4ed3b.eot
+Content Type: application/vnd.ms-fontobject
+
+Uri: https://mbu-olimp.ru/static/media/als-sector-bold.ed1f47c3.woff
+File Name: B:\WebCopy\mbu-olimp.ru\static\media\als-sector-bold.ed1f47c3.woff
+Content Type: application/font-woff
+
+Uri: https://mbu-olimp.ru/static/media/als-sector-bold.19aaabef.ttf
+File Name: B:\WebCopy\mbu-olimp.ru\static\media\als-sector-bold.19aaabef.ttf
+Content Type: application/font-sfnt
+
+Uri: https://mbu-olimp.ru/static/media/als-sector-bold.278f99d0.svg
+File Name: B:\WebCopy\mbu-olimp.ru\static\media\als-sector-bold.278f99d0.svg
+Content Type: image/svg+xml
+
+Uri: https://mbu-olimp.ru/static/media/als-sector.da28170b.eot
+File Name: B:\WebCopy\mbu-olimp.ru\static\media\als-sector.da28170b.eot
+Content Type: application/vnd.ms-fontobject
+
+Uri: https://mbu-olimp.ru/static/media/als-sector.9d1ba0e2.woff
+File Name: B:\WebCopy\mbu-olimp.ru\static\media\als-sector.9d1ba0e2.woff
+Content Type: application/font-woff
+
+Uri: https://mbu-olimp.ru/static/media/als-sector.c6099166.ttf
+File Name: B:\WebCopy\mbu-olimp.ru\static\media\als-sector.c6099166.ttf
+Content Type: application/font-sfnt
+
+Uri: https://mbu-olimp.ru/static/media/als-sector.8b023f7f.svg
+File Name: B:\WebCopy\mbu-olimp.ru\static\media\als-sector.8b023f7f.svg
+Content Type: image/svg+xml
+
+Uri: https://mbu-olimp.ru/static/media/BasisGrotesquePro-Bold.1207a5fc.eot
+File Name: B:\WebCopy\mbu-olimp.ru\static\media\BasisGrotesquePro-Bold.1207a5fc.eot
+Content Type: application/vnd.ms-fontobject
+
+Uri: https://mbu-olimp.ru/static/media/BasisGrotesquePro-Bold.bc1873cf.woff
+File Name: B:\WebCopy\mbu-olimp.ru\static\media\BasisGrotesquePro-Bold.bc1873cf.woff
+Content Type: application/font-woff
+
+Uri: https://mbu-olimp.ru/static/media/BasisGrotesquePro-Bold.f9ddd460.ttf
+File Name: B:\WebCopy\mbu-olimp.ru\static\media\BasisGrotesquePro-Bold.f9ddd460.ttf
+Content Type: application/font-sfnt
+
+Uri: https://mbu-olimp.ru/static/media/BasisGrotesquePro-Bold.3f4fae57.svg
+File Name: B:\WebCopy\mbu-olimp.ru\static\media\BasisGrotesquePro-Bold.3f4fae57.svg
+Content Type: image/svg+xml
+
+Uri: https://mbu-olimp.ru/static/media/BasisGrotesquePro-Black.e0aae3bf.eot
+File Name: B:\WebCopy\mbu-olimp.ru\static\media\BasisGrotesquePro-Black.e0aae3bf.eot
+Content Type: application/vnd.ms-fontobject
+
+Uri: https://mbu-olimp.ru/static/media/BasisGrotesquePro-Black.c477893a.woff
+File Name: B:\WebCopy\mbu-olimp.ru\static\media\BasisGrotesquePro-Black.c477893a.woff
+Content Type: application/font-woff
+
+Uri: https://mbu-olimp.ru/static/media/BasisGrotesquePro-Black.da55a2f4.ttf
+File Name: B:\WebCopy\mbu-olimp.ru\static\media\BasisGrotesquePro-Black.da55a2f4.ttf
+Content Type: application/font-sfnt
+
+Uri: https://mbu-olimp.ru/static/media/BasisGrotesquePro-Black.085868f9.svg
+File Name: B:\WebCopy\mbu-olimp.ru\static\media\BasisGrotesquePro-Black.085868f9.svg
+Content Type: image/svg+xml
+
+Uri: https://mbu-olimp.ru/static/media/BasisGrotesquePro-Regular.17ed7be1.eot
+File Name: B:\WebCopy\mbu-olimp.ru\static\media\BasisGrotesquePro-Regular.17ed7be1.eot
+Content Type: application/vnd.ms-fontobject
+
+Uri: https://mbu-olimp.ru/static/media/BasisGrotesquePro-Regular.48314783.woff
+File Name: B:\WebCopy\mbu-olimp.ru\static\media\BasisGrotesquePro-Regular.48314783.woff
+Content Type: application/font-woff
+
+Uri: https://mbu-olimp.ru/static/media/BasisGrotesquePro-Regular.b130f1fb.ttf
+File Name: B:\WebCopy\mbu-olimp.ru\static\media\BasisGrotesquePro-Regular.b130f1fb.ttf
+Content Type: application/font-sfnt
+
+Uri: https://mbu-olimp.ru/static/media/BasisGrotesquePro-Regular.0e07aa50.svg
+File Name: B:\WebCopy\mbu-olimp.ru\static\media\BasisGrotesquePro-Regular.0e07aa50.svg
+Content Type: image/svg+xml
+
+Uri: https://mbu-olimp.ru/static/media/aboutPageBanner.0b27ad6a.jpg
+File Name: B:\WebCopy\mbu-olimp.ru\static\media\aboutPageBanner.0b27ad6a.jpg
+Content Type: image/jpeg
+
