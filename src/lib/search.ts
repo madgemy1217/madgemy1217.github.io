@@ -91,7 +91,7 @@ const buildHaystack = (p: Product): string => {
     p.tagline,
     p.description,
     ...p.features,
-    ...p.colors,
+    ...p.colors.map((c) => c.name),
     ...p.aliases,
   ];
   const base = normalize(parts.join(" "));
