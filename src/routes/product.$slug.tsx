@@ -92,7 +92,7 @@ function ProductPage() {
           <div className="mt-8">
             <div className="text-sm font-medium mb-3">Цвета</div>
             <div className="flex flex-wrap gap-2">
-              {product.colors.map((c) => (
+              {product.colors.map((c: string) => (
                 <span
                   key={c}
                   className="rounded-full border border-border bg-secondary/50 px-3 py-1 text-xs text-muted-foreground"
@@ -106,7 +106,7 @@ function ProductPage() {
           <div className="mt-8">
             <div className="text-sm font-medium mb-3">Особенности</div>
             <ul className="space-y-2">
-              {product.features.map((f) => (
+              {product.features.map((f: string) => (
                 <li key={f} className="flex items-start gap-2 text-sm text-muted-foreground">
                   <Check className="h-4 w-4 text-primary mt-0.5 shrink-0" />
                   <span>{f}</span>
