@@ -33,77 +33,55 @@
 }
 
 :root {
-  --radius: 0.875rem;
+  --radius: 1rem;
 
-  /* Dark premium theme — base */
-  --background: oklch(0.12 0.01 260);
-  --foreground: oklch(0.98 0.005 250);
+  /* Warm off-white minimal theme */
+  --background: oklch(0.985 0.008 85);
+  --foreground: oklch(0.18 0.008 60);
 
-  --card: oklch(0.16 0.012 260);
-  --card-foreground: oklch(0.98 0.005 250);
+  --card: oklch(0.99 0.005 85);
+  --card-foreground: oklch(0.18 0.008 60);
 
-  --popover: oklch(0.14 0.012 260);
-  --popover-foreground: oklch(0.98 0.005 250);
+  --popover: oklch(0.99 0.005 85);
+  --popover-foreground: oklch(0.18 0.008 60);
 
-  /* Cyan-blue neon accent */
-  --primary: oklch(0.78 0.16 220);
-  --primary-foreground: oklch(0.12 0.01 260);
+  /* Warm graphite accent (default) — overridden by --accent-h on product pages */
+  --accent-h: 60;
+  --accent-c: 0.01;
+  --primary: oklch(0.22 var(--accent-c) var(--accent-h));
+  --primary-foreground: oklch(0.98 0.005 85);
 
-  --secondary: oklch(0.22 0.015 260);
-  --secondary-foreground: oklch(0.98 0.005 250);
+  --secondary: oklch(0.95 0.008 85);
+  --secondary-foreground: oklch(0.22 0.008 60);
 
-  --muted: oklch(0.2 0.012 260);
-  --muted-foreground: oklch(0.65 0.015 260);
+  --muted: oklch(0.95 0.008 85);
+  --muted-foreground: oklch(0.5 0.012 70);
 
-  --accent: oklch(0.78 0.16 220);
-  --accent-foreground: oklch(0.12 0.01 260);
+  --accent: oklch(0.93 0.012 85);
+  --accent-foreground: oklch(0.22 0.008 60);
 
-  --destructive: oklch(0.65 0.22 25);
-  --destructive-foreground: oklch(0.98 0.005 250);
+  --destructive: oklch(0.62 0.2 25);
+  --destructive-foreground: oklch(0.98 0.005 85);
 
-  --border: oklch(0.25 0.015 260);
-  --input: oklch(0.22 0.015 260);
-  --ring: oklch(0.78 0.16 220);
+  --border: oklch(0.92 0.008 80);
+  --input: oklch(0.96 0.008 85);
+  --ring: oklch(0.7 0.05 var(--accent-h));
 
-  /* Custom premium tokens */
-  --neon: oklch(0.78 0.16 220);
-  --neon-purple: oklch(0.7 0.2 300);
-  --surface-elevated: oklch(0.18 0.012 260);
-  --surface-glass: oklch(0.16 0.012 260 / 0.6);
+  /* Brand-tint backdrop driven by selected product color */
+  --tint-c: 0;
+  --tint-h: var(--accent-h);
+  --tint-soft: oklch(0.97 calc(var(--tint-c) * 0.6) var(--tint-h));
+  --tint-mid: oklch(0.93 calc(var(--tint-c) * 0.8) var(--tint-h));
 
-  --gradient-hero: radial-gradient(ellipse at top, oklch(0.3 0.15 270 / 0.4), transparent 60%),
-                   linear-gradient(180deg, oklch(0.12 0.01 260), oklch(0.08 0.01 260));
-  --gradient-accent: linear-gradient(135deg, oklch(0.78 0.16 220), oklch(0.7 0.2 300));
-  --gradient-card: linear-gradient(180deg, oklch(0.18 0.012 260), oklch(0.14 0.012 260));
+  --gradient-hero: radial-gradient(ellipse 80% 60% at 70% 20%, var(--tint-mid), transparent 70%),
+                   linear-gradient(180deg, var(--background), var(--tint-soft));
+  --gradient-card: linear-gradient(180deg, var(--card), var(--tint-soft));
 
-  --shadow-glow: 0 0 60px -10px oklch(0.78 0.16 220 / 0.4);
-  --shadow-card: 0 20px 60px -20px oklch(0 0 0 / 0.5);
-  --shadow-elevated: 0 8px 32px -8px oklch(0 0 0 / 0.6);
+  --shadow-soft: 0 1px 2px oklch(0 0 0 / 0.04), 0 8px 24px -12px oklch(0 0 0 / 0.08);
+  --shadow-elevated: 0 2px 4px oklch(0 0 0 / 0.04), 0 24px 48px -16px oklch(0 0 0 / 0.12);
+  --shadow-tint: 0 30px 80px -30px oklch(0.6 calc(var(--tint-c) * 1.2) var(--tint-h) / 0.4);
 
   --transition-smooth: cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.dark {
-  /* Mirror :root — site is dark-only */
-  --background: oklch(0.12 0.01 260);
-  --foreground: oklch(0.98 0.005 250);
-  --card: oklch(0.16 0.012 260);
-  --card-foreground: oklch(0.98 0.005 250);
-  --popover: oklch(0.14 0.012 260);
-  --popover-foreground: oklch(0.98 0.005 250);
-  --primary: oklch(0.78 0.16 220);
-  --primary-foreground: oklch(0.12 0.01 260);
-  --secondary: oklch(0.22 0.015 260);
-  --secondary-foreground: oklch(0.98 0.005 250);
-  --muted: oklch(0.2 0.012 260);
-  --muted-foreground: oklch(0.65 0.015 260);
-  --accent: oklch(0.78 0.16 220);
-  --accent-foreground: oklch(0.12 0.01 260);
-  --destructive: oklch(0.65 0.22 25);
-  --destructive-foreground: oklch(0.98 0.005 250);
-  --border: oklch(0.25 0.015 260);
-  --input: oklch(0.22 0.015 260);
-  --ring: oklch(0.78 0.16 220);
 }
 
 @layer base {
@@ -121,6 +99,7 @@
     font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     font-feature-settings: "ss01", "cv11";
     -webkit-font-smoothing: antialiased;
+    transition: background-color 0.6s var(--transition-smooth);
   }
 
   h1, h2, h3, h4 {
@@ -130,43 +109,40 @@
 }
 
 @layer utilities {
-  .gradient-text {
-    background: var(--gradient-accent);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-
-  .glow {
-    box-shadow: var(--shadow-glow);
-  }
-
   .glass {
-    background: var(--surface-glass);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
+    background: color-mix(in oklab, var(--background) 80%, transparent);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+  }
+
+  .soft-shadow {
+    box-shadow: var(--shadow-soft);
+  }
+
+  .tint-glow {
+    box-shadow: var(--shadow-tint);
   }
 
   .product-card-hover {
-    transition: transform 0.5s var(--transition-smooth), box-shadow 0.5s var(--transition-smooth);
+    transition: transform 0.4s var(--transition-smooth), box-shadow 0.4s var(--transition-smooth);
   }
   .product-card-hover:hover {
-    transform: translateY(-6px);
-    box-shadow: var(--shadow-glow);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-elevated);
   }
 
   .fade-in-up {
-    animation: fadeInUp 0.7s var(--transition-smooth) both;
+    animation: fadeInUp 0.6s var(--transition-smooth) both;
   }
 
   @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
+    from { opacity: 0; transform: translateY(16px); }
     to { opacity: 1; transform: translateY(0); }
   }
 
   @keyframes float {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-12px); }
+    50% { transform: translateY(-10px); }
   }
   .float { animation: float 6s ease-in-out infinite; }
 }
