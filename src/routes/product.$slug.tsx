@@ -1,7 +1,9 @@
 import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { Check, ShoppingBag, ArrowLeft } from "lucide-react";
 import { getProduct, formatPrice } from "@/lib/products";
 import { useCart } from "@/lib/cart";
+import { applySiteTint, clearSiteTint } from "@/lib/tint";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/product/$slug")({
@@ -32,10 +34,16 @@ function ProductPage() {
   const { product } = Route.useLoaderData();
   const { add } = useCart();
   const navigate = useNavigate();
+  const [selectedColor, setSelectedColor] = useState(product.colors[0]);
+
+  useEffect(() => {
+    applySiteTint(selectedColor.hex);
+    return () => clearSiteTint();
+  }, [selectedColor]);
 
   const handleAdd = () => {
     add(product);
-    toast.success(`${product.name} добавлен в корзину`);
+    toast.success(`${product.name} (${selectedColor.name}) добавлен в корзину`);
   };
 
   const handleBuyNow = () => {
@@ -54,12 +62,10 @@ function ProductPage() {
       </Link>
 
       <div className="grid lg:grid-cols-2 gap-10 lg:gap-16">
-        <div className="relative rounded-3xl border border-border bg-card p-8 fade-in-up">
-          <div
-            className="absolute inset-8 rounded-2xl opacity-40 -z-0 blur-3xl"
-            style={{ background: "var(--gradient-accent)" }}
-            aria-hidden
-          />
+        <div
+          className="relative rounded-3xl border border-border p-8 fade-in-up overflow-hidden tint-glow"
+          style={{ background: "var(--gradient-card)" }}
+        >
           <img
             src={product.image}
             alt={product.name}
@@ -70,7 +76,7 @@ function ProductPage() {
         </div>
 
         <div className="fade-in-up" style={{ animationDelay: "100ms" }}>
-          <div className="text-sm uppercase tracking-wider text-primary/80 mb-2">
+          <div className="text-xs uppercase tracking-widest text-muted-foreground mb-2">
             {product.category}
           </div>
           <h1 className="text-4xl md:text-5xl font-semibold tracking-tight">
@@ -90,25 +96,42 @@ function ProductPage() {
           <p className="mt-6 text-muted-foreground leading-relaxed">{product.description}</p>
 
           <div className="mt-8">
-            <div className="text-sm font-medium mb-3">Цвета</div>
-            <div className="flex flex-wrap gap-2">
-              {product.colors.map((c: string) => (
-                <span
-                  key={c}
-                  className="rounded-full border border-border bg-secondary/50 px-3 py-1 text-xs text-muted-foreground"
-                >
-                  {c}
-                </span>
-              ))}
+            <div className="text-sm font-medium mb-3">
+              Цвет: <span className="text-muted-foreground font-normal">{selectedColor.name}</span>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              {product.colors.map((c) => {
+                const active = c.name === selectedColor.name;
+                return (
+                  <button
+                    key={c.name}
+                    type="button"
+                    onClick={() => setSelectedColor(c)}
+                    aria-label={c.name}
+                    aria-pressed={active}
+                    className={`relative h-10 w-10 rounded-full transition-all ring-offset-2 ring-offset-background ${
+                      active ? "ring-2 ring-foreground scale-110" : "ring-1 ring-border hover:scale-105"
+                    }`}
+                    style={{ backgroundColor: c.hex }}
+                  >
+                    {active && (
+                      <Check
+                        className="absolute inset-0 m-auto h-4 w-4"
+                        style={{ color: isLight(c.hex) ? "#000" : "#fff" }}
+                      />
+                    )}
+                  </button>
+                );
+              })}
             </div>
           </div>
 
           <div className="mt-8">
             <div className="text-sm font-medium mb-3">Особенности</div>
             <ul className="space-y-2">
-              {product.features.map((f: string) => (
+              {product.features.map((f) => (
                 <li key={f} className="flex items-start gap-2 text-sm text-muted-foreground">
-                  <Check className="h-4 w-4 text-primary mt-0.5 shrink-0" />
+                  <Check className="h-4 w-4 text-foreground mt-0.5 shrink-0" />
                   <span>{f}</span>
                 </li>
               ))}
@@ -118,13 +141,13 @@ function ProductPage() {
           <div className="mt-10 flex flex-col sm:flex-row gap-3">
             <button
               onClick={handleBuyNow}
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 glow"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
             >
               Купить сейчас
             </button>
             <button
               onClick={handleAdd}
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-border bg-secondary/50 px-6 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-border bg-card px-6 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
             >
               <ShoppingBag className="h-4 w-4" /> В корзину
             </button>
@@ -133,4 +156,14 @@ function ProductPage() {
       </div>
     </div>
   );
+}
+
+function isLight(hex: string): boolean {
+  const m = /^#?([a-f\d]{6})$/i.exec(hex);
+  if (!m) return true;
+  const int = parseInt(m[1], 16);
+  const r = (int >> 16) & 0xff;
+  const g = (int >> 8) & 0xff;
+  const b = int & 0xff;
+  return (r * 299 + g * 587 + b * 114) / 1000 > 160;
 }
