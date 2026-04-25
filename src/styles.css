@@ -70,8 +70,9 @@
   /* Brand-tint backdrop driven by selected product color */
   --tint-c: 0;
   --tint-h: var(--accent-h);
-  --tint-soft: oklch(0.97 calc(var(--tint-c) * 0.6) var(--tint-h));
-  --tint-mid: oklch(0.93 calc(var(--tint-c) * 0.8) var(--tint-h));
+  --tint-soft: oklch(0.97 calc(var(--tint-c) * 1.2) var(--tint-h));
+  --tint-mid: oklch(0.92 calc(var(--tint-c) * 1.6) var(--tint-h));
+  --tint-strong: oklch(0.86 calc(var(--tint-c) * 2.2) var(--tint-h));
 
   --gradient-hero: radial-gradient(ellipse 80% 60% at 70% 20%, var(--tint-mid), transparent 70%),
                    linear-gradient(180deg, var(--background), var(--tint-soft));
@@ -93,13 +94,20 @@
     scroll-behavior: smooth;
   }
 
+  html {
+    transition: background-color 0.6s var(--transition-smooth);
+  }
+
   body {
-    background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     font-feature-settings: "ss01", "cv11";
     -webkit-font-smoothing: antialiased;
-    transition: background-color 0.6s var(--transition-smooth);
+    background:
+      radial-gradient(ellipse 70% 50% at 50% 0%, var(--tint-soft), transparent 60%),
+      var(--background);
+    transition: background 0.6s var(--transition-smooth);
+    min-height: 100vh;
   }
 
   h1, h2, h3, h4 {
@@ -121,6 +129,12 @@
 
   .tint-glow {
     box-shadow: var(--shadow-tint);
+    transition: box-shadow 0.6s var(--transition-smooth), background 0.6s var(--transition-smooth);
+  }
+
+  .tint-ring {
+    box-shadow: 0 0 0 1px var(--tint-strong), 0 20px 60px -20px var(--tint-strong);
+    transition: box-shadow 0.6s var(--transition-smooth);
   }
 
   .product-card-hover {
