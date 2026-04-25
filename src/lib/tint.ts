@@ -39,8 +39,8 @@ function hexToHueChroma(hex: string): { h: number; c: number } {
     if (h < 0) h += 360;
   }
 
-  // Saturation-like measure → mapped to a small chroma so the page tint stays subtle
+  // Saturation-like measure → mapped to chroma so the page tint is visible but tasteful
   const s = max === 0 ? 0 : d / max;
-  const c = Math.min(0.06, s * 0.08);
+  const c = Math.min(0.12, s * 0.18);
   return { h, c };
 }
