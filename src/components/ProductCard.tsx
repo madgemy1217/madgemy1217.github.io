@@ -6,7 +6,7 @@ export function ProductCard({ product }: { product: Product }) {
     <Link
       to="/product/$slug"
       params={{ slug: product.slug }}
-      className="product-card-hover group block rounded-3xl border border-border bg-card p-6 fade-in-up"
+      className="product-card-hover group block rounded-3xl border border-border bg-card p-6 fade-in-up soft-shadow"
     >
       <div className="aspect-square mb-4 overflow-hidden rounded-2xl bg-secondary/40 flex items-center justify-center">
         <img
@@ -19,7 +19,7 @@ export function ProductCard({ product }: { product: Product }) {
         />
       </div>
       <div className="space-y-1">
-        <div className="text-xs uppercase tracking-wider text-primary/80">{product.category}</div>
+        <div className="text-xs uppercase tracking-widest text-muted-foreground">{product.category}</div>
         <h3 className="text-base font-semibold">{product.name}</h3>
         <p className="text-sm text-muted-foreground line-clamp-1">{product.tagline}</p>
         <div className="flex items-baseline gap-2 pt-2">

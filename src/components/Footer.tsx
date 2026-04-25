@@ -6,8 +6,8 @@ export function Footer() {
     <footer className="mt-24 border-t border-border/50">
       <div className="mx-auto max-w-7xl px-4 md:px-8 py-12 grid grid-cols-2 md:grid-cols-4 gap-8 text-sm">
         <div className="col-span-2 md:col-span-1">
-          <div className="text-base font-semibold mb-3">
-            <span className="gradient-text">Apple</span>Store
+          <div className="text-base font-semibold mb-3 text-foreground">
+            AppleStore
           </div>
           <p className="text-muted-foreground leading-relaxed">
             Официальная техника Apple с доставкой по всей России.

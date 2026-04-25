@@ -40,9 +40,8 @@ export function Header() {
     <>
       <header className="sticky top-0 z-40 glass border-b border-border/50">
         <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 md:px-8">
-          <Link to="/" className="text-lg font-semibold tracking-tight">
-            <span className="gradient-text">Apple</span>
-            <span className="text-foreground">Store</span>
+          <Link to="/" className="text-lg font-semibold tracking-tight text-foreground">
+            AppleStore
           </Link>
 
           <nav className="hidden md:flex items-center gap-7 text-sm text-muted-foreground">
