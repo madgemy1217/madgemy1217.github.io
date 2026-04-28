@@ -22,6 +22,9 @@
     const ADMIN_LOGIN = "root";
     const ADMIN_PASSWORD = "1234";
     const TELEGRAM_USERNAME = "your_username";
+    const SHOP_PHONE = "+7 (926) 766-32-24";
+    const SHOP_PHONE_TEL = "+79267663224";
+    const SHOP_ADDRESS = "ТЦ «Горбушкин двор», г. Москва, Багратионовский проезд, 7к1";
     let catalogCache = null;
     let state = { cart: readJson(STORAGE_CART, []), activeCat: "all", query: "", variantIdx: 0, colorIdx: 0, adminTab: "products", editingProduct: null, editingCategory: null, checkout: { name:"", phone:"", delivery:"pickup", payment:"cash", address:"", notes:"" }, login:"", password:"" };
     const app = document.getElementById("app");
