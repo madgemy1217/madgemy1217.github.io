@@ -216,7 +216,30 @@
 
     document.addEventListener('submit', (e) => {
       if (e.target.id === 'login-form') { e.preventDefault(); const fd=new FormData(e.target); if (fd.get('login')===ADMIN_LOGIN && fd.get('password')===ADMIN_PASSWORD) { localStorage.setItem(STORAGE_ADMIN,'1'); toast('Вход выполнен'); go('/admin'); } else toast('Неверный логин или пароль'); }
-      if (e.target.id === 'checkout-form') { e.preventDefault(); if (!state.cart.length) return toast('Корзина пуста'); if (state.checkout.name.trim().length<2) return toast('Укажите имя'); if (state.checkout.phone.trim().length<5) return toast('Укажите телефон'); const lines=state.cart.map(i=>`• ${i.name} × ${i.qty} — ${money(i.price*i.qty)}`).join('\n'); const msg=`Новый заказ ATH STORE\n\n${lines}\n\nИтого: ${money(cartTotal())}\nИмя: ${state.checkout.name}\nТел: ${state.checkout.phone}\nДоставка: ${state.checkout.delivery}\nОплата: ${state.checkout.payment}${state.checkout.address?`\nАдрес: ${state.checkout.address}`:''}${state.checkout.notes?`\nКомментарий: ${state.checkout.notes}`:''}`; window.open(`https://t.me/${TELEGRAM_USERNAME}?text=${encodeURIComponent(msg)}`,'_blank'); clearCart(); toast('Заказ отправлен в Telegram!'); go('/'); }
+      if (e.target.id === 'checkout-form') {
+        e.preventDefault();
+        if (!state.cart.length) return toast('Корзина пуста');
+        if (state.checkout.name.trim().length<2) return toast('Укажите имя');
+        if (state.checkout.phone.trim().length<5) return toast('Укажите телефон');
+        const lines=state.cart.map(i=>`• ${i.name} × ${i.qty} — ${money(i.price*i.qty)}`).join('\n');
+        const paymentLabel = state.checkout.payment==='transfer' ? 'Перевод на карту' : (state.checkout.payment==='cash' ? 'Наличные' : state.checkout.payment);
+        const deliveryLabel = state.checkout.delivery==='pickup' ? 'Самовывоз' : (state.checkout.delivery==='courier' ? 'Курьер' : 'Почта');
+        const msg=`Новый заказ ATH STORE\n\n${lines}\n\nИтого: ${money(cartTotal())}\nИмя: ${state.checkout.name}\nТел: ${state.checkout.phone}\nДоставка: ${deliveryLabel}\nОплата: ${paymentLabel}${state.checkout.address?`\nАдрес: ${state.checkout.address}`:''}${state.checkout.notes?`\nКомментарий: ${state.checkout.notes}`:''}`;
+        const tgUrl = `https://t.me/${TELEGRAM_USERNAME}`;
+        const shareUrl = `https://t.me/share/url?url=${encodeURIComponent(tgUrl)}&text=${encodeURIComponent(msg)}`;
+        const win = window.open(shareUrl, '_blank');
+        if (!win) {
+          // fallback: copy to clipboard + redirect in same tab
+          try { navigator.clipboard && navigator.clipboard.writeText(msg); } catch(_) {}
+          toast('Текст заказа скопирован. Откройте Telegram и вставьте.');
+          location.href = tgUrl;
+        } else {
+          try { navigator.clipboard && navigator.clipboard.writeText(msg); } catch(_) {}
+          toast('Заказ открыт в Telegram. Если текст не подставился — он скопирован, вставьте его.');
+        }
+        clearCart();
+        go('/');
+      }
     });
 
     function collectProduct(){
