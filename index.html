@@ -60,7 +60,7 @@
     function cartTotal(){ return state.cart.reduce((s,i)=>s+i.price*i.qty,0); }
     function cartCount(){ return state.cart.reduce((s,i)=>s+i.qty,0); }
 
-    function header(){ return `<header class="header"><div class="container header-inner"><a class="brand" href="#/"><img src="./assets/logo-ath.jpg" alt="ATH STORE"><span>ATH STORE</span></a><nav class="nav"><a class="link catalog-link" href="#/">Каталог</a>${isAdmin()?`<a class="btn" href="#/admin">🛡 <span class="optional">Админ</span></a><button class="btn icon" data-action="logout" title="Выйти">↩</button>`:""}<a class="btn primary cart-btn" href="#/cart">🛒 <span>${cartCount()}</span></a></nav></div></header>`; }
+    function header(){ return `<header class="header"><div class="container header-inner"><a class="brand" href="#/"><img src="./assets/logo-ath.jpg" alt="ATH STORE"><span>ATH STORE</span></a><nav class="nav"><a class="link catalog-link" href="#/">Каталог</a><a class="link catalog-link" href="#/contacts">Контакты</a>${isAdmin()?`<a class="btn" href="#/admin">🛡 <span class="optional">Админ</span></a><button class="btn icon" data-action="logout" title="Выйти">↩</button>`:""}<a class="btn primary cart-btn" href="#/cart">🛒 <span>${cartCount()}</span></a></nav></div></header>`; }
     function footer(){ return `<footer class="footer"><div class="container footer-inner"><p>© ${new Date().getFullYear()} ATH STORE. Все права защищены.</p><p>Оригинальная техника Apple</p></div></footer>`; }
     function shell(content, hero=""){ return `<div class="site">${header()}${hero}<main class="container main">${content}</main>${footer()}</div>`; }
 
