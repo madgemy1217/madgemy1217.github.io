@@ -1,15 +1,12 @@
 {
-  "name": "tanstack_start_ts",
+  "name": "ath-store-static",
   "private": true,
   "sideEffects": false,
   "type": "module",
   "scripts": {
-    "dev": "vite dev",
+    "dev": "vite dev --host 0.0.0.0",
     "build": "vite build",
-    "build:dev": "vite build --mode development",
-    "preview": "vite preview",
-    "lint": "eslint .",
-    "format": "prettier --write ."
+    "preview": "vite preview --host 0.0.0.0"
   },
   "dependencies": {
     "@cloudflare/vite-plugin": "^1.25.5",
