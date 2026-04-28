@@ -152,7 +152,9 @@
         state.variantIdx = r.startsWith('/product/') ? state.variantIdx : 0;
         state.colorIdx = r.startsWith('/product/') ? state.colorIdx : 0;
         if (r === '/') app.innerHTML = await pageHome();
+        else if (r.startsWith('/category/')) app.innerHTML = await pageCategory(decodeURIComponent(r.split('/category/')[1] || ''));
         else if (r.startsWith('/product/')) app.innerHTML = await pageProduct(decodeURIComponent(r.split('/product/')[1] || ''));
+        else if (r === '/contacts') app.innerHTML = pageContacts();
         else if (r === '/cart') app.innerHTML = pageCart();
         else if (r === '/checkout') app.innerHTML = pageCheckout();
         else if (r === '/login') app.innerHTML = pageLogin();
