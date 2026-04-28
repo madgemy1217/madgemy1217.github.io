@@ -1,6 +1,9 @@
-import { supabase } from "@/integrations/supabase/client";
-
 export type Category = { id: string; slug: string; name: string; sort_order: number };
+export type ProductColor = { name: string; hex: string };
+export type ProductVariant = { name: string; price_delta: number };
+export type ProductSpec = { key: string; value: string };
+export type ProductImage = { url: string; alt?: string };
+
 export type Product = {
   id: string;
   slug: string;
@@ -15,43 +18,69 @@ export type Product = {
   featured: boolean;
   aliases: string | null;
   sort_order: number;
+  colors: ProductColor[];
+  variants: ProductVariant[];
+  specs: ProductSpec[];
+  images: ProductImage[];
 };
-export type ProductColor = { id: string; product_id: string; name: string; hex: string; sort_order: number };
-export type ProductVariant = { id: string; product_id: string; name: string; price_delta: number; sort_order: number };
-export type ProductSpec = { id: string; product_id: string; spec_key: string; spec_value: string; sort_order: number };
-export type ProductImage = { id: string; product_id: string; url: string; alt: string | null; sort_order: number };
 
-export async function fetchCategories() {
-  const { data, error } = await supabase.from("categories").select("*").order("sort_order");
-  if (error) throw error;
-  return (data ?? []) as Category[];
+export type Catalog = { categories: Category[]; products: Product[] };
+
+const STORAGE_KEY = "ath_catalog_override";
+const SOURCE_PATH = `${import.meta.env.BASE_URL}products.json`;
+
+let cache: Catalog | null = null;
+const subscribers = new Set<() => void>();
+
+export function subscribeCatalog(fn: () => void) {
+  subscribers.add(fn);
+  return () => subscribers.delete(fn);
 }
 
-export async function fetchProducts() {
-  const { data, error } = await supabase.from("products").select("*").order("sort_order");
-  if (error) throw error;
-  return (data ?? []) as Product[];
+function notify() {
+  subscribers.forEach((fn) => fn());
 }
 
-export async function fetchProductBySlug(slug: string) {
-  const { data: product, error } = await supabase
-    .from("products")
-    .select("*")
-    .eq("slug", slug)
-    .maybeSingle();
-  if (error) throw error;
-  if (!product) return null;
-  const [colors, variants, specs, images] = await Promise.all([
-    supabase.from("product_colors").select("*").eq("product_id", product.id).order("sort_order"),
-    supabase.from("product_variants").select("*").eq("product_id", product.id).order("sort_order"),
-    supabase.from("product_specs").select("*").eq("product_id", product.id).order("sort_order"),
-    supabase.from("product_images").select("*").eq("product_id", product.id).order("sort_order"),
-  ]);
-  return {
-    product: product as Product,
-    colors: (colors.data ?? []) as ProductColor[],
-    variants: (variants.data ?? []) as ProductVariant[],
-    specs: (specs.data ?? []) as ProductSpec[],
-    images: (images.data ?? []) as ProductImage[],
-  };
+export async function loadCatalog(force = false): Promise<Catalog> {
+  if (cache && !force) return cache;
+  // Сначала пробуем localStorage (правки админа)
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      cache = JSON.parse(raw);
+      return cache!;
+    }
+  } catch {
+    /* ignore */
+  }
+  // Иначе грузим JSON из public/
+  const res = await fetch(SOURCE_PATH, { cache: "no-cache" });
+  if (!res.ok) throw new Error("Не удалось загрузить products.json");
+  cache = (await res.json()) as Catalog;
+  return cache;
+}
+
+export function saveCatalog(catalog: Catalog) {
+  cache = catalog;
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(catalog));
+  notify();
+}
+
+export async function resetCatalog() {
+  localStorage.removeItem(STORAGE_KEY);
+  cache = null;
+  await loadCatalog(true);
+  notify();
+}
+
+export function downloadCatalogJson(catalog: Catalog) {
+  const blob = new Blob([JSON.stringify(catalog, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "products.json";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
 }
