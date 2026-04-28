@@ -6,7 +6,7 @@ import logo from "@/../assets/logo-ath.jpg";
 
 export function Header() {
   const { count } = useCart();
-  const { isAdmin, user, signOut } = useAuth();
+  const { isAdmin, signOut } = useAuth();
 
   return (
     <header className="sticky top-0 z-40 bg-background/80 backdrop-blur border-b">
@@ -24,7 +24,7 @@ export function Header() {
               <ShieldCheck className="h-4 w-4" /> Админ
             </Link>
           )}
-          {user ? (
+          {isAdmin ? (
             <button onClick={signOut} className="inline-flex items-center gap-1 text-sm px-3 py-1.5 rounded-md hover:bg-secondary" title="Выйти">
               <LogOut className="h-4 w-4" />
             </button>
