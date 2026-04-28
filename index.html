@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ATH STORE — техника Apple</title>
+    <meta name="description" content="ATH STORE: каталог iPhone, iPad, Mac, Apple Watch и AirPods. Заказ техники Apple через Telegram." />
+    <meta name="theme-color" content="#3b8b33" />
+    <link rel="icon" href="assets/logo-ath.jpg" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="container nav">
+        <a class="brand" href="#top" aria-label="ATH STORE на главную">
+          <img src="assets/logo-ath.jpg" alt="Логотип ATH STORE" width="40" height="40" />
+          <strong><span>ATH</span> STORE</strong>
+        </a>
+        <nav class="menu" aria-label="Основная навигация">
+          <a href="#catalog">Каталог</a>
+          <a href="#delivery">Доставка</a>
+          <a href="#contacts">Контакты</a>
+        </nav>
+        <div class="actions">
+          <button class="icon-btn" data-cart-open aria-label="Открыть корзину">🛒 <span class="label">Корзина</span> <span class="cart-count" data-cart-count>0</span></button>
+          <button class="menu-btn" data-menu aria-label="Меню">☰</button>
+        </div>
+      </div>
+      <div class="mobile-panel" id="mobile-panel">
+        <a href="#catalog">Каталог</a>
+        <a href="#delivery">Доставка</a>
+        <a href="#contacts">Контакты</a>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="container hero-inner">
+          <span class="kicker">белый · чёрный · #3b8b33</span>
+          <h1>ATH STORE</h1>
+          <p>Каталог техники Apple с быстрым заказом через Telegram. Выберите товары, соберите корзину и отправьте заявку менеджеру.</p>
+          <div class="hero-buttons">
+            <a class="btn primary" href="#catalog">Смотреть каталог</a>
+            <button class="btn secondary" data-cart-open>Открыть корзину</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="catalog">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <h2 class="section-title">Каталог</h2>
+              <p class="section-text">14 товаров: iPhone, iPad, Mac, Apple Watch и AirPods.</p>
+            </div>
+            <div class="filters" data-categories></div>
+          </div>
+          <div class="search-row">
+            <input id="search" type="search" placeholder="Поиск: iPhone 16, MacBook, AirPods..." aria-label="Поиск товаров" />
+            <button class="btn black" data-cart-open>Заказ</button>
+          </div>
+          <div class="grid" id="product-grid"></div>
+        </div>
+      </section>
+
+      <section class="section soft" id="delivery">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <h2 class="section-title">Доставка и заказ</h2>
+              <p class="section-text">Сайт полностью статический: работает на GitHub Pages без сервера, базы данных и скрытых API.</p>
+            </div>
+          </div>
+          <div class="benefits">
+            <div class="benefit"><strong>Telegram-заказ</strong><p>Корзина превращается в готовое сообщение менеджеру.</p></div>
+            <div class="benefit"><strong>Быстрый старт</strong><p>Главная страница лежит в корне как index.html.</p></div>
+            <div class="benefit"><strong>GitHub Pages</strong><p>Можно загрузить файлы в репозиторий и включить Pages.</p></div>
+            <div class="benefit"><strong>ATH STORE</strong><p>Белая, чёрная и зелёная палитра #3b8b33.</p></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer" id="contacts">
+      <div class="container footer-grid">
+        <div>
+          <div class="brand"><img src="assets/logo-ath.jpg" alt="ATH STORE" width="40" height="40" /><strong><span>ATH</span> STORE</strong></div>
+          <p>Витрина техники Apple. Для реальных заказов замените Telegram username в файле app.js.</p>
+        </div>
+        <div>
+          <h3>Каталог</h3>
+          <div class="footer-links"><a href="#catalog">iPhone</a><a href="#catalog">iPad</a><a href="#catalog">Mac</a><a href="#catalog">AirPods</a></div>
+        </div>
+        <div>
+          <h3>Контакты</h3>
+          <div class="footer-links"><a href="tel:+70000000000">+7 000 000-00-00</a><a href="https://t.me/your_username">Telegram</a></div>
+        </div>
+      </div>
+    </footer>
+
+    <div class="drawer-backdrop" id="drawer-backdrop"></div>
+    <aside class="drawer" id="cart-drawer" aria-label="Корзина">
+      <div class="drawer-head"><h2>Корзина</h2><button class="icon-btn" data-close aria-label="Закрыть">×</button></div>
+      <div class="drawer-body">
+        <div id="cart-items"></div>
+        <form class="checkout-form" id="checkout-form">
+          <h3>Данные для заказа</h3>
+          <input name="name" placeholder="Ваше имя" autocomplete="name" />
+          <input name="phone" placeholder="Телефон" autocomplete="tel" />
+          <select name="delivery"><option>Доставка по России</option><option>Самовывоз</option><option>Курьер</option></select>
+          <input name="address" placeholder="Город и адрес" autocomplete="street-address" />
+          <textarea name="notes" placeholder="Комментарий к заказу"></textarea>
+        </form>
+      </div>
+      <div class="drawer-foot">
+        <div class="total"><span>Итого</span><span id="cart-total">0 ₽</span></div>
+        <button class="btn primary" form="checkout-form" type="submit">Написать в Telegram</button>
+      </div>
+    </aside>
+    <section class="product-modal" id="product-modal" aria-label="Товар"></section>
+    <script src="app.js"></script>
+  </body>
+</html>
