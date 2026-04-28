@@ -2,9 +2,11 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { useCart } from "@/lib/cart";
 import { formatPrice } from "@/lib/products";
-import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { Check } from "lucide-react";
+import { Check, Send } from "lucide-react";
+
+// TODO: замените на ваш Telegram username (без @)
+const TELEGRAM_USERNAME = "your_username";
 
 export const Route = createFileRoute("/checkout")({
   head: () => ({
@@ -19,7 +21,6 @@ type Payment = "cash" | "card_transfer";
 function CheckoutPage() {
   const { items, total, clear } = useCart();
   const navigate = useNavigate();
-  const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
 
   const [name, setName] = useState("");
@@ -29,7 +30,6 @@ function CheckoutPage() {
   const [address, setAddress] = useState("");
   const [notes, setNotes] = useState("");
 
-  // Constraint: cash only for pickup
   const availablePayments: Payment[] = delivery === "pickup" ? ["cash"] : ["card_transfer"];
   const effectivePayment: Payment = availablePayments.includes(payment) ? payment : availablePayments[0];
 
@@ -53,79 +53,45 @@ function CheckoutPage() {
         <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-primary/10">
           <Check className="h-10 w-10 text-primary" />
         </div>
-        <h1 className="text-4xl font-semibold">Заказ принят!</h1>
+        <h1 className="text-4xl font-semibold">Заказ отправлен в Telegram!</h1>
         <p className="mt-3 text-muted-foreground">
-          Мы свяжемся с вами по телефону <span className="text-foreground">{phone}</span> в ближайшее время для подтверждения.
+          Если чат не открылся автоматически — нажмите кнопку ниже.
         </p>
-        <button
-          onClick={() => navigate({ to: "/" })}
-          className="mt-8 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:bg-primary/90 glow"
+        <a
+          href={buildTelegramLink({ name, phone, delivery, payment: effectivePayment, address, notes, items, total })}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:bg-primary/90 glow"
         >
-          На главную
-        </button>
+          <Send className="h-4 w-4" />
+          Открыть Telegram
+        </a>
+        <div className="mt-4">
+          <button
+            onClick={() => navigate({ to: "/" })}
+            className="text-sm text-muted-foreground hover:text-foreground"
+          >
+            На главную
+          </button>
+        </div>
       </div>
     );
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim() || name.trim().length < 2) return toast.error("Укажите имя");
     if (!/^[+\d\s()-]{7,20}$/.test(phone)) return toast.error("Укажите корректный телефон");
     if (delivery !== "pickup" && address.trim().length < 5) return toast.error("Укажите адрес доставки");
 
-    setSubmitting(true);
-    try {
-      const orderItems = items.map(({ product, quantity }) => ({
-        id: product.id,
-        name: product.name,
-        price: product.price,
-        quantity,
-      }));
+    const link = buildTelegramLink({
+      name, phone, delivery, payment: effectivePayment, address, notes, items, total,
+    });
 
-      const { data, error } = await supabase
-        .from("orders")
-        .insert({
-          customer_name: name.trim().slice(0, 200),
-          customer_phone: phone.trim().slice(0, 30),
-          delivery_method: delivery,
-          payment_method: effectivePayment,
-          delivery_address: delivery === "pickup" ? null : address.trim().slice(0, 500),
-          items: orderItems,
-          total_amount: total,
-          notes: notes.trim().slice(0, 1000) || null,
-        })
-        .select("id")
-        .single();
-
-      if (error) throw error;
-
-      // Fire-and-forget email notification (won't block success)
-      supabase.functions
-        .invoke("send-order-email", {
-          body: {
-            orderId: data.id,
-            name,
-            phone,
-            delivery,
-            payment: effectivePayment,
-            address: delivery === "pickup" ? null : address,
-            notes,
-            items: orderItems,
-            total,
-          },
-        })
-        .catch(() => {
-          /* silently ignore — order is saved in DB */
-        });
-
-      clear();
-      setDone(true);
-    } catch (err) {
-      console.error(err);
-      toast.error("Не удалось оформить заказ. Попробуйте ещё раз.");
-    } finally {
-      setSubmitting(false);
-    }
+    // Open Telegram chat in new tab
+    window.open(link, "_blank", "noopener,noreferrer");
+    clear();
+    setDone(true);
   };
 
   const deliveryOptions: { id: Delivery; label: string; desc: string }[] = [
@@ -140,7 +106,6 @@ function CheckoutPage() {
 
       <form onSubmit={handleSubmit} className="grid lg:grid-cols-[1fr_360px] gap-8">
         <div className="space-y-8">
-          {/* Contact */}
           <section className="rounded-2xl border border-border bg-card p-6">
             <h2 className="text-lg font-semibold mb-5">Контакты</h2>
             <div className="grid sm:grid-cols-2 gap-4">
@@ -170,7 +135,6 @@ function CheckoutPage() {
             </div>
           </section>
 
-          {/* Delivery */}
           <section className="rounded-2xl border border-border bg-card p-6">
             <h2 className="text-lg font-semibold mb-5">Способ получения</h2>
             <div className="grid sm:grid-cols-3 gap-3">
@@ -205,23 +169,18 @@ function CheckoutPage() {
             )}
           </section>
 
-          {/* Payment */}
           <section className="rounded-2xl border border-border bg-card p-6">
             <h2 className="text-lg font-semibold mb-5">Способ оплаты</h2>
             <div className="space-y-2">
               {delivery === "pickup" ? (
                 <div className="rounded-xl border border-primary bg-primary/10 p-4">
                   <div className="text-sm font-medium">Наличными при получении</div>
-                  <div className="text-xs text-muted-foreground mt-1">
-                    Оплата в пункте самовывоза
-                  </div>
+                  <div className="text-xs text-muted-foreground mt-1">Оплата в пункте самовывоза</div>
                 </div>
               ) : (
                 <div className="rounded-xl border border-primary bg-primary/10 p-4">
                   <div className="text-sm font-medium">Перевод на карту</div>
-                  <div className="text-xs text-muted-foreground mt-1">
-                    Реквизиты пришлём после подтверждения заказа
-                  </div>
+                  <div className="text-xs text-muted-foreground mt-1">Реквизиты пришлём после подтверждения заказа</div>
                 </div>
               )}
               <p className="text-xs text-muted-foreground mt-3">
@@ -230,7 +189,6 @@ function CheckoutPage() {
             </div>
           </section>
 
-          {/* Notes */}
           <section className="rounded-2xl border border-border bg-card p-6">
             <h2 className="text-lg font-semibold mb-5">Комментарий к заказу</h2>
             <textarea
@@ -244,7 +202,6 @@ function CheckoutPage() {
           </section>
         </div>
 
-        {/* Summary */}
         <aside className="rounded-2xl border border-border bg-card p-6 h-fit lg:sticky lg:top-20 space-y-4">
           <div className="text-lg font-semibold">Ваш заказ</div>
           <div className="space-y-3 max-h-64 overflow-y-auto">
@@ -274,13 +231,45 @@ function CheckoutPage() {
           </div>
           <button
             type="submit"
-            disabled={submitting}
-            className="w-full rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:bg-primary/90 glow disabled:opacity-60"
+            className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:bg-primary/90 glow"
           >
-            {submitting ? "Отправляем…" : "Подтвердить заказ"}
+            <Send className="h-4 w-4" />
+            Отправить заказ в Telegram
           </button>
+          <p className="text-xs text-muted-foreground text-center">
+            Откроется чат с менеджером — нажмите «Отправить» в Telegram, чтобы подтвердить заказ.
+          </p>
         </aside>
       </form>
     </div>
   );
+}
+
+function buildTelegramLink(o: {
+  name: string; phone: string; delivery: Delivery; payment: Payment;
+  address: string; notes: string;
+  items: { product: { name: string; price: number }; quantity: number }[];
+  total: number;
+}) {
+  const deliveryLabel = { pickup: "Самовывоз (Москва, Тверская 1)", moscow: "Доставка по Москве", russia: "Доставка по России" }[o.delivery];
+  const paymentLabel = o.payment === "cash" ? "Наличными при получении" : "Перевод на карту";
+
+  const lines: string[] = [
+    "🛒 Новый заказ ATH STORE",
+    "",
+    `👤 Имя: ${o.name}`,
+    `📞 Телефон: ${o.phone}`,
+    `🚚 Доставка: ${deliveryLabel}`,
+    `💳 Оплата: ${paymentLabel}`,
+  ];
+  if (o.delivery !== "pickup") lines.push(`📍 Адрес: ${o.address}`);
+  if (o.notes.trim()) lines.push(`📝 Комментарий: ${o.notes}`);
+  lines.push("", "Состав заказа:");
+  o.items.forEach(({ product, quantity }) => {
+    lines.push(`• ${product.name} × ${quantity} — ${formatPrice(product.price * quantity)}`);
+  });
+  lines.push("", `💰 Итого: ${formatPrice(o.total)}`);
+
+  const text = encodeURIComponent(lines.join("\n"));
+  return `https://t.me/${TELEGRAM_USERNAME}?text=${text}`;
 }
