@@ -21,9 +21,9 @@
     const STORAGE_ADMIN = "ath_admin_auth";
     const ADMIN_LOGIN = "root";
     const ADMIN_PASSWORD = "1234";
-    const TELEGRAM_USERNAME = "your_username";
-    const SHOP_PHONE = "+7 (926) 766-32-24";
-    const SHOP_PHONE_TEL = "+79267663224";
+    const TELEGRAM_USERNAME = "isma_shake";
+    const SHOP_PHONE = "+7 (977) 552-92-20";
+    const SHOP_PHONE_TEL = "+79775529220";
     const SHOP_ADDRESS = "ТЦ «Горбушкин двор», г. Москва, Багратионовский проезд, 7к1";
     let catalogCache = null;
     let state = { cart: readJson(STORAGE_CART, []), activeCat: "all", query: "", variantIdx: 0, colorIdx: 0, adminTab: "products", editingProduct: null, editingCategory: null, checkout: { name:"", phone:"", delivery:"pickup", payment:"cash", address:"", notes:"" }, login:"", password:"" };
@@ -134,11 +134,12 @@
 
     function pageContacts(){
       const hero = `<section class="hero"><div class="container hero-inner"><h1>Контакты</h1><p>Мы всегда рады помочь с выбором техники Apple.</p></div></section>`;
-      const content = `<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;max-width:920px">
-        <div class="summary"><h2 style="margin:0 0 10px;font-size:20px">📍 Магазин</h2><p style="margin:0 0 6px"><strong>ТЦ «Горбушкин двор»</strong></p><p class="muted small" style="margin:0 0 12px">${esc(SHOP_ADDRESS)}</p><p class="muted small" style="margin:0">Метро «Багратионовская», 3 минуты пешком.</p></div>
-        <div class="summary"><h2 style="margin:0 0 10px;font-size:20px">📞 Телефон</h2><p style="margin:0 0 12px;font-size:22px;font-weight:800"><a href="tel:${esc(SHOP_PHONE_TEL)}" style="color:var(--primary)">${esc(SHOP_PHONE)}</a></p><p class="muted small" style="margin:0">Звонки и WhatsApp ежедневно с 10:00 до 21:00.</p></div>
-        <div class="summary"><h2 style="margin:0 0 10px;font-size:20px">🕒 Часы работы</h2><p style="margin:0 0 4px">Пн–Вс: <strong>10:00 – 21:00</strong></p><p class="muted small" style="margin:8px 0 0">Без выходных и перерывов.</p></div>
-        <div class="summary"><h2 style="margin:0 0 10px;font-size:20px">💬 Связь</h2><p style="margin:0 0 10px"><a class="btn primary" style="width:100%" href="https://t.me/${esc(TELEGRAM_USERNAME)}" target="_blank" rel="noopener">Написать в Telegram</a></p><p style="margin:0"><a class="btn" style="width:100%" href="tel:${esc(SHOP_PHONE_TEL)}">Позвонить</a></p></div>
+      const cardStyle = "display:flex;flex-direction:column;height:100%;min-height:220px";
+      const content = `<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;max-width:920px;align-items:stretch">
+        <div class="summary" style="${cardStyle}"><h2 style="margin:0 0 10px;font-size:20px">📍 Магазин</h2><p style="margin:0 0 6px"><strong>ТЦ «Горбушкин двор»</strong></p><p class="muted small" style="margin:0 0 12px">${esc(SHOP_ADDRESS)}</p><p class="muted small" style="margin:auto 0 0">Метро «Багратионовская», 3 минуты пешком.</p></div>
+        <div class="summary" style="${cardStyle}"><h2 style="margin:0 0 10px;font-size:20px">📞 Телефон</h2><p style="margin:0 0 12px;font-size:20px;font-weight:800"><a href="tel:${esc(SHOP_PHONE_TEL)}" style="color:var(--primary)">${esc(SHOP_PHONE)}</a></p><p class="muted small" style="margin:auto 0 0">Звонки и WhatsApp ежедневно с 10:00 до 21:00.</p></div>
+        <div class="summary" style="${cardStyle}"><h2 style="margin:0 0 10px;font-size:20px">🕒 Часы работы</h2><p style="margin:0 0 4px">Пн–Вс: <strong>10:00 – 21:00</strong></p><p class="muted small" style="margin:auto 0 0">Без выходных и перерывов.</p></div>
+        <div class="summary" style="${cardStyle}"><h2 style="margin:0 0 10px;font-size:20px">💬 Связь</h2><div style="display:flex;flex-direction:column;gap:10px;margin-top:auto"><a class="btn primary" style="width:100%;box-sizing:border-box" href="https://t.me/${esc(TELEGRAM_USERNAME)}" target="_blank" rel="noopener">Написать в Telegram</a><a class="btn" style="width:100%;box-sizing:border-box" href="tel:${esc(SHOP_PHONE_TEL)}">Позвонить</a></div></div>
       </div>
       <div style="margin-top:28px;border:1px solid var(--border);border-radius:12px;overflow:hidden;max-width:920px"><iframe src="https://yandex.ru/map-widget/v1/?text=${encodeURIComponent('Горбушкин двор Москва')}" width="100%" height="380" frameborder="0" style="display:block;border:0" loading="lazy"></iframe></div>`;
       return shell(content, hero);
