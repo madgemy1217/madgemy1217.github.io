@@ -1,8 +1,7 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { ShoppingCart, ShieldCheck, LogOut } from "lucide-react";
 import { useCart } from "@/lib/cart";
 import { useAuth } from "@/lib/auth";
-import logo from "@/../assets/logo-ath.jpg";
 
 export function Header() {
   const { count } = useCart();
@@ -12,7 +11,7 @@ export function Header() {
     <header className="sticky top-0 z-40 bg-background/80 backdrop-blur border-b">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between gap-4">
         <Link to="/" className="flex items-center gap-2">
-          <img src={logo} alt="ATH STORE" className="h-9 w-9 rounded-md object-cover" />
+          <img src={`${import.meta.env.BASE_URL}assets/logo-ath.jpg`} alt="ATH STORE" className="h-9 w-9 rounded-md object-cover" />
           <span className="font-bold text-lg tracking-tight">ATH STORE</span>
         </Link>
         <nav className="hidden md:flex items-center gap-6 text-sm">
@@ -24,11 +23,11 @@ export function Header() {
               <ShieldCheck className="h-4 w-4" /> Админ
             </Link>
           )}
-          {isAdmin ? (
+          {isAdmin && (
             <button onClick={signOut} className="inline-flex items-center gap-1 text-sm px-3 py-1.5 rounded-md hover:bg-secondary" title="Выйти">
               <LogOut className="h-4 w-4" />
             </button>
-          ) : null}
+          )}
           <Link to="/cart" className="relative inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-primary text-primary-foreground hover:opacity-90">
             <ShoppingCart className="h-4 w-4" />
             <span className="text-sm font-medium">{count}</span>
@@ -47,5 +46,15 @@ export function Footer() {
         <p>Оригинальная техника Apple</p>
       </div>
     </footer>
+  );
+}
+
+export function Shell({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="min-h-screen flex flex-col">
+      <Header />
+      <main className="container mx-auto px-4 py-8 flex-1">{children}</main>
+      <Footer />
+    </div>
   );
 }

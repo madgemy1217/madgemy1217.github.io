@@ -1,22 +1,12 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { Header, Footer } from "@/components/Layout";
-import { fetchCategories, fetchProducts, type Category, type Product } from "@/lib/products";
+import { loadCatalog, subscribeCatalog, type Category, type Product } from "@/lib/products";
 import { money } from "@/lib/utils";
 import { useCart } from "@/lib/cart";
 import { toast } from "sonner";
 
-export const Route = createFileRoute("/")({
-  component: HomePage,
-  head: () => ({
-    meta: [
-      { title: "ATH STORE — техника Apple" },
-      { name: "description", content: "Оригинальная техника Apple: iPhone, iPad, Mac, Watch, AirPods. Доставка и гарантия." },
-    ],
-  }),
-});
-
-function HomePage() {
+export default function HomePage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [activeCat, setActiveCat] = useState<string>("all");
@@ -25,13 +15,19 @@ function HomePage() {
   const { add } = useCart();
 
   useEffect(() => {
-    Promise.all([fetchCategories(), fetchProducts()])
-      .then(([c, p]) => {
-        setCategories(c);
-        setProducts(p);
-      })
-      .catch((e) => toast.error(e.message))
-      .finally(() => setLoading(false));
+    let alive = true;
+    const load = () =>
+      loadCatalog(true)
+        .then((c) => {
+          if (!alive) return;
+          setCategories(c.categories);
+          setProducts(c.products);
+        })
+        .catch((e) => toast.error(e.message))
+        .finally(() => alive && setLoading(false));
+    load();
+    const unsub = subscribeCatalog(load);
+    return () => { alive = false; unsub(); };
   }, []);
 
   const q = query.trim().toLowerCase();
@@ -44,7 +40,6 @@ function HomePage() {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-
       <section className="bg-gradient-to-br from-primary/10 to-transparent border-b">
         <div className="container mx-auto px-4 py-12 md:py-16">
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight">Техника Apple</h1>
@@ -65,17 +60,13 @@ function HomePage() {
             <button
               onClick={() => setActiveCat("all")}
               className={`px-3 py-1.5 rounded-full text-sm border ${activeCat === "all" ? "bg-primary text-primary-foreground border-primary" : "hover:bg-secondary"}`}
-            >
-              Все
-            </button>
+            >Все</button>
             {categories.map((c) => (
               <button
                 key={c.id}
                 onClick={() => setActiveCat(c.id)}
                 className={`px-3 py-1.5 rounded-full text-sm border ${activeCat === c.id ? "bg-primary text-primary-foreground border-primary" : "hover:bg-secondary"}`}
-              >
-                {c.name}
-              </button>
+              >{c.name}</button>
             ))}
           </div>
         </div>
@@ -88,7 +79,7 @@ function HomePage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
             {filtered.map((p) => (
               <article key={p.id} className="rounded-xl border bg-card overflow-hidden flex flex-col hover:shadow-lg transition-shadow">
-                <Link to="/product/$slug" params={{ slug: p.slug }} className="aspect-square bg-secondary/30 overflow-hidden">
+                <Link to={`/product/${p.slug}`} className="aspect-square bg-secondary/30 overflow-hidden block">
                   {p.image && <img src={p.image} alt={p.name} className="w-full h-full object-cover hover:scale-105 transition-transform" loading="lazy" />}
                 </Link>
                 <div className="p-4 flex flex-col gap-2 flex-1">
@@ -102,9 +93,7 @@ function HomePage() {
                     <button
                       onClick={() => { add({ id: p.id, name: p.name, price: p.price, image: p.image }); toast.success("Добавлено в корзину"); }}
                       className="mt-3 w-full py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:opacity-90"
-                    >
-                      В корзину
-                    </button>
+                    >В корзину</button>
                   </div>
                 </div>
               </article>
@@ -112,7 +101,6 @@ function HomePage() {
           </div>
         )}
       </main>
-
       <Footer />
     </div>
   );

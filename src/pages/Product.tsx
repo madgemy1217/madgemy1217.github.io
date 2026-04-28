@@ -1,49 +1,34 @@
-import { createFileRoute, Link, useParams } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Header, Footer } from "@/components/Layout";
-import { fetchProductBySlug, type Product, type ProductColor, type ProductVariant, type ProductSpec, type ProductImage } from "@/lib/products";
+import { Link, useParams } from "react-router-dom";
+import { Shell } from "@/components/Layout";
+import { loadCatalog, type Product } from "@/lib/products";
 import { money } from "@/lib/utils";
 import { useCart } from "@/lib/cart";
 import { toast } from "sonner";
 
-export const Route = createFileRoute("/product/$slug")({
-  component: ProductPage,
-});
-
-function ProductPage() {
-  const { slug } = useParams({ from: "/product/$slug" });
-  const [data, setData] = useState<{
-    product: Product;
-    colors: ProductColor[];
-    variants: ProductVariant[];
-    specs: ProductSpec[];
-    images: ProductImage[];
-  } | null>(null);
+export default function ProductPage() {
+  const { slug } = useParams<{ slug: string }>();
+  const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
-  const [variantId, setVariantId] = useState<string | null>(null);
-  const [colorId, setColorId] = useState<string | null>(null);
+  const [variantIdx, setVariantIdx] = useState(0);
+  const [colorIdx, setColorIdx] = useState(0);
   const { add } = useCart();
 
   useEffect(() => {
     setLoading(true);
-    fetchProductBySlug(slug)
-      .then((d) => {
-        setData(d);
-        if (d?.variants[0]) setVariantId(d.variants[0].id);
-        if (d?.colors[0]) setColorId(d.colors[0].id);
-      })
+    loadCatalog()
+      .then((c) => setProduct(c.products.find((p) => p.slug === slug) ?? null))
       .catch((e) => toast.error(e.message))
       .finally(() => setLoading(false));
   }, [slug]);
 
   if (loading) return <Shell><p className="text-muted-foreground">Загрузка…</p></Shell>;
-  if (!data) return <Shell><p>Товар не найден. <Link to="/" className="text-primary underline">На главную</Link></p></Shell>;
+  if (!product) return <Shell><p>Товар не найден. <Link to="/" className="text-primary underline">На главную</Link></p></Shell>;
 
-  const { product, colors, variants, specs, images } = data;
-  const variant = variants.find((v) => v.id === variantId);
-  const color = colors.find((c) => c.id === colorId);
+  const variant = product.variants[variantIdx];
+  const color = product.colors[colorIdx];
   const finalPrice = product.price + (variant?.price_delta ?? 0);
-  const allImages = product.image ? [{ url: product.image, alt: product.name }, ...images] : images;
+  const allImages = product.image ? [{ url: product.image, alt: product.name }, ...product.images] : product.images;
 
   return (
     <Shell>
@@ -64,15 +49,15 @@ function ProductPage() {
             {product.old_price && <span className="text-lg text-muted-foreground line-through">{money(product.old_price)}</span>}
           </div>
 
-          {variants.length > 0 && (
+          {product.variants.length > 0 && (
             <div className="mt-6">
               <p className="text-sm font-medium mb-2">Вариант</p>
               <div className="flex flex-wrap gap-2">
-                {variants.map((v) => (
+                {product.variants.map((v, i) => (
                   <button
-                    key={v.id}
-                    onClick={() => setVariantId(v.id)}
-                    className={`px-3 py-2 rounded-md border text-sm ${variantId === v.id ? "border-primary bg-primary/10" : "hover:bg-secondary"}`}
+                    key={i}
+                    onClick={() => setVariantIdx(i)}
+                    className={`px-3 py-2 rounded-md border text-sm ${variantIdx === i ? "border-primary bg-primary/10" : "hover:bg-secondary"}`}
                   >
                     {v.name}{v.price_delta ? ` (+${money(v.price_delta)})` : ""}
                   </button>
@@ -81,16 +66,16 @@ function ProductPage() {
             </div>
           )}
 
-          {colors.length > 0 && (
+          {product.colors.length > 0 && (
             <div className="mt-5">
               <p className="text-sm font-medium mb-2">Цвет: {color?.name}</p>
               <div className="flex flex-wrap gap-2">
-                {colors.map((c) => (
+                {product.colors.map((c, i) => (
                   <button
-                    key={c.id}
-                    onClick={() => setColorId(c.id)}
+                    key={i}
+                    onClick={() => setColorIdx(i)}
                     title={c.name}
-                    className={`h-9 w-9 rounded-full border-2 ${colorId === c.id ? "border-primary" : "border-border"}`}
+                    className={`h-9 w-9 rounded-full border-2 ${colorIdx === i ? "border-primary" : "border-border"}`}
                     style={{ background: c.hex }}
                     aria-label={c.name}
                   />
@@ -102,24 +87,22 @@ function ProductPage() {
           <button
             onClick={() => {
               const name = `${product.name}${variant ? `, ${variant.name}` : ""}${color ? `, ${color.name}` : ""}`;
-              add({ id: `${product.id}|${variantId ?? ""}|${colorId ?? ""}`, name, price: finalPrice, image: product.image });
+              add({ id: `${product.id}|${variantIdx}|${colorIdx}`, name, price: finalPrice, image: product.image });
               toast.success("Добавлено в корзину");
             }}
             className="mt-8 w-full md:w-auto px-8 py-3 rounded-md bg-primary text-primary-foreground font-medium hover:opacity-90"
-          >
-            В корзину
-          </button>
+          >В корзину</button>
 
           {product.description && <p className="mt-8 text-muted-foreground leading-relaxed">{product.description}</p>}
 
-          {specs.length > 0 && (
+          {product.specs.length > 0 && (
             <div className="mt-8">
               <h2 className="text-lg font-semibold mb-3">Характеристики</h2>
               <dl className="divide-y border rounded-lg overflow-hidden">
-                {specs.map((s) => (
-                  <div key={s.id} className="grid grid-cols-2 px-4 py-2 text-sm">
-                    <dt className="text-muted-foreground">{s.spec_key}</dt>
-                    <dd>{s.spec_value}</dd>
+                {product.specs.map((s, i) => (
+                  <div key={i} className="grid grid-cols-2 px-4 py-2 text-sm">
+                    <dt className="text-muted-foreground">{s.key}</dt>
+                    <dd>{s.value}</dd>
                   </div>
                 ))}
               </dl>
@@ -128,15 +111,5 @@ function ProductPage() {
         </div>
       </div>
     </Shell>
-  );
-}
-
-function Shell({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      <main className="container mx-auto px-4 py-8 flex-1">{children}</main>
-      <Footer />
-    </div>
   );
 }
