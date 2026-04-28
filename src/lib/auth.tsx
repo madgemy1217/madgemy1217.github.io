@@ -1,66 +1,45 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
-import type { Session, User } from "@supabase/supabase-js";
-import { supabase } from "@/integrations/supabase/client";
+
+const STORAGE_KEY = "ath_admin_auth";
+const ADMIN_LOGIN = "root";
+const ADMIN_PASSWORD = "1234";
 
 type AuthCtx = {
-  user: User | null;
-  session: Session | null;
-  loading: boolean;
   isAdmin: boolean;
-  signIn: (email: string, password: string) => Promise<{ error?: string }>;
+  loading: boolean;
+  signIn: (login: string, password: string) => Promise<{ error?: string }>;
   signOut: () => Promise<void>;
 };
 
 const Ctx = createContext<AuthCtx | null>(null);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [session, setSession] = useState<Session | null>(null);
-  const [user, setUser] = useState<User | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const { data: sub } = supabase.auth.onAuthStateChange((_event, s) => {
-      setSession(s);
-      setUser(s?.user ?? null);
-      if (s?.user) {
-        setTimeout(() => checkAdmin(s.user.id), 0);
-      } else {
-        setIsAdmin(false);
-      }
-    });
-
-    supabase.auth.getSession().then(({ data: { session: s } }) => {
-      setSession(s);
-      setUser(s?.user ?? null);
-      if (s?.user) checkAdmin(s.user.id);
-      setLoading(false);
-    });
-
-    return () => sub.subscription.unsubscribe();
+    if (typeof window !== "undefined") {
+      setIsAdmin(window.localStorage.getItem(STORAGE_KEY) === "1");
+    }
+    setLoading(false);
   }, []);
 
-  async function checkAdmin(userId: string) {
-    const { data } = await supabase
-      .from("user_roles")
-      .select("role")
-      .eq("user_id", userId)
-      .eq("role", "admin")
-      .maybeSingle();
-    setIsAdmin(!!data);
-  }
-
-  async function signIn(email: string, password: string) {
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
-    return { error: error?.message };
+  async function signIn(login: string, password: string) {
+    if (login === ADMIN_LOGIN && password === ADMIN_PASSWORD) {
+      window.localStorage.setItem(STORAGE_KEY, "1");
+      setIsAdmin(true);
+      return {};
+    }
+    return { error: "Неверный логин или пароль" };
   }
 
   async function signOut() {
-    await supabase.auth.signOut();
+    window.localStorage.removeItem(STORAGE_KEY);
+    setIsAdmin(false);
   }
 
   return (
-    <Ctx.Provider value={{ user, session, loading, isAdmin, signIn, signOut }}>
+    <Ctx.Provider value={{ isAdmin, loading, signIn, signOut }}>
       {children}
     </Ctx.Provider>
   );
