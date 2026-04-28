@@ -12,17 +12,17 @@ export const Route = createFileRoute("/admin")({
 });
 
 function AdminPage() {
-  const { user, isAdmin, loading } = useAuth();
+  const { isAdmin, loading } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!loading && (!user || !isAdmin)) navigate({ to: "/login" });
-  }, [loading, user, isAdmin, navigate]);
+    if (!loading && !isAdmin) navigate({ to: "/login" });
+  }, [loading, isAdmin, navigate]);
 
   const [tab, setTab] = useState<"products" | "categories">("products");
 
   if (loading) return <Shell><p>Загрузка…</p></Shell>;
-  if (!user || !isAdmin) return null;
+  if (!isAdmin) return null;
 
   return (
     <Shell>
