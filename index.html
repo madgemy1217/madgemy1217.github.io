@@ -102,7 +102,7 @@
       return shell(content);
     }
     function adminProducts(c){
-      if (state.editingProduct) return productEditor(c, state.editingProduct === 'new' ? blankProduct(c.products.length+1) : structuredClone(c.products.find(p=>p.id===state.editingProduct) || blankProduct(c.products.length+1)), state.editingProduct === 'new');
+      if (state.editingProduct) return productEditor(c, window.__editingProduct || (state.editingProduct === 'new' ? blankProduct(c.products.length+1) : structuredClone(c.products.find(p=>p.id===state.editingProduct) || blankProduct(c.products.length+1))), state.editingProduct === 'new');
       return `<button class="btn primary" style="margin-bottom:16px" data-edit-product="new">＋ Новый товар</button><div class="admin-list">${c.products.map(p=>`<div class="admin-row">${p.image?`<img src="${esc(p.image)}" alt="">`:""}<div class="admin-row-main"><strong>${esc(p.name)}</strong><span class="muted small">${esc(p.slug)} · ${money(p.price)} · ${p.in_stock?'в наличии':'нет'}</span></div><a class="link small" href="#/product/${esc(p.slug)}">смотреть</a><button class="btn icon" data-edit-product="${esc(p.id)}">✎</button><button class="btn icon danger" data-delete-product="${esc(p.id)}">🗑</button></div>`).join("") || `<p class="empty" style="padding:16px">Нет товаров</p>`}</div>`;
     }
     function adminCategories(c){
@@ -150,12 +150,12 @@
       if (t.dataset.download) { const c=await loadCatalog(); downloadCatalogJson(c); }
       if (t.dataset.reset) { if (confirm('Сбросить локальные изменения и загрузить products.json с сайта?')) { await resetCatalog(); toast('Сброшено'); } }
       if (t.dataset.adminTab) { state.adminTab = t.dataset.adminTab; state.editingProduct=null; state.editingCategory=null; render(); }
-      if (t.dataset.editProduct) { state.editingProduct = t.dataset.editProduct; render(); }
+      if (t.dataset.editProduct) { window.__editingProduct = null; state.editingProduct = t.dataset.editProduct; render(); }
       if (t.dataset.deleteProduct) { if (confirm('Удалить товар?')) { const c=await loadCatalog(); saveCatalog({...c, products:c.products.filter(p=>p.id!==t.dataset.deleteProduct)}); toast('Удалено'); } }
-      if (t.dataset.cancelEdit !== undefined) { state.editingProduct=null; render(); }
+      if (t.dataset.cancelEdit !== undefined) { window.__editingProduct=null; state.editingProduct=null; render(); }
       if (t.dataset.addRow) { const p=collectProduct(); p[t.dataset.addRow].push(blankRow(t.dataset.addRow)); window.__editingProduct=p; app.innerHTML = await pageAdmin(); }
       if (t.dataset.delRow) { const [key, idx] = t.dataset.delRow.split(':'); const p=collectProduct(); p[key].splice(Number(idx),1); window.__editingProduct=p; app.innerHTML = await pageAdmin(); }
-      if (t.dataset.saveProduct !== undefined) { const p=collectProduct(); if (!p.name || !p.slug) return toast('Имя и slug обязательны'); const c=await loadCatalog(); const exists=c.products.some(x=>x.id===p.id); saveCatalog({...c, products: exists ? c.products.map(x=>x.id===p.id?p:x) : [...c.products,p]}); state.editingProduct=null; toast('Сохранено'); render(); }
+      if (t.dataset.saveProduct !== undefined) { const p=collectProduct(); if (!p.name || !p.slug) return toast('Имя и slug обязательны'); const c=await loadCatalog(); const exists=c.products.some(x=>x.id===p.id); saveCatalog({...c, products: exists ? c.products.map(x=>x.id===p.id?p:x) : [...c.products,p]}); window.__editingProduct=null; state.editingProduct=null; toast('Сохранено'); render(); }
       if (t.dataset.newCategory !== undefined) { const c=await loadCatalog(); state.editingCategory = {id:uid(), name:'', slug:'', sort_order:c.categories.length+1}; render(); }
       if (t.dataset.editCategory) { const c=await loadCatalog(); state.editingCategory = structuredClone(c.categories.find(x=>x.id===t.dataset.editCategory)); render(); }
       if (t.dataset.deleteCategory) { if (confirm('Удалить категорию? Товары останутся без категории.')) { const c=await loadCatalog(); saveCatalog({...c, categories:c.categories.filter(x=>x.id!==t.dataset.deleteCategory), products:c.products.map(p=>p.category_id===t.dataset.deleteCategory?{...p,category_id:null}:p)}); toast('Удалено'); } }
