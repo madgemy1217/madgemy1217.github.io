@@ -106,7 +106,7 @@ ${order.items.map((i) => `  • ${i.name} × ${i.quantity} — ${fmt(i.price * i
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "AppleStore <onboarding@resend.dev>",
+        from: "ATH STORE <onboarding@resend.dev>",
         to: [ADMIN_EMAIL],
         subject: `Новый заказ #${order.orderId.slice(0, 8)} — ${fmt(order.total)}`,
         html,
