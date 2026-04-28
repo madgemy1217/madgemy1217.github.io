@@ -22,6 +22,9 @@
     const ADMIN_LOGIN = "root";
     const ADMIN_PASSWORD = "1234";
     const TELEGRAM_USERNAME = "your_username";
+    const SHOP_PHONE = "+7 (926) 766-32-24";
+    const SHOP_PHONE_TEL = "+79267663224";
+    const SHOP_ADDRESS = "ТЦ «Горбушкин двор», г. Москва, Багратионовский проезд, 7к1";
     let catalogCache = null;
     let state = { cart: readJson(STORAGE_CART, []), activeCat: "all", query: "", variantIdx: 0, colorIdx: 0, adminTab: "products", editingProduct: null, editingCategory: null, checkout: { name:"", phone:"", delivery:"pickup", payment:"cash", address:"", notes:"" }, login:"", password:"" };
     const app = document.getElementById("app");
@@ -57,7 +60,7 @@
     function cartTotal(){ return state.cart.reduce((s,i)=>s+i.price*i.qty,0); }
     function cartCount(){ return state.cart.reduce((s,i)=>s+i.qty,0); }
 
-    function header(){ return `<header class="header"><div class="container header-inner"><a class="brand" href="#/"><img src="./assets/logo-ath.jpg" alt="ATH STORE"><span>ATH STORE</span></a><nav class="nav"><a class="link catalog-link" href="#/">Каталог</a>${isAdmin()?`<a class="btn" href="#/admin">🛡 <span class="optional">Админ</span></a><button class="btn icon" data-action="logout" title="Выйти">↩</button>`:""}<a class="btn primary cart-btn" href="#/cart">🛒 <span>${cartCount()}</span></a></nav></div></header>`; }
+    function header(){ return `<header class="header"><div class="container header-inner"><a class="brand" href="#/"><img src="./assets/logo-ath.jpg" alt="ATH STORE"><span>ATH STORE</span></a><nav class="nav"><a class="link catalog-link" href="#/">Каталог</a><a class="link catalog-link" href="#/contacts">Контакты</a>${isAdmin()?`<a class="btn" href="#/admin">🛡 <span class="optional">Админ</span></a><button class="btn icon" data-action="logout" title="Выйти">↩</button>`:""}<a class="btn primary cart-btn" href="#/cart">🛒 <span>${cartCount()}</span></a></nav></div></header>`; }
     function footer(){ return `<footer class="footer"><div class="container footer-inner"><p>© ${new Date().getFullYear()} ATH STORE. Все права защищены.</p><p>Оригинальная техника Apple</p></div></footer>`; }
     function shell(content, hero=""){ return `<div class="site">${header()}${hero}<main class="container main">${content}</main>${footer()}</div>`; }
 
@@ -71,7 +74,7 @@
         return cat && search;
       });
       const hero = `<section class="hero"><div class="container hero-inner"><h1>Техника Apple</h1><p>Свежие модели, оригинал, быстрая доставка.</p></div></section>`;
-      return shell(`<div class="toolbar"><input id="search" class="search" type="search" placeholder="Поиск по каталогу…" value="${esc(state.query)}"><div class="chips"><button class="chip ${state.activeCat==='all'?'active':''}" data-cat="all">Все</button>${categories.map(cat=>`<button class="chip ${state.activeCat===cat.id?'active':''}" data-cat="${esc(cat.id)}">${esc(cat.name)}</button>`).join("")}</div></div>${products.length ? `<div class="grid">${products.map(productCard).join("")}</div>` : `<p class="empty">Товары не найдены.</p>`}`, hero);
+      return shell(`<div class="toolbar"><input id="search" class="search" type="search" placeholder="Поиск по каталогу…" value="${esc(state.query)}"><div class="chips"><button class="chip ${state.activeCat==='all'?'active':''}" data-cat="all">Все</button>${categories.map(cat=>`<button class="chip ${state.activeCat===cat.id?'active':''}" data-cat="${esc(cat.id)}">${esc(cat.name)}</button>`).join("")}</div><div class="chips" style="margin-top:4px">${categories.map(cat=>`<a class="chip" href="#/category/${esc(cat.slug)}" style="border-color:var(--primary);color:var(--primary)">${esc(cat.name)} →</a>`).join("")}</div></div>${products.length ? `<div class="grid">${products.map(productCard).join("")}</div>` : `<p class="empty">Товары не найдены.</p>`}`, hero);
     }
     function productCard(p){ return `<article class="card"><a class="thumb" href="#/product/${esc(p.slug)}">${p.image?`<img src="${esc(assetPath(p.image))}" alt="${esc(p.name)}" loading="lazy">`:""}</a><div class="card-body"><h3>${esc(p.name)}</h3>${p.tagline?`<p class="muted small">${esc(p.tagline)}</p>`:""}<div class="price-row"><span class="price">${money(p.price)}</span>${p.old_price?`<span class="old">${money(p.old_price)}</span>`:""}</div><button class="btn primary" data-add-simple="${esc(p.id)}">В корзину</button></div></article>`; }
 
@@ -118,6 +121,29 @@
     function blankRow(key){ return key==='colors'?{name:'Цвет',hex:'#cccccc'}:key==='variants'?{name:'256 ГБ',price_delta:0}:key==='specs'?{key:'',value:''}:{url:'',alt:''}; }
     function categoryModal(c, cat){ window.__editingCategory = cat; return `<div class="modal-back" data-modal-back><div class="modal"><div class="modal-head"><h3>${c.categories.some(x=>x.id===cat.id)?'Редактирование категории':'Новая категория'}</h3><button class="btn icon" data-close-category>×</button></div><label class="field"><span>Название</span><input class="input" data-cat-field="name" value="${esc(cat.name)}"></label><label class="field"><span>Slug</span><input class="input" data-cat-field="slug" value="${esc(cat.slug)}"></label><label class="field"><span>ID</span><input class="input" data-cat-field="id" value="${esc(cat.id)}"></label><label class="field"><span>Порядок</span><input class="input" type="number" data-cat-field="sort_order" value="${esc(cat.sort_order)}"></label><div class="nav"><button class="btn primary" data-save-category>💾 Сохранить</button><button class="btn" data-close-category>Отмена</button></div></div></div>`; }
 
+    async function pageCategory(slug){
+      const c = await loadCatalog();
+      const cat = c.categories.find(x => x.slug === slug);
+      if (!cat) return shell(`<h1 class="page-title">Категория не найдена</h1><p class="empty"><a class="link" href="#/">На главную</a></p>`);
+      const q = state.query.trim().toLowerCase();
+      const products = [...c.products].sort((a,b)=>(a.sort_order||0)-(b.sort_order||0)).filter(p => p.category_id === cat.id && (!q || `${p.name} ${p.tagline||""} ${p.description||""} ${p.aliases||""}`.toLowerCase().includes(q)));
+      const otherCats = c.categories.filter(x=>x.id!==cat.id).sort((a,b)=>(a.sort_order||0)-(b.sort_order||0));
+      const hero = `<section class="hero"><div class="container hero-inner"><p class="muted" style="margin:0 0 8px"><a class="link" href="#/" style="padding:0">← Все категории</a></p><h1>${esc(cat.name)}</h1><p>Товары категории «${esc(cat.name)}» в ATH STORE.</p></div></section>`;
+      return shell(`<div class="toolbar"><input id="search" class="search" type="search" placeholder="Поиск в категории…" value="${esc(state.query)}"><div class="chips">${otherCats.map(o=>`<a class="chip" href="#/category/${esc(o.slug)}">${esc(o.name)}</a>`).join("")}</div></div>${products.length ? `<div class="grid">${products.map(productCard).join("")}</div>` : `<p class="empty">В этой категории пока нет товаров.</p>`}`, hero);
+    }
+
+    function pageContacts(){
+      const hero = `<section class="hero"><div class="container hero-inner"><h1>Контакты</h1><p>Мы всегда рады помочь с выбором техники Apple.</p></div></section>`;
+      const content = `<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;max-width:920px">
+        <div class="summary"><h2 style="margin:0 0 10px;font-size:20px">📍 Магазин</h2><p style="margin:0 0 6px"><strong>ТЦ «Горбушкин двор»</strong></p><p class="muted small" style="margin:0 0 12px">${esc(SHOP_ADDRESS)}</p><p class="muted small" style="margin:0">Метро «Багратионовская», 3 минуты пешком.</p></div>
+        <div class="summary"><h2 style="margin:0 0 10px;font-size:20px">📞 Телефон</h2><p style="margin:0 0 12px;font-size:22px;font-weight:800"><a href="tel:${esc(SHOP_PHONE_TEL)}" style="color:var(--primary)">${esc(SHOP_PHONE)}</a></p><p class="muted small" style="margin:0">Звонки и WhatsApp ежедневно с 10:00 до 21:00.</p></div>
+        <div class="summary"><h2 style="margin:0 0 10px;font-size:20px">🕒 Часы работы</h2><p style="margin:0 0 4px">Пн–Вс: <strong>10:00 – 21:00</strong></p><p class="muted small" style="margin:8px 0 0">Без выходных и перерывов.</p></div>
+        <div class="summary"><h2 style="margin:0 0 10px;font-size:20px">💬 Связь</h2><p style="margin:0 0 10px"><a class="btn primary" style="width:100%" href="https://t.me/${esc(TELEGRAM_USERNAME)}" target="_blank" rel="noopener">Написать в Telegram</a></p><p style="margin:0"><a class="btn" style="width:100%" href="tel:${esc(SHOP_PHONE_TEL)}">Позвонить</a></p></div>
+      </div>
+      <div style="margin-top:28px;border:1px solid var(--border);border-radius:12px;overflow:hidden;max-width:920px"><iframe src="https://yandex.ru/map-widget/v1/?text=${encodeURIComponent('Горбушкин двор Москва')}" width="100%" height="380" frameborder="0" style="display:block;border:0" loading="lazy"></iframe></div>`;
+      return shell(content, hero);
+    }
+
     function notFound(){ return shell(`<h1 class="page-title">404</h1><p class="empty">Страница не найдена. <a class="link" href="#/">На главную</a></p>`); }
 
     async function render(){
@@ -126,7 +152,9 @@
         state.variantIdx = r.startsWith('/product/') ? state.variantIdx : 0;
         state.colorIdx = r.startsWith('/product/') ? state.colorIdx : 0;
         if (r === '/') app.innerHTML = await pageHome();
+        else if (r.startsWith('/category/')) app.innerHTML = await pageCategory(decodeURIComponent(r.split('/category/')[1] || ''));
         else if (r.startsWith('/product/')) app.innerHTML = await pageProduct(decodeURIComponent(r.split('/product/')[1] || ''));
+        else if (r === '/contacts') app.innerHTML = pageContacts();
         else if (r === '/cart') app.innerHTML = pageCart();
         else if (r === '/checkout') app.innerHTML = pageCheckout();
         else if (r === '/login') app.innerHTML = pageLogin();
