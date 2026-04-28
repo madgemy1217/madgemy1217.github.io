@@ -6,8 +6,8 @@ import { formatPrice } from "@/lib/products";
 export const Route = createFileRoute("/cart")({
   head: () => ({
     meta: [
-      { title: "Корзина — AppleStore" },
-      { name: "description", content: "Ваша корзина в AppleStore" },
+      { title: "Корзина — ATH STORE" },
+      { name: "description", content: "Ваша корзина в ATH STORE" },
     ],
   }),
   component: CartPage,

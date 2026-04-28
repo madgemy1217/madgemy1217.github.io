@@ -7,12 +7,12 @@ import { ProductCard } from "@/components/ProductCard";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "AppleStore — iPhone 17, iPad, Mac с доставкой по России" },
+      { title: "ATH STORE — iPhone 17, iPad, Mac с доставкой по России" },
       {
         name: "description",
         content: "Оригинальная техника Apple: iPhone 17, 16, 15, iPad Pro M4, MacBook, Apple Watch и AirPods с доставкой по Москве и России.",
       },
-      { property: "og:title", content: "AppleStore — Техника Apple" },
+      { property: "og:title", content: "ATH STORE — Техника Apple" },
       { property: "og:image", content: heroImg },
     ],
   }),

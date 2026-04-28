@@ -5,6 +5,7 @@ import { CATEGORIES } from "@/lib/products";
 import { searchProducts } from "@/lib/search";
 import { useCart } from "@/lib/cart";
 import { formatPrice } from "@/lib/products";
+import logoAth from "@/assets/logo-ath.jpg";
 
 export function Header() {
   const [searchOpen, setSearchOpen] = useState(false);
@@ -40,8 +41,12 @@ export function Header() {
     <>
       <header className="sticky top-0 z-40 glass border-b border-border/50">
         <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 md:px-8">
-          <Link to="/" className="text-lg font-semibold tracking-tight text-foreground">
-            AppleStore
+          <Link to="/" className="flex items-center gap-2 font-semibold tracking-tight text-foreground" aria-label="ATH STORE — на главную">
+            <img src={logoAth} alt="ATH STORE" className="h-8 w-8 object-contain" width={32} height={32} />
+            <span className="text-lg">
+              <span style={{ color: "#3b8b33" }}>ATH</span>
+              <span className="ml-1 text-foreground">STORE</span>
+            </span>
           </Link>
 
           <nav className="hidden md:flex items-center gap-7 text-sm text-muted-foreground">

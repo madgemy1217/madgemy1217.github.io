@@ -10,9 +10,9 @@ export const Route = createFileRoute("/category/$category")({
   },
   head: ({ loaderData }) => ({
     meta: [
-      { title: `${loaderData?.cat.label} — AppleStore` },
+      { title: `${loaderData?.cat.label} — ATH STORE` },
       { name: "description", content: `Купить ${loaderData?.cat.label} (${loaderData?.cat.ru}) с доставкой по России.` },
-      { property: "og:title", content: `${loaderData?.cat.label} — AppleStore` },
+      { property: "og:title", content: `${loaderData?.cat.label} — ATH STORE` },
     ],
   }),
   component: CategoryPage,

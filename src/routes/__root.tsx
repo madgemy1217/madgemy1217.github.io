@@ -33,13 +33,13 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "AppleStore — Техника Apple с доставкой по России" },
+      { title: "ATH STORE — Техника Apple с доставкой по России" },
       {
         name: "description",
         content: "iPhone, iPad, Mac, Apple Watch и AirPods. Оригинальная техника Apple с доставкой по Москве и России. Самовывоз и оплата картой.",
       },
-      { name: "author", content: "AppleStore" },
-      { property: "og:title", content: "AppleStore — Техника Apple" },
+      { name: "author", content: "ATH STORE" },
+      { property: "og:title", content: "ATH STORE — Техника Apple" },
       { property: "og:description", content: "Купить iPhone, iPad, Mac и аксессуары Apple с доставкой." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
