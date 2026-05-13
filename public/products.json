@@ -4,7 +4,15 @@
     { "id": "ipad", "slug": "ipad", "name": "iPad", "sort_order": 2 },
     { "id": "mac", "slug": "mac", "name": "Mac", "sort_order": 3 },
     { "id": "watch", "slug": "watch", "name": "Apple Watch", "sort_order": 4 },
-    { "id": "airpods", "slug": "airpods", "name": "AirPods", "sort_order": 5 }
+    { "id": "airpods", "slug": "airpods", "name": "AirPods", "sort_order": 5 },
+    { "id": "samsung", "slug": "samsung", "name": "Samsung", "sort_order": 6 },
+    { "id": "xiaomi", "slug": "xiaomi", "name": "Xiaomi", "sort_order": 7 },
+    { "id": "accessories", "slug": "accessories", "name": "Аксессуары", "sort_order": 8 },
+    { "id": "audio", "slug": "audio", "name": "Аудио и наушники", "sort_order": 9 },
+    { "id": "tv", "slug": "tv", "name": "ТВ и приставки", "sort_order": 10 },
+    { "id": "gaming", "slug": "gaming", "name": "Игровые приставки", "sort_order": 11 },
+    { "id": "smart-home", "slug": "smart-home", "name": "Умный дом", "sort_order": 12 },
+    { "id": "dyson", "slug": "dyson", "name": "Dyson", "sort_order": 13 }
   ],
   "products": [
     {
