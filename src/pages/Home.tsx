@@ -96,7 +96,6 @@ export default function HomePage() {
           <div className="space-y-12">
             {categories.map((cat) => {
               const items = flagshipsFor(cat.id);
-              if (items.length === 0) return null;
               return (
                 <section key={cat.id}>
                   <div className="flex items-end justify-between gap-3 mb-4">
@@ -108,7 +107,16 @@ export default function HomePage() {
                       Смотреть все <ArrowRight className="h-4 w-4" />
                     </Link>
                   </div>
-                  <ProductGrid items={items} onAdd={add} />
+                  {items.length === 0 ? (
+                    <Link
+                      to={`/category/${cat.slug}`}
+                      className="block rounded-xl border border-dashed bg-secondary/20 p-8 text-center text-sm text-muted-foreground hover:border-primary hover:text-primary transition-colors"
+                    >
+                      Скоро в продаже — загляните позже
+                    </Link>
+                  ) : (
+                    <ProductGrid items={items} onAdd={add} />
+                  )}
                 </section>
               );
             })}
