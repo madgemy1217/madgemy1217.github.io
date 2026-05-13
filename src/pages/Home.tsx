@@ -52,11 +52,28 @@ export default function HomePage() {
     <div className="min-h-screen flex flex-col">
       <Header />
       <section className="bg-gradient-to-br from-primary/10 to-transparent border-b">
-        <div className="container mx-auto px-4 py-12 md:py-16">
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight">Техника Apple</h1>
-          <p className="mt-3 text-lg text-muted-foreground">Свежие модели, оригинал, быстрая доставка.</p>
+        <div className="container mx-auto px-4 py-14 md:py-20">
+          <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">ATH Store</p>
+          <h1 className="text-4xl md:text-6xl font-bold tracking-tight max-w-3xl">
+            Магазин техники и гаджетов
+          </h1>
+          <p className="mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl">
+            Apple, Samsung, Xiaomi, Dyson, игровые приставки и аксессуары — оригинал, гарантия, доставка по России.
+          </p>
+          <div className="mt-6 flex flex-wrap gap-2">
+            {categories.slice(0, 8).map((c) => (
+              <Link
+                key={c.id}
+                to={`/category/${c.slug}`}
+                className="px-4 py-2 rounded-full bg-background border text-sm font-medium hover:border-primary hover:text-primary transition-colors"
+              >
+                {c.name}
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
+
 
       <main className="container mx-auto px-4 py-8 flex-1">
         <input
