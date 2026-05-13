@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import HomePage from "@/pages/Home";
+import CategoryPage from "@/pages/Category";
 import ProductPage from "@/pages/Product";
 import CartPage from "@/pages/Cart";
 import CheckoutPage from "@/pages/Checkout";
@@ -11,6 +12,7 @@ export default function App() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
+      <Route path="/category/:slug" element={<CategoryPage />} />
       <Route path="/product/:slug" element={<ProductPage />} />
       <Route path="/cart" element={<CartPage />} />
       <Route path="/checkout" element={<CheckoutPage />} />
