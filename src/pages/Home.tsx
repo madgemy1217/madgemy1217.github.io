@@ -61,7 +61,7 @@ export default function HomePage() {
             Apple, Samsung, Xiaomi, Dyson, игровые приставки и аксессуары — оригинал, гарантия, доставка по России.
           </p>
           <div className="mt-6 flex flex-wrap gap-2">
-            {categories.slice(0, 8).map((c) => (
+            {categories.map((c) => (
               <Link
                 key={c.id}
                 to={`/category/${c.slug}`}
