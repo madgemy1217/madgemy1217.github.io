@@ -68,14 +68,24 @@
       const c = await loadCatalog();
       const q = state.query.trim().toLowerCase();
       const categories = [...c.categories].sort((a,b)=>(a.sort_order||0)-(b.sort_order||0));
-      const products = [...c.products].sort((a,b)=>(a.sort_order||0)-(b.sort_order||0)).filter(p => {
-        const cat = state.activeCat === "all" || p.category_id === state.activeCat;
-        const search = !q || `${p.name} ${p.tagline||""} ${p.description||""} ${p.aliases||""}`.toLowerCase().includes(q);
-        return cat && search;
-      });
-      const hero = `<section class="hero"><div class="container hero-inner"><h1>Техника Apple</h1><p>Свежие модели, оригинал, быстрая доставка.</p></div></section>`;
-      return shell(`<div class="toolbar"><input id="search" class="search" type="search" placeholder="Поиск по каталогу…" value="${esc(state.query)}"><div class="chips"><button class="chip ${state.activeCat==='all'?'active':''}" data-cat="all">Все</button>${categories.map(cat=>`<a class="chip" href="#/category/${esc(cat.slug)}">${esc(cat.name)}</a>`).join("")}</div></div>${products.length ? `<div class="grid">${products.map(productCard).join("")}</div>` : `<p class="empty">Товары не найдены.</p>`}`, hero);
+      const allSorted = [...c.products].sort((a,b)=>(a.sort_order||0)-(b.sort_order||0));
+      const hero = `<section class="hero"><div class="container hero-inner"><p style="margin:0 0 10px;color:var(--primary);font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:13px">ATH Store</p><h1>Магазин техники и гаджетов</h1><p>Apple, Samsung, Xiaomi, Dyson, игровые приставки и аксессуары — оригинал, гарантия, доставка по России.</p><div class="chips" style="margin-top:18px">${categories.slice(0,8).map(cat=>`<a class="chip" href="#/category/${esc(cat.slug)}">${esc(cat.name)}</a>`).join("")}</div></div></section>`;
+      const searchBar = `<div class="toolbar"><input id="search" class="search" type="search" placeholder="Поиск по каталогу…" value="${esc(state.query)}"></div>`;
+      if (q){
+        const found = allSorted.filter(p => `${p.name} ${p.tagline||""} ${p.description||""} ${p.aliases||""}`.toLowerCase().includes(q));
+        return shell(`${searchBar}${found.length?`<div class="grid">${found.map(productCard).join("")}</div>`:`<p class="empty">Ничего не найдено.</p>`}`, hero);
+      }
+      const sections = categories.map(cat => {
+        const inCat = allSorted.filter(p => p.category_id === cat.id);
+        const featured = inCat.filter(p => p.featured);
+        const rest = inCat.filter(p => !p.featured);
+        const items = [...featured, ...rest].slice(0, 4);
+        if (!items.length) return "";
+        return `<section style="margin-bottom:44px"><div style="display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:16px"><h2 style="margin:0;font-size:26px;font-weight:800">${esc(cat.name)}</h2><a class="link" href="#/category/${esc(cat.slug)}" style="color:var(--primary);font-weight:600;font-size:14px">Смотреть все →</a></div><div class="grid">${items.map(productCard).join("")}</div></section>`;
+      }).join("");
+      return shell(`${searchBar}${sections || `<p class="empty">Каталог пока пуст. Добавьте товары в админке.</p>`}`, hero);
     }
+
     function productCard(p){ return `<article class="card"><a class="thumb" href="#/product/${esc(p.slug)}">${p.image?`<img src="${esc(assetPath(p.image))}" alt="${esc(p.name)}" loading="lazy">`:""}</a><div class="card-body"><h3>${esc(p.name)}</h3>${p.tagline?`<p class="muted small">${esc(p.tagline)}</p>`:""}<div class="price-row"><span class="price">${money(p.price)}</span>${p.old_price?`<span class="old">${money(p.old_price)}</span>`:""}</div><button class="btn primary" data-add-simple="${esc(p.id)}">В корзину</button></div></article>`; }
 
     async function pageProduct(slug){
