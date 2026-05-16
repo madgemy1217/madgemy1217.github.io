@@ -1,18 +1,83 @@
 {
   "categories": [
-    { "id": "iphone", "slug": "iphone", "name": "iPhone", "sort_order": 1 },
-    { "id": "ipad", "slug": "ipad", "name": "iPad", "sort_order": 2 },
-    { "id": "mac", "slug": "mac", "name": "Mac", "sort_order": 3 },
-    { "id": "watch", "slug": "watch", "name": "Apple Watch", "sort_order": 4 },
-    { "id": "airpods", "slug": "airpods", "name": "AirPods", "sort_order": 5 },
-    { "id": "samsung", "slug": "samsung", "name": "Samsung", "sort_order": 6 },
-    { "id": "xiaomi", "slug": "xiaomi", "name": "Xiaomi", "sort_order": 7 },
-    { "id": "accessories", "slug": "accessories", "name": "Аксессуары", "sort_order": 8 },
-    { "id": "audio", "slug": "audio", "name": "Аудио и наушники", "sort_order": 9 },
-    { "id": "tv", "slug": "tv", "name": "ТВ и приставки", "sort_order": 10 },
-    { "id": "gaming", "slug": "gaming", "name": "Игровые приставки", "sort_order": 11 },
-    { "id": "smart-home", "slug": "smart-home", "name": "Умный дом", "sort_order": 12 },
-    { "id": "dyson", "slug": "dyson", "name": "Dyson", "sort_order": 13 }
+    {
+      "id": "iphone",
+      "slug": "iphone",
+      "name": "iPhone",
+      "sort_order": 1
+    },
+    {
+      "id": "ipad",
+      "slug": "ipad",
+      "name": "iPad",
+      "sort_order": 2
+    },
+    {
+      "id": "mac",
+      "slug": "mac",
+      "name": "Mac",
+      "sort_order": 3
+    },
+    {
+      "id": "watch",
+      "slug": "watch",
+      "name": "Apple Watch",
+      "sort_order": 4
+    },
+    {
+      "id": "airpods",
+      "slug": "airpods",
+      "name": "AirPods",
+      "sort_order": 5
+    },
+    {
+      "id": "samsung",
+      "slug": "samsung",
+      "name": "Samsung",
+      "sort_order": 6
+    },
+    {
+      "id": "xiaomi",
+      "slug": "xiaomi",
+      "name": "Xiaomi",
+      "sort_order": 7
+    },
+    {
+      "id": "accessories",
+      "slug": "accessories",
+      "name": "Аксессуары",
+      "sort_order": 8
+    },
+    {
+      "id": "audio",
+      "slug": "audio",
+      "name": "Аудио и наушники",
+      "sort_order": 9
+    },
+    {
+      "id": "tv",
+      "slug": "tv",
+      "name": "ТВ и приставки",
+      "sort_order": 10
+    },
+    {
+      "id": "gaming",
+      "slug": "gaming",
+      "name": "Игровые приставки",
+      "sort_order": 11
+    },
+    {
+      "id": "smart-home",
+      "slug": "smart-home",
+      "name": "Умный дом",
+      "sort_order": 12
+    },
+    {
+      "id": "dyson",
+      "slug": "dyson",
+      "name": "Dyson",
+      "sort_order": 13
+    }
   ],
   "products": [
     {
@@ -30,20 +95,50 @@
       "aliases": "айфон 17 про iphone17pro",
       "sort_order": 1,
       "colors": [
-        { "name": "Натуральный титан", "hex": "#b8b1a3" },
-        { "name": "Чёрный титан", "hex": "#3a3a3c" },
-        { "name": "Белый титан", "hex": "#f1ede4" }
+        {
+          "name": "Натуральный титан",
+          "hex": "#b8b1a3"
+        },
+        {
+          "name": "Чёрный титан",
+          "hex": "#3a3a3c"
+        },
+        {
+          "name": "Белый титан",
+          "hex": "#f1ede4"
+        }
       ],
       "variants": [
-        { "name": "256 ГБ", "price_delta": 0 },
-        { "name": "512 ГБ", "price_delta": 20000 },
-        { "name": "1 ТБ", "price_delta": 40000 }
+        {
+          "name": "256 ГБ",
+          "price_delta": 0
+        },
+        {
+          "name": "512 ГБ",
+          "price_delta": 20000
+        },
+        {
+          "name": "1 ТБ",
+          "price_delta": 40000
+        }
       ],
       "specs": [
-        { "key": "Экран", "value": "6.3″ ProMotion OLED 120 Гц" },
-        { "key": "Процессор", "value": "Apple A19 Pro" },
-        { "key": "Камера", "value": "48 Мп Pro + 48 Мп ультраширик + 5x теле" },
-        { "key": "Аккумулятор", "value": "до 29 ч видео" }
+        {
+          "key": "Экран",
+          "value": "6.3″ ProMotion OLED 120 Гц"
+        },
+        {
+          "key": "Процессор",
+          "value": "Apple A19 Pro"
+        },
+        {
+          "key": "Камера",
+          "value": "48 Мп Pro + 48 Мп ультраширик + 5x теле"
+        },
+        {
+          "key": "Аккумулятор",
+          "value": "до 29 ч видео"
+        }
       ],
       "images": []
     },
@@ -62,17 +157,38 @@
       "aliases": "айфон 17",
       "sort_order": 2,
       "colors": [
-        { "name": "Чёрный", "hex": "#1d1d1f" },
-        { "name": "Белый", "hex": "#f5f5f7" },
-        { "name": "Зелёный", "hex": "#8aa78f" }
+        {
+          "name": "Чёрный",
+          "hex": "#1d1d1f"
+        },
+        {
+          "name": "Белый",
+          "hex": "#f5f5f7"
+        },
+        {
+          "name": "Зелёный",
+          "hex": "#8aa78f"
+        }
       ],
       "variants": [
-        { "name": "128 ГБ", "price_delta": 0 },
-        { "name": "256 ГБ", "price_delta": 10000 }
+        {
+          "name": "128 ГБ",
+          "price_delta": 0
+        },
+        {
+          "name": "256 ГБ",
+          "price_delta": 10000
+        }
       ],
       "specs": [
-        { "key": "Экран", "value": "6.1″ OLED" },
-        { "key": "Процессор", "value": "Apple A19" }
+        {
+          "key": "Экран",
+          "value": "6.1″ OLED"
+        },
+        {
+          "key": "Процессор",
+          "value": "Apple A19"
+        }
       ],
       "images": []
     },
@@ -91,16 +207,34 @@
       "aliases": "айфон 16 про",
       "sort_order": 3,
       "colors": [
-        { "name": "Чёрный титан", "hex": "#3a3a3c" },
-        { "name": "Пустынный титан", "hex": "#b89f7a" }
+        {
+          "name": "Чёрный титан",
+          "hex": "#3a3a3c"
+        },
+        {
+          "name": "Пустынный титан",
+          "hex": "#b89f7a"
+        }
       ],
       "variants": [
-        { "name": "128 ГБ", "price_delta": 0 },
-        { "name": "256 ГБ", "price_delta": 10000 }
+        {
+          "name": "128 ГБ",
+          "price_delta": 0
+        },
+        {
+          "name": "256 ГБ",
+          "price_delta": 10000
+        }
       ],
       "specs": [
-        { "key": "Экран", "value": "6.3″ ProMotion" },
-        { "key": "Процессор", "value": "Apple A18 Pro" }
+        {
+          "key": "Экран",
+          "value": "6.3″ ProMotion"
+        },
+        {
+          "key": "Процессор",
+          "value": "Apple A18 Pro"
+        }
       ],
       "images": []
     },
@@ -119,11 +253,27 @@
       "aliases": "айфон 16",
       "sort_order": 4,
       "colors": [
-        { "name": "Розовый", "hex": "#f5d3d4" },
-        { "name": "Ультрамарин", "hex": "#5b6e9f" }
+        {
+          "name": "Розовый",
+          "hex": "#f5d3d4"
+        },
+        {
+          "name": "Ультрамарин",
+          "hex": "#5b6e9f"
+        }
       ],
-      "variants": [{ "name": "128 ГБ", "price_delta": 0 }],
-      "specs": [{ "key": "Процессор", "value": "Apple A18" }],
+      "variants": [
+        {
+          "name": "128 ГБ",
+          "price_delta": 0
+        }
+      ],
+      "specs": [
+        {
+          "key": "Процессор",
+          "value": "Apple A18"
+        }
+      ],
       "images": []
     },
     {
@@ -140,9 +290,24 @@
       "featured": false,
       "aliases": "айфон 15 про",
       "sort_order": 5,
-      "colors": [{ "name": "Натуральный титан", "hex": "#b8b1a3" }],
-      "variants": [{ "name": "128 ГБ", "price_delta": 0 }],
-      "specs": [{ "key": "Процессор", "value": "Apple A17 Pro" }],
+      "colors": [
+        {
+          "name": "Натуральный титан",
+          "hex": "#b8b1a3"
+        }
+      ],
+      "variants": [
+        {
+          "name": "128 ГБ",
+          "price_delta": 0
+        }
+      ],
+      "specs": [
+        {
+          "key": "Процессор",
+          "value": "Apple A17 Pro"
+        }
+      ],
       "images": []
     },
     {
@@ -159,8 +324,18 @@
       "featured": false,
       "aliases": "айфон 15",
       "sort_order": 6,
-      "colors": [{ "name": "Чёрный", "hex": "#1d1d1f" }],
-      "variants": [{ "name": "128 ГБ", "price_delta": 0 }],
+      "colors": [
+        {
+          "name": "Чёрный",
+          "hex": "#1d1d1f"
+        }
+      ],
+      "variants": [
+        {
+          "name": "128 ГБ",
+          "price_delta": 0
+        }
+      ],
       "specs": [],
       "images": []
     },
@@ -178,12 +353,28 @@
       "featured": true,
       "aliases": "айпад про",
       "sort_order": 1,
-      "colors": [{ "name": "Серый космос", "hex": "#56575a" }],
-      "variants": [
-        { "name": "11″ 256 ГБ", "price_delta": 0 },
-        { "name": "13″ 256 ГБ", "price_delta": 30000 }
+      "colors": [
+        {
+          "name": "Серый космос",
+          "hex": "#56575a"
+        }
       ],
-      "specs": [{ "key": "Чип", "value": "Apple M4" }],
+      "variants": [
+        {
+          "name": "11″ 256 ГБ",
+          "price_delta": 0
+        },
+        {
+          "name": "13″ 256 ГБ",
+          "price_delta": 30000
+        }
+      ],
+      "specs": [
+        {
+          "key": "Чип",
+          "value": "Apple M4"
+        }
+      ],
       "images": []
     },
     {
@@ -200,8 +391,18 @@
       "featured": false,
       "aliases": "айпад эйр",
       "sort_order": 2,
-      "colors": [{ "name": "Сияющая звезда", "hex": "#f0e9d8" }],
-      "variants": [{ "name": "128 ГБ", "price_delta": 0 }],
+      "colors": [
+        {
+          "name": "Сияющая звезда",
+          "hex": "#f0e9d8"
+        }
+      ],
+      "variants": [
+        {
+          "name": "128 ГБ",
+          "price_delta": 0
+        }
+      ],
       "specs": [],
       "images": []
     },
@@ -219,9 +420,24 @@
       "featured": true,
       "aliases": "макбук про",
       "sort_order": 1,
-      "colors": [{ "name": "Чёрный космос", "hex": "#2c2c2e" }],
-      "variants": [{ "name": "512 ГБ / 24 ГБ ОЗУ", "price_delta": 0 }],
-      "specs": [{ "key": "Чип", "value": "Apple M4 Pro" }],
+      "colors": [
+        {
+          "name": "Чёрный космос",
+          "hex": "#2c2c2e"
+        }
+      ],
+      "variants": [
+        {
+          "name": "512 ГБ / 24 ГБ ОЗУ",
+          "price_delta": 0
+        }
+      ],
+      "specs": [
+        {
+          "key": "Чип",
+          "value": "Apple M4 Pro"
+        }
+      ],
       "images": []
     },
     {
@@ -238,8 +454,18 @@
       "featured": false,
       "aliases": "макбук эйр",
       "sort_order": 2,
-      "colors": [{ "name": "Полуночный", "hex": "#1d1d1f" }],
-      "variants": [{ "name": "256 ГБ", "price_delta": 0 }],
+      "colors": [
+        {
+          "name": "Полуночный",
+          "hex": "#1d1d1f"
+        }
+      ],
+      "variants": [
+        {
+          "name": "256 ГБ",
+          "price_delta": 0
+        }
+      ],
       "specs": [],
       "images": []
     },
@@ -257,8 +483,18 @@
       "featured": true,
       "aliases": "часы ультра",
       "sort_order": 1,
-      "colors": [{ "name": "Натуральный титан", "hex": "#b8b1a3" }],
-      "variants": [{ "name": "49 мм", "price_delta": 0 }],
+      "colors": [
+        {
+          "name": "Натуральный титан",
+          "hex": "#b8b1a3"
+        }
+      ],
+      "variants": [
+        {
+          "name": "49 мм",
+          "price_delta": 0
+        }
+      ],
       "specs": [],
       "images": []
     },
@@ -276,8 +512,18 @@
       "featured": false,
       "aliases": "часы 9",
       "sort_order": 2,
-      "colors": [{ "name": "Розовый", "hex": "#f5d3d4" }],
-      "variants": [{ "name": "41 мм", "price_delta": 0 }],
+      "colors": [
+        {
+          "name": "Розовый",
+          "hex": "#f5d3d4"
+        }
+      ],
+      "variants": [
+        {
+          "name": "41 мм",
+          "price_delta": 0
+        }
+      ],
       "specs": [],
       "images": []
     },
@@ -295,8 +541,18 @@
       "featured": true,
       "aliases": "эирподс про",
       "sort_order": 1,
-      "colors": [{ "name": "Белый", "hex": "#ffffff" }],
-      "variants": [{ "name": "USB-C", "price_delta": 0 }],
+      "colors": [
+        {
+          "name": "Белый",
+          "hex": "#ffffff"
+        }
+      ],
+      "variants": [
+        {
+          "name": "USB-C",
+          "price_delta": 0
+        }
+      ],
       "specs": [],
       "images": []
     },
@@ -314,8 +570,322 @@
       "featured": false,
       "aliases": "эирподс макс",
       "sort_order": 2,
-      "colors": [{ "name": "Серый космос", "hex": "#56575a" }],
-      "variants": [{ "name": "USB-C", "price_delta": 0 }],
+      "colors": [
+        {
+          "name": "Серый космос",
+          "hex": "#56575a"
+        }
+      ],
+      "variants": [
+        {
+          "name": "USB-C",
+          "price_delta": 0
+        }
+      ],
+      "specs": [],
+      "images": []
+    },
+    {
+      "id": "samsung-galaxy-s25-ultra",
+      "slug": "samsung-galaxy-s25-ultra",
+      "name": "Samsung Galaxy S25 Ultra",
+      "category_id": "samsung",
+      "price": 129990,
+      "old_price": null,
+      "tagline": "Флагман с S Pen и AI.",
+      "description": "Galaxy S25 Ultra — камера 200 Мп, Snapdragon 8 Elite, S Pen.",
+      "image": "https://cdn.biggeek.ru/images/galaxy-s25-ultra.jpg",
+      "in_stock": true,
+      "featured": false,
+      "aliases": "галакси s25",
+      "sort_order": 1,
+      "colors": [],
+      "variants": [],
+      "specs": [],
+      "images": []
+    },
+    {
+      "id": "samsung-galaxy-z-fold6",
+      "slug": "samsung-galaxy-z-fold6",
+      "name": "Samsung Galaxy Z Fold6",
+      "category_id": "samsung",
+      "price": 179990,
+      "old_price": null,
+      "tagline": "Складной флагман.",
+      "description": "Galaxy Z Fold6 с большим внутренним экраном и Snapdragon 8 Gen 3.",
+      "image": "https://cdn.biggeek.ru/images/galaxy-zfold6.jpg",
+      "in_stock": true,
+      "featured": false,
+      "aliases": "фолд zfold6",
+      "sort_order": 2,
+      "colors": [],
+      "variants": [],
+      "specs": [],
+      "images": []
+    },
+    {
+      "id": "xiaomi-14-ultra",
+      "slug": "xiaomi-14-ultra",
+      "name": "Xiaomi 14 Ultra",
+      "category_id": "xiaomi",
+      "price": 89990,
+      "old_price": null,
+      "tagline": "Камерофон с оптикой Leica.",
+      "description": "Xiaomi 14 Ultra — четыре камеры Leica Summilux, Snapdragon 8 Gen 3.",
+      "image": "https://cdn.biggeek.ru/images/xiaomi-14-ultra.jpg",
+      "in_stock": true,
+      "featured": false,
+      "aliases": "сяоми",
+      "sort_order": 1,
+      "colors": [],
+      "variants": [],
+      "specs": [],
+      "images": []
+    },
+    {
+      "id": "xiaomi-redmi-note-13-pro",
+      "slug": "xiaomi-redmi-note-13-pro",
+      "name": "Xiaomi Redmi Note 13 Pro",
+      "category_id": "xiaomi",
+      "price": 24990,
+      "old_price": null,
+      "tagline": "AMOLED 120 Гц и камера 200 Мп.",
+      "description": "Redmi Note 13 Pro — яркий AMOLED, быстрая зарядка 67 Вт.",
+      "image": "https://cdn.biggeek.ru/images/redmi-note-13-pro.jpg",
+      "in_stock": true,
+      "featured": false,
+      "aliases": "редми note",
+      "sort_order": 2,
+      "colors": [],
+      "variants": [],
+      "specs": [],
+      "images": []
+    },
+    {
+      "id": "magsafe-charger",
+      "slug": "magsafe-charger",
+      "name": "Apple MagSafe Charger",
+      "category_id": "accessories",
+      "price": 4990,
+      "old_price": null,
+      "tagline": "Магнитная беспроводная зарядка.",
+      "description": "MagSafe Charger 1 м — быстрая зарядка iPhone до 15 Вт.",
+      "image": "https://cdn.biggeek.ru/images/magsafe.jpg",
+      "in_stock": true,
+      "featured": false,
+      "aliases": "магсейф",
+      "sort_order": 1,
+      "colors": [],
+      "variants": [],
+      "specs": [],
+      "images": []
+    },
+    {
+      "id": "apple-pencil-pro",
+      "slug": "apple-pencil-pro",
+      "name": "Apple Pencil Pro",
+      "category_id": "accessories",
+      "price": 13990,
+      "old_price": null,
+      "tagline": "Стилус нового поколения.",
+      "description": "Apple Pencil Pro — squeeze, барометр и поиск через Find My.",
+      "image": "https://cdn.biggeek.ru/images/pencil-pro.jpg",
+      "in_stock": true,
+      "featured": false,
+      "aliases": "пенсил",
+      "sort_order": 2,
+      "colors": [],
+      "variants": [],
+      "specs": [],
+      "images": []
+    },
+    {
+      "id": "sony-wh-1000xm5",
+      "slug": "sony-wh-1000xm5",
+      "name": "Sony WH-1000XM5",
+      "category_id": "audio",
+      "price": 39990,
+      "old_price": null,
+      "tagline": "Эталонное шумоподавление.",
+      "description": "Sony WH-1000XM5 — лидер по шумоподавлению, до 30 ч работы.",
+      "image": "https://cdn.biggeek.ru/images/sony-wh1000xm5.jpg",
+      "in_stock": true,
+      "featured": false,
+      "aliases": "сони наушники",
+      "sort_order": 1,
+      "colors": [],
+      "variants": [],
+      "specs": [],
+      "images": []
+    },
+    {
+      "id": "marshall-stanmore-iii",
+      "slug": "marshall-stanmore-iii",
+      "name": "Marshall Stanmore III",
+      "category_id": "audio",
+      "price": 54990,
+      "old_price": null,
+      "tagline": "Культовая Bluetooth-колонка.",
+      "description": "Marshall Stanmore III — фирменный звук и винтажный дизайн.",
+      "image": "https://cdn.biggeek.ru/images/marshall-stanmore.jpg",
+      "in_stock": true,
+      "featured": false,
+      "aliases": "маршалл колонка",
+      "sort_order": 2,
+      "colors": [],
+      "variants": [],
+      "specs": [],
+      "images": []
+    },
+    {
+      "id": "apple-tv-4k",
+      "slug": "apple-tv-4k",
+      "name": "Apple TV 4K (2024)",
+      "category_id": "tv",
+      "price": 17990,
+      "old_price": null,
+      "tagline": "Стриминг 4K HDR с чипом A15.",
+      "description": "Apple TV 4K с поддержкой Dolby Vision, Atmos и tvOS.",
+      "image": "https://cdn.biggeek.ru/images/appletv-4k.jpg",
+      "in_stock": true,
+      "featured": false,
+      "aliases": "эпл тв",
+      "sort_order": 1,
+      "colors": [],
+      "variants": [],
+      "specs": [],
+      "images": []
+    },
+    {
+      "id": "xiaomi-tv-stick-4k",
+      "slug": "xiaomi-tv-stick-4k",
+      "name": "Xiaomi TV Stick 4K",
+      "category_id": "tv",
+      "price": 4990,
+      "old_price": null,
+      "tagline": "Бюджетная Android-приставка.",
+      "description": "Xiaomi TV Stick 4K — Google TV, HDR10+, голосовой поиск.",
+      "image": "https://cdn.biggeek.ru/images/xiaomi-tv-stick.jpg",
+      "in_stock": true,
+      "featured": false,
+      "aliases": "сяоми стик",
+      "sort_order": 2,
+      "colors": [],
+      "variants": [],
+      "specs": [],
+      "images": []
+    },
+    {
+      "id": "ps5-pro",
+      "slug": "ps5-pro",
+      "name": "PlayStation 5 Pro",
+      "category_id": "gaming",
+      "price": 84990,
+      "old_price": null,
+      "tagline": "Мощнее GPU и PSSR апскейл.",
+      "description": "PS5 Pro — улучшенный GPU и трассировка лучей нового поколения.",
+      "image": "https://cdn.biggeek.ru/images/ps5-pro.jpg",
+      "in_stock": true,
+      "featured": false,
+      "aliases": "пс5 ps5",
+      "sort_order": 1,
+      "colors": [],
+      "variants": [],
+      "specs": [],
+      "images": []
+    },
+    {
+      "id": "xbox-series-x",
+      "slug": "xbox-series-x",
+      "name": "Xbox Series X",
+      "category_id": "gaming",
+      "price": 49990,
+      "old_price": null,
+      "tagline": "Самая мощная Xbox.",
+      "description": "Xbox Series X — 4K@120 fps, SSD 1 ТБ.",
+      "image": "https://cdn.biggeek.ru/images/xbox-series-x.jpg",
+      "in_stock": true,
+      "featured": false,
+      "aliases": "иксбокс",
+      "sort_order": 2,
+      "colors": [],
+      "variants": [],
+      "specs": [],
+      "images": []
+    },
+    {
+      "id": "apple-homepod-mini",
+      "slug": "apple-homepod-mini",
+      "name": "Apple HomePod mini",
+      "category_id": "smart-home",
+      "price": 9990,
+      "old_price": null,
+      "tagline": "Умная колонка с Siri.",
+      "description": "HomePod mini — насыщенный звук, Siri и интеграция с HomeKit.",
+      "image": "https://cdn.biggeek.ru/images/homepod-mini.jpg",
+      "in_stock": true,
+      "featured": false,
+      "aliases": "хоумпод",
+      "sort_order": 1,
+      "colors": [],
+      "variants": [],
+      "specs": [],
+      "images": []
+    },
+    {
+      "id": "xiaomi-robot-vacuum-x10",
+      "slug": "xiaomi-robot-vacuum-x10",
+      "name": "Xiaomi Robot Vacuum X10+",
+      "category_id": "smart-home",
+      "price": 44990,
+      "old_price": null,
+      "tagline": "Робот-пылесос с самоочисткой.",
+      "description": "Xiaomi X10+ — мощное всасывание, влажная уборка и док-станция.",
+      "image": "https://cdn.biggeek.ru/images/xiaomi-x10.jpg",
+      "in_stock": true,
+      "featured": false,
+      "aliases": "робот пылесос",
+      "sort_order": 2,
+      "colors": [],
+      "variants": [],
+      "specs": [],
+      "images": []
+    },
+    {
+      "id": "dyson-v15-detect",
+      "slug": "dyson-v15-detect",
+      "name": "Dyson V15 Detect",
+      "category_id": "dyson",
+      "price": 59990,
+      "old_price": null,
+      "tagline": "Беспроводной пылесос с лазером.",
+      "description": "Dyson V15 Detect — лазерная подсветка пыли и циклоны.",
+      "image": "https://cdn.biggeek.ru/images/dyson-v15.jpg",
+      "in_stock": true,
+      "featured": false,
+      "aliases": "дайсон",
+      "sort_order": 1,
+      "colors": [],
+      "variants": [],
+      "specs": [],
+      "images": []
+    },
+    {
+      "id": "dyson-airwrap",
+      "slug": "dyson-airwrap",
+      "name": "Dyson Airwrap",
+      "category_id": "dyson",
+      "price": 54990,
+      "old_price": null,
+      "tagline": "Мультистайлер для волос.",
+      "description": "Dyson Airwrap — укладка без экстремального нагрева.",
+      "image": "https://cdn.biggeek.ru/images/dyson-airwrap.jpg",
+      "in_stock": true,
+      "featured": false,
+      "aliases": "эирврап",
+      "sort_order": 2,
+      "colors": [],
+      "variants": [],
       "specs": [],
       "images": []
     }
