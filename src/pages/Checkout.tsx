@@ -51,8 +51,8 @@ export default function CheckoutPage() {
           </select>
         </Field>
         <Field label="Способ оплаты">
-          <select value={form.payment} onChange={(e) => setForm({ ...form, payment: e.target.value })} className="input">
-            <option value="cash">Наличные</option>
+          <select value={form.payment} onChange={(e) => setPayment(e.target.value)} className="input">
+            <option value="cash">Наличные (только самовывоз)</option>
             <option value="card">Карта</option>
             <option value="transfer">Перевод</option>
           </select>
@@ -64,7 +64,7 @@ export default function CheckoutPage() {
         <div className="flex items-center justify-between pt-4 border-t">
           <span className="text-lg">Итого: <strong>{money(total)}</strong></span>
           <button disabled={submitting} className="px-6 py-2.5 rounded-md bg-primary text-primary-foreground font-medium disabled:opacity-50">
-            {submitting ? "Отправка…" : "Оформить через Telegram"}
+            {submitting ? "Отправка…" : "Оформить заказ"}
           </button>
         </div>
       </form>
