@@ -1,10 +1,35 @@
 {
   "categories": [
-    { "id": "iphone", "slug": "iphone", "name": "iPhone", "sort_order": 1 },
-    { "id": "ipad", "slug": "ipad", "name": "iPad", "sort_order": 2 },
-    { "id": "mac", "slug": "mac", "name": "Mac", "sort_order": 3 },
-    { "id": "watch", "slug": "watch", "name": "Apple Watch", "sort_order": 4 },
-    { "id": "airpods", "slug": "airpods", "name": "AirPods", "sort_order": 5 }
+    {
+      "id": "iphone",
+      "slug": "iphone",
+      "name": "iPhone",
+      "sort_order": 1
+    },
+    {
+      "id": "ipad",
+      "slug": "ipad",
+      "name": "iPad",
+      "sort_order": 2
+    },
+    {
+      "id": "mac",
+      "slug": "mac",
+      "name": "Mac",
+      "sort_order": 3
+    },
+    {
+      "id": "watch",
+      "slug": "watch",
+      "name": "Apple Watch",
+      "sort_order": 4
+    },
+    {
+      "id": "airpods",
+      "slug": "airpods",
+      "name": "AirPods",
+      "sort_order": 5
+    }
   ],
   "products": [
     {
@@ -22,20 +47,50 @@
       "aliases": "айфон 17 про iphone17pro",
       "sort_order": 1,
       "colors": [
-        { "name": "Натуральный титан", "hex": "#b8b1a3" },
-        { "name": "Чёрный титан", "hex": "#3a3a3c" },
-        { "name": "Белый титан", "hex": "#f1ede4" }
+        {
+          "name": "Натуральный титан",
+          "hex": "#b8b1a3"
+        },
+        {
+          "name": "Чёрный титан",
+          "hex": "#3a3a3c"
+        },
+        {
+          "name": "Белый титан",
+          "hex": "#f1ede4"
+        }
       ],
       "variants": [
-        { "name": "256 ГБ", "price_delta": 0 },
-        { "name": "512 ГБ", "price_delta": 20000 },
-        { "name": "1 ТБ", "price_delta": 40000 }
+        {
+          "name": "256 ГБ",
+          "price_delta": 0
+        },
+        {
+          "name": "512 ГБ",
+          "price_delta": 20000
+        },
+        {
+          "name": "1 ТБ",
+          "price_delta": 40000
+        }
       ],
       "specs": [
-        { "key": "Экран", "value": "6.3″ ProMotion OLED 120 Гц" },
-        { "key": "Процессор", "value": "Apple A19 Pro" },
-        { "key": "Камера", "value": "48 Мп Pro + 48 Мп ультраширик + 5x теле" },
-        { "key": "Аккумулятор", "value": "до 29 ч видео" }
+        {
+          "key": "Экран",
+          "value": "6.3″ ProMotion OLED 120 Гц"
+        },
+        {
+          "key": "Процессор",
+          "value": "Apple A19 Pro"
+        },
+        {
+          "key": "Камера",
+          "value": "48 Мп Pro + 48 Мп ультраширик + 5x теле"
+        },
+        {
+          "key": "Аккумулятор",
+          "value": "до 29 ч видео"
+        }
       ],
       "images": []
     },
@@ -54,17 +109,38 @@
       "aliases": "айфон 17",
       "sort_order": 2,
       "colors": [
-        { "name": "Чёрный", "hex": "#1d1d1f" },
-        { "name": "Белый", "hex": "#f5f5f7" },
-        { "name": "Зелёный", "hex": "#8aa78f" }
+        {
+          "name": "Чёрный",
+          "hex": "#1d1d1f"
+        },
+        {
+          "name": "Белый",
+          "hex": "#f5f5f7"
+        },
+        {
+          "name": "Зелёный",
+          "hex": "#8aa78f"
+        }
       ],
       "variants": [
-        { "name": "128 ГБ", "price_delta": 0 },
-        { "name": "256 ГБ", "price_delta": 10000 }
+        {
+          "name": "128 ГБ",
+          "price_delta": 0
+        },
+        {
+          "name": "256 ГБ",
+          "price_delta": 10000
+        }
       ],
       "specs": [
-        { "key": "Экран", "value": "6.1″ OLED" },
-        { "key": "Процессор", "value": "Apple A19" }
+        {
+          "key": "Экран",
+          "value": "6.1″ OLED"
+        },
+        {
+          "key": "Процессор",
+          "value": "Apple A19"
+        }
       ],
       "images": []
     },
@@ -83,16 +159,34 @@
       "aliases": "айфон 16 про",
       "sort_order": 3,
       "colors": [
-        { "name": "Чёрный титан", "hex": "#3a3a3c" },
-        { "name": "Пустынный титан", "hex": "#b89f7a" }
+        {
+          "name": "Чёрный титан",
+          "hex": "#3a3a3c"
+        },
+        {
+          "name": "Пустынный титан",
+          "hex": "#b89f7a"
+        }
       ],
       "variants": [
-        { "name": "128 ГБ", "price_delta": 0 },
-        { "name": "256 ГБ", "price_delta": 10000 }
+        {
+          "name": "128 ГБ",
+          "price_delta": 0
+        },
+        {
+          "name": "256 ГБ",
+          "price_delta": 10000
+        }
       ],
       "specs": [
-        { "key": "Экран", "value": "6.3″ ProMotion" },
-        { "key": "Процессор", "value": "Apple A18 Pro" }
+        {
+          "key": "Экран",
+          "value": "6.3″ ProMotion"
+        },
+        {
+          "key": "Процессор",
+          "value": "Apple A18 Pro"
+        }
       ],
       "images": []
     },
@@ -111,11 +205,27 @@
       "aliases": "айфон 16",
       "sort_order": 4,
       "colors": [
-        { "name": "Розовый", "hex": "#f5d3d4" },
-        { "name": "Ультрамарин", "hex": "#5b6e9f" }
+        {
+          "name": "Розовый",
+          "hex": "#f5d3d4"
+        },
+        {
+          "name": "Ультрамарин",
+          "hex": "#5b6e9f"
+        }
       ],
-      "variants": [{ "name": "128 ГБ", "price_delta": 0 }],
-      "specs": [{ "key": "Процессор", "value": "Apple A18" }],
+      "variants": [
+        {
+          "name": "128 ГБ",
+          "price_delta": 0
+        }
+      ],
+      "specs": [
+        {
+          "key": "Процессор",
+          "value": "Apple A18"
+        }
+      ],
       "images": []
     },
     {
@@ -132,9 +242,24 @@
       "featured": false,
       "aliases": "айфон 15 про",
       "sort_order": 5,
-      "colors": [{ "name": "Натуральный титан", "hex": "#b8b1a3" }],
-      "variants": [{ "name": "128 ГБ", "price_delta": 0 }],
-      "specs": [{ "key": "Процессор", "value": "Apple A17 Pro" }],
+      "colors": [
+        {
+          "name": "Натуральный титан",
+          "hex": "#b8b1a3"
+        }
+      ],
+      "variants": [
+        {
+          "name": "128 ГБ",
+          "price_delta": 0
+        }
+      ],
+      "specs": [
+        {
+          "key": "Процессор",
+          "value": "Apple A17 Pro"
+        }
+      ],
       "images": []
     },
     {
@@ -151,8 +276,18 @@
       "featured": false,
       "aliases": "айфон 15",
       "sort_order": 6,
-      "colors": [{ "name": "Чёрный", "hex": "#1d1d1f" }],
-      "variants": [{ "name": "128 ГБ", "price_delta": 0 }],
+      "colors": [
+        {
+          "name": "Чёрный",
+          "hex": "#1d1d1f"
+        }
+      ],
+      "variants": [
+        {
+          "name": "128 ГБ",
+          "price_delta": 0
+        }
+      ],
       "specs": [],
       "images": []
     },
@@ -170,12 +305,28 @@
       "featured": true,
       "aliases": "айпад про",
       "sort_order": 1,
-      "colors": [{ "name": "Серый космос", "hex": "#56575a" }],
-      "variants": [
-        { "name": "11″ 256 ГБ", "price_delta": 0 },
-        { "name": "13″ 256 ГБ", "price_delta": 30000 }
+      "colors": [
+        {
+          "name": "Серый космос",
+          "hex": "#56575a"
+        }
       ],
-      "specs": [{ "key": "Чип", "value": "Apple M4" }],
+      "variants": [
+        {
+          "name": "11″ 256 ГБ",
+          "price_delta": 0
+        },
+        {
+          "name": "13″ 256 ГБ",
+          "price_delta": 30000
+        }
+      ],
+      "specs": [
+        {
+          "key": "Чип",
+          "value": "Apple M4"
+        }
+      ],
       "images": []
     },
     {
@@ -192,8 +343,18 @@
       "featured": false,
       "aliases": "айпад эйр",
       "sort_order": 2,
-      "colors": [{ "name": "Сияющая звезда", "hex": "#f0e9d8" }],
-      "variants": [{ "name": "128 ГБ", "price_delta": 0 }],
+      "colors": [
+        {
+          "name": "Сияющая звезда",
+          "hex": "#f0e9d8"
+        }
+      ],
+      "variants": [
+        {
+          "name": "128 ГБ",
+          "price_delta": 0
+        }
+      ],
       "specs": [],
       "images": []
     },
@@ -211,9 +372,24 @@
       "featured": true,
       "aliases": "макбук про",
       "sort_order": 1,
-      "colors": [{ "name": "Чёрный космос", "hex": "#2c2c2e" }],
-      "variants": [{ "name": "512 ГБ / 24 ГБ ОЗУ", "price_delta": 0 }],
-      "specs": [{ "key": "Чип", "value": "Apple M4 Pro" }],
+      "colors": [
+        {
+          "name": "Чёрный космос",
+          "hex": "#2c2c2e"
+        }
+      ],
+      "variants": [
+        {
+          "name": "512 ГБ / 24 ГБ ОЗУ",
+          "price_delta": 0
+        }
+      ],
+      "specs": [
+        {
+          "key": "Чип",
+          "value": "Apple M4 Pro"
+        }
+      ],
       "images": []
     },
     {
@@ -230,8 +406,18 @@
       "featured": false,
       "aliases": "макбук эйр",
       "sort_order": 2,
-      "colors": [{ "name": "Полуночный", "hex": "#1d1d1f" }],
-      "variants": [{ "name": "256 ГБ", "price_delta": 0 }],
+      "colors": [
+        {
+          "name": "Полуночный",
+          "hex": "#1d1d1f"
+        }
+      ],
+      "variants": [
+        {
+          "name": "256 ГБ",
+          "price_delta": 0
+        }
+      ],
       "specs": [],
       "images": []
     },
@@ -249,8 +435,18 @@
       "featured": true,
       "aliases": "часы ультра",
       "sort_order": 1,
-      "colors": [{ "name": "Натуральный титан", "hex": "#b8b1a3" }],
-      "variants": [{ "name": "49 мм", "price_delta": 0 }],
+      "colors": [
+        {
+          "name": "Натуральный титан",
+          "hex": "#b8b1a3"
+        }
+      ],
+      "variants": [
+        {
+          "name": "49 мм",
+          "price_delta": 0
+        }
+      ],
       "specs": [],
       "images": []
     },
@@ -268,8 +464,18 @@
       "featured": false,
       "aliases": "часы 9",
       "sort_order": 2,
-      "colors": [{ "name": "Розовый", "hex": "#f5d3d4" }],
-      "variants": [{ "name": "41 мм", "price_delta": 0 }],
+      "colors": [
+        {
+          "name": "Розовый",
+          "hex": "#f5d3d4"
+        }
+      ],
+      "variants": [
+        {
+          "name": "41 мм",
+          "price_delta": 0
+        }
+      ],
       "specs": [],
       "images": []
     },
@@ -287,8 +493,18 @@
       "featured": true,
       "aliases": "эирподс про",
       "sort_order": 1,
-      "colors": [{ "name": "Белый", "hex": "#ffffff" }],
-      "variants": [{ "name": "USB-C", "price_delta": 0 }],
+      "colors": [
+        {
+          "name": "Белый",
+          "hex": "#ffffff"
+        }
+      ],
+      "variants": [
+        {
+          "name": "USB-C",
+          "price_delta": 0
+        }
+      ],
       "specs": [],
       "images": []
     },
@@ -306,9 +522,399 @@
       "featured": false,
       "aliases": "эирподс макс",
       "sort_order": 2,
-      "colors": [{ "name": "Серый космос", "hex": "#56575a" }],
-      "variants": [{ "name": "USB-C", "price_delta": 0 }],
+      "colors": [
+        {
+          "name": "Серый космос",
+          "hex": "#56575a"
+        }
+      ],
+      "variants": [
+        {
+          "name": "USB-C",
+          "price_delta": 0
+        }
+      ],
       "specs": [],
+      "images": []
+    },
+    {
+      "id": "ipad-mini-7",
+      "slug": "ipad-mini-7",
+      "name": "iPad mini 7",
+      "category_id": "ipad",
+      "price": 54990,
+      "old_price": null,
+      "tagline": "Компактный планшет с чипом A17 Pro.",
+      "description": "iPad mini 7 — 8.3″ дисплей Liquid Retina, чип A17 Pro и поддержка Apple Pencil Pro.",
+      "image": "https://cdn.biggeek.ru/images/ipad-mini-7.jpg",
+      "in_stock": true,
+      "featured": false,
+      "aliases": "айпад мини ipadmini",
+      "sort_order": 3,
+      "colors": [
+        {
+          "name": "Space Gray",
+          "hex": "#4a4a4c"
+        },
+        {
+          "name": "Starlight",
+          "hex": "#f0e9dd"
+        }
+      ],
+      "variants": [
+        {
+          "name": "128 ГБ",
+          "price_delta": 0
+        },
+        {
+          "name": "256 ГБ",
+          "price_delta": 10000
+        },
+        {
+          "name": "512 ГБ",
+          "price_delta": 30000
+        }
+      ],
+      "specs": [
+        {
+          "key": "Экран",
+          "value": "8.3″ Liquid Retina"
+        },
+        {
+          "key": "Процессор",
+          "value": "Apple A17 Pro"
+        }
+      ],
+      "images": []
+    },
+    {
+      "id": "ipad-10",
+      "slug": "ipad-10",
+      "name": "iPad (10-го поколения)",
+      "category_id": "ipad",
+      "price": 39990,
+      "old_price": null,
+      "tagline": "Универсальный iPad для учёбы и работы.",
+      "description": "iPad 10.9″ с чипом A14 Bionic, USB-C и поддержкой Apple Pencil.",
+      "image": "https://cdn.biggeek.ru/images/ipad-10.jpg",
+      "in_stock": true,
+      "featured": false,
+      "aliases": "айпад 10 ipad10",
+      "sort_order": 4,
+      "colors": [
+        {
+          "name": "Серебристый",
+          "hex": "#dcdfe1"
+        },
+        {
+          "name": "Розовый",
+          "hex": "#f6c5c2"
+        },
+        {
+          "name": "Голубой",
+          "hex": "#a8c8e8"
+        },
+        {
+          "name": "Жёлтый",
+          "hex": "#f4d27a"
+        }
+      ],
+      "variants": [
+        {
+          "name": "64 ГБ",
+          "price_delta": 0
+        },
+        {
+          "name": "256 ГБ",
+          "price_delta": 12000
+        }
+      ],
+      "specs": [
+        {
+          "key": "Экран",
+          "value": "10.9″ Liquid Retina"
+        },
+        {
+          "key": "Процессор",
+          "value": "Apple A14 Bionic"
+        }
+      ],
+      "images": []
+    },
+    {
+      "id": "mac-mini-m4",
+      "slug": "mac-mini-m4",
+      "name": "Mac mini M4",
+      "category_id": "mac",
+      "price": 59990,
+      "old_price": null,
+      "tagline": "Компактный десктоп с чипом M4.",
+      "description": "Mac mini с процессором Apple M4 — мощный и тихий настольный компьютер.",
+      "image": "https://cdn.biggeek.ru/images/mac-mini-m4.jpg",
+      "in_stock": true,
+      "featured": false,
+      "aliases": "мак мини macmini",
+      "sort_order": 3,
+      "colors": [
+        {
+          "name": "Серебристый",
+          "hex": "#dcdfe1"
+        }
+      ],
+      "variants": [
+        {
+          "name": "16 ГБ / 256 ГБ",
+          "price_delta": 0
+        },
+        {
+          "name": "16 ГБ / 512 ГБ",
+          "price_delta": 15000
+        },
+        {
+          "name": "24 ГБ / 512 ГБ",
+          "price_delta": 30000
+        }
+      ],
+      "specs": [
+        {
+          "key": "Процессор",
+          "value": "Apple M4"
+        },
+        {
+          "key": "Порты",
+          "value": "Thunderbolt 4, HDMI, USB-C"
+        }
+      ],
+      "images": []
+    },
+    {
+      "id": "imac-24-m4",
+      "slug": "imac-24-m4",
+      "name": "iMac 24″ M4",
+      "category_id": "mac",
+      "price": 139990,
+      "old_price": null,
+      "tagline": "Цветной моноблок с чипом M4.",
+      "description": "iMac 24″ с дисплеем Retina 4.5K и процессором Apple M4 в семи ярких цветах.",
+      "image": "https://cdn.biggeek.ru/images/imac-24-m4.jpg",
+      "in_stock": true,
+      "featured": true,
+      "aliases": "аймак imac",
+      "sort_order": 4,
+      "colors": [
+        {
+          "name": "Синий",
+          "hex": "#5e8bb8"
+        },
+        {
+          "name": "Розовый",
+          "hex": "#f0b8c0"
+        },
+        {
+          "name": "Зелёный",
+          "hex": "#a8c89c"
+        },
+        {
+          "name": "Жёлтый",
+          "hex": "#f4d27a"
+        }
+      ],
+      "variants": [
+        {
+          "name": "8 ядер GPU / 256 ГБ",
+          "price_delta": 0
+        },
+        {
+          "name": "10 ядер GPU / 512 ГБ",
+          "price_delta": 25000
+        }
+      ],
+      "specs": [
+        {
+          "key": "Экран",
+          "value": "24″ Retina 4.5K"
+        },
+        {
+          "key": "Процессор",
+          "value": "Apple M4"
+        }
+      ],
+      "images": []
+    },
+    {
+      "id": "apple-watch-se-2",
+      "slug": "apple-watch-se-2",
+      "name": "Apple Watch SE (2 поколения)",
+      "category_id": "watch",
+      "price": 24990,
+      "old_price": null,
+      "tagline": "Самые доступные Apple Watch.",
+      "description": "Apple Watch SE с экраном Retina и всеми ключевыми функциями здоровья и фитнеса.",
+      "image": "https://cdn.biggeek.ru/images/apple-watch-se-2.jpg",
+      "in_stock": true,
+      "featured": false,
+      "aliases": "эпл вотч се applewatchse",
+      "sort_order": 3,
+      "colors": [
+        {
+          "name": "Midnight",
+          "hex": "#1d1f23"
+        },
+        {
+          "name": "Starlight",
+          "hex": "#f0e9dd"
+        },
+        {
+          "name": "Silver",
+          "hex": "#dcdfe1"
+        }
+      ],
+      "variants": [
+        {
+          "name": "40 мм",
+          "price_delta": 0
+        },
+        {
+          "name": "44 мм",
+          "price_delta": 3000
+        }
+      ],
+      "specs": [
+        {
+          "key": "Экран",
+          "value": "Retina OLED"
+        },
+        {
+          "key": "Чип",
+          "value": "Apple S8"
+        }
+      ],
+      "images": []
+    },
+    {
+      "id": "apple-watch-series-10",
+      "slug": "apple-watch-series-10",
+      "name": "Apple Watch Series 10",
+      "category_id": "watch",
+      "price": 44990,
+      "old_price": null,
+      "tagline": "Тоньше, легче, ярче.",
+      "description": "Apple Watch Series 10 — самый тонкий корпус, увеличенный дисплей и быстрая зарядка.",
+      "image": "https://cdn.biggeek.ru/images/apple-watch-series-10.jpg",
+      "in_stock": true,
+      "featured": true,
+      "aliases": "эпл вотч 10 applewatch10",
+      "sort_order": 4,
+      "colors": [
+        {
+          "name": "Jet Black",
+          "hex": "#0d0d0f"
+        },
+        {
+          "name": "Rose Gold",
+          "hex": "#d8b0a0"
+        },
+        {
+          "name": "Silver",
+          "hex": "#dcdfe1"
+        }
+      ],
+      "variants": [
+        {
+          "name": "42 мм",
+          "price_delta": 0
+        },
+        {
+          "name": "46 мм",
+          "price_delta": 4000
+        }
+      ],
+      "specs": [
+        {
+          "key": "Экран",
+          "value": "Always-On Retina LTPO3"
+        },
+        {
+          "key": "Чип",
+          "value": "Apple S10"
+        }
+      ],
+      "images": []
+    },
+    {
+      "id": "airpods-4",
+      "slug": "airpods-4",
+      "name": "AirPods 4",
+      "category_id": "airpods",
+      "price": 15990,
+      "old_price": null,
+      "tagline": "Новый дизайн, чип H2.",
+      "description": "AirPods 4 — обновлённая посадка, пространственный звук и чип Apple H2.",
+      "image": "https://cdn.biggeek.ru/images/airpods-4.jpg",
+      "in_stock": true,
+      "featured": false,
+      "aliases": "эирподс 4 airpods4",
+      "sort_order": 3,
+      "colors": [
+        {
+          "name": "White",
+          "hex": "#ffffff"
+        }
+      ],
+      "variants": [
+        {
+          "name": "Стандарт",
+          "price_delta": 0
+        }
+      ],
+      "specs": [
+        {
+          "key": "Чип",
+          "value": "Apple H2"
+        },
+        {
+          "key": "Время работы",
+          "value": "до 30 ч с кейсом"
+        }
+      ],
+      "images": []
+    },
+    {
+      "id": "airpods-4-anc",
+      "slug": "airpods-4-anc",
+      "name": "AirPods 4 с шумоподавлением",
+      "category_id": "airpods",
+      "price": 19990,
+      "old_price": null,
+      "tagline": "Активное шумоподавление в открытой форме.",
+      "description": "AirPods 4 с активным шумоподавлением, прозрачным режимом и беспроводной зарядкой кейса.",
+      "image": "https://cdn.biggeek.ru/images/airpods-4-anc.jpg",
+      "in_stock": true,
+      "featured": true,
+      "aliases": "airpods4anc эирподс",
+      "sort_order": 4,
+      "colors": [
+        {
+          "name": "White",
+          "hex": "#ffffff"
+        }
+      ],
+      "variants": [
+        {
+          "name": "Стандарт",
+          "price_delta": 0
+        }
+      ],
+      "specs": [
+        {
+          "key": "Чип",
+          "value": "Apple H2"
+        },
+        {
+          "key": "ANC",
+          "value": "Активное шумоподавление"
+        }
+      ],
       "images": []
     }
   ]
