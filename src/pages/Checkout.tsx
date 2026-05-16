@@ -53,8 +53,7 @@ export default function CheckoutPage() {
         <Field label="Способ оплаты">
           <select value={form.payment} onChange={(e) => setPayment(e.target.value)} className="input">
             <option value="cash">Наличные (только самовывоз)</option>
-            <option value="card">Карта</option>
-            <option value="transfer">Перевод</option>
+            <option value="card">Оплата картой</option>
           </select>
         </Field>
         {form.delivery !== "pickup" && (
