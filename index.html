@@ -105,13 +105,8 @@
     }
 
     function pageCheckout(){
-      const isRemote = state.checkout.delivery === 'courier' || state.checkout.delivery === 'post';
-      if (isRemote) state.checkout.payment = 'transfer';
-      else if (state.checkout.payment === 'card') state.checkout.payment = 'cash';
-      const paymentField = isRemote
-        ? `<label class="field"><span>Способ оплаты</span><input class="input" value="Перевод на карту" disabled><input type="hidden" name="payment" value="transfer"></label>`
-        : `<label class="field"><span>Способ оплаты</span><select class="input" name="payment"><option value="cash" ${state.checkout.payment==='cash'?'selected':''}>Наличные</option><option value="transfer" ${state.checkout.payment==='transfer'?'selected':''}>Перевод на карту</option></select></label>`;
-      return shell(`<h1 class="page-title">Оформление заказа</h1><form class="form" id="checkout-form"><label class="field"><span>Имя</span><input required class="input" name="name" value="${esc(state.checkout.name)}"></label><label class="field"><span>Телефон</span><input required class="input" name="phone" value="${esc(state.checkout.phone)}"></label><label class="field"><span>Способ доставки</span><select class="input" name="delivery"><option value="pickup" ${state.checkout.delivery==='pickup'?'selected':''}>Самовывоз</option><option value="courier" ${state.checkout.delivery==='courier'?'selected':''}>Курьер</option><option value="post" ${state.checkout.delivery==='post'?'selected':''}>Почта</option></select></label><label class="field ${state.checkout.delivery==='pickup'?'hide':''}" id="address-field"><span>Адрес</span><input class="input" name="address" value="${esc(state.checkout.address)}"></label>${paymentField}<label class="field"><span>Комментарий</span><textarea class="input" name="notes">${esc(state.checkout.notes)}</textarea></label><div class="form-bottom"><span style="font-size:19px">Итого: <strong>${money(cartTotal())}</strong></span><button class="btn primary">Оформить через Telegram</button></div></form>`);
+      const paymentField = `<label class="field"><span>Способ оплаты</span><select class="input" name="payment"><option value="cash" ${state.checkout.payment==='cash'?'selected':''}>Наличные (только самовывоз)</option><option value="card" ${state.checkout.payment==='card'?'selected':''}>Оплата картой</option></select></label>`;
+      return shell(`<h1 class="page-title">Оформление заказа</h1><form class="form" id="checkout-form"><label class="field"><span>Имя</span><input required class="input" name="name" value="${esc(state.checkout.name)}"></label><label class="field"><span>Телефон</span><input required class="input" name="phone" value="${esc(state.checkout.phone)}"></label><label class="field"><span>Способ доставки</span><select class="input" name="delivery"><option value="pickup" ${state.checkout.delivery==='pickup'?'selected':''}>Самовывоз</option><option value="courier" ${state.checkout.delivery==='courier'?'selected':''}>Курьер</option><option value="post" ${state.checkout.delivery==='post'?'selected':''}>Почта</option></select></label><label class="field ${state.checkout.delivery==='pickup'?'hide':''}" id="address-field"><span>Адрес</span><input class="input" name="address" value="${esc(state.checkout.address)}"></label>${paymentField}<label class="field"><span>Комментарий</span><textarea class="input" name="notes">${esc(state.checkout.notes)}</textarea></label><div class="form-bottom"><span style="font-size:19px">Итого: <strong>${money(cartTotal())}</strong></span><button class="btn primary">Оформить заказ</button></div></form>`);
     }
 
     function pageLogin(){ if (isAdmin()) setTimeout(()=>go('/admin'),0); return shell(`<div class="login-card"><h1 class="page-title">Вход для администратора</h1><form class="form" id="login-form"><label class="field"><span>Логин</span><input class="input" name="login" autocomplete="username" required value="${esc(state.login)}"></label><label class="field"><span>Пароль</span><input class="input" type="password" name="password" autocomplete="current-password" required value="${esc(state.password)}"></label><button class="btn primary" style="width:100%">Войти</button></form></div>`); }
@@ -213,7 +208,7 @@
     document.addEventListener('input', (e) => {
       const t=e.target;
       if (t.id === 'search') { state.query = t.value; render(); }
-      if (t.name && t.closest('#checkout-form')) { state.checkout[t.name] = t.value; if (t.name === 'delivery') render(); }
+      if (t.name && t.closest('#checkout-form')) { state.checkout[t.name] = t.value; if (t.name === 'payment' && t.value === 'cash') state.checkout.delivery = 'pickup'; if (t.name === 'delivery' || t.name === 'payment') render(); }
       if (t.dataset && t.dataset.p) { if (!window.__editingProduct) return; const k=t.dataset.p; window.__editingProduct[k] = t.type==='checkbox' ? t.checked : (t.type==='number' ? (t.value===''?null:Number(t.value)) : (k==='category_id' ? (t.value||null) : t.value)); }
       if (t.dataset && t.dataset.rowField) { const row=t.closest('[data-row]'); const list=t.closest('[data-list]'); if (row && list && window.__editingProduct) { const key=list.dataset.list; const idx=Number(row.dataset.row); const field=t.dataset.rowField; window.__editingProduct[key][idx][field] = t.type==='number' ? Number(t.value) : t.value; const siblings = row.querySelectorAll(`[data-row-field="${field}"]`); siblings.forEach(s => { if (s !== t && s.type !== t.type) s.value = t.value; }); } }
       if (t.dataset && t.dataset.catField && state.editingCategory) { const k=t.dataset.catField; state.editingCategory[k] = t.type==='number' ? Number(t.value) : t.value; }
@@ -232,21 +227,10 @@
         if (state.checkout.name.trim().length<2) return toast('Укажите имя');
         if (state.checkout.phone.trim().length<5) return toast('Укажите телефон');
         const lines=state.cart.map(i=>`• ${i.name} × ${i.qty} — ${money(i.price*i.qty)}`).join('\n');
-        const paymentLabel = state.checkout.payment==='transfer' ? 'Перевод на карту' : (state.checkout.payment==='cash' ? 'Наличные' : state.checkout.payment);
+        const paymentLabel = state.checkout.payment==='card' ? 'Оплата картой' : (state.checkout.payment==='cash' ? 'Наличные' : state.checkout.payment);
         const deliveryLabel = state.checkout.delivery==='pickup' ? 'Самовывоз' : (state.checkout.delivery==='courier' ? 'Курьер' : 'Почта');
         const msg=`Новый заказ ATH STORE\n\n${lines}\n\nИтого: ${money(cartTotal())}\nИмя: ${state.checkout.name}\nТел: ${state.checkout.phone}\nДоставка: ${deliveryLabel}\nОплата: ${paymentLabel}${state.checkout.address?`\nАдрес: ${state.checkout.address}`:''}${state.checkout.notes?`\nКомментарий: ${state.checkout.notes}`:''}`;
-        const tgUrl = `https://t.me/${TELEGRAM_USERNAME}`;
-        const shareUrl = `https://t.me/share/url?url=${encodeURIComponent(tgUrl)}&text=${encodeURIComponent(msg)}`;
-        const win = window.open(shareUrl, '_blank');
-        if (!win) {
-          // fallback: copy to clipboard + redirect in same tab
-          try { navigator.clipboard && navigator.clipboard.writeText(msg); } catch(_) {}
-          toast('Текст заказа скопирован. Откройте Telegram и вставьте.');
-          location.href = tgUrl;
-        } else {
-          try { navigator.clipboard && navigator.clipboard.writeText(msg); } catch(_) {}
-          toast('Заказ открыт в Telegram. Если текст не подставился — он скопирован, вставьте его.');
-        }
+        toast('Заказ оформлен! Мы свяжемся с вами в ближайшее время.');
         clearCart();
         go('/');
       }
