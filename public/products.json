@@ -599,9 +599,56 @@
       "featured": false,
       "aliases": "галакси s25",
       "sort_order": 1,
-      "colors": [],
-      "variants": [],
-      "specs": [],
+      "colors": [
+        {
+          "name": "Titanium Black",
+          "hex": "#2a2a2c"
+        },
+        {
+          "name": "Titanium Gray",
+          "hex": "#8e8e93"
+        },
+        {
+          "name": "Titanium Whitesilver",
+          "hex": "#e5e4e2"
+        }
+      ],
+      "variants": [
+        {
+          "name": "256 ГБ",
+          "price_delta": 0
+        },
+        {
+          "name": "512 ГБ",
+          "price_delta": 15000
+        },
+        {
+          "name": "1 ТБ",
+          "price_delta": 35000
+        }
+      ],
+      "specs": [
+        {
+          "key": "Экран",
+          "value": "6.9″ Dynamic AMOLED 2X 120 Гц"
+        },
+        {
+          "key": "Процессор",
+          "value": "Snapdragon 8 Elite for Galaxy"
+        },
+        {
+          "key": "Камера",
+          "value": "200 Мп + 50 Мп + 10 Мп + 50 Мп"
+        },
+        {
+          "key": "Аккумулятор",
+          "value": "5000 мА·ч"
+        },
+        {
+          "key": "ОЗУ",
+          "value": "12 ГБ"
+        }
+      ],
       "images": []
     },
     {
@@ -618,9 +665,56 @@
       "featured": false,
       "aliases": "фолд zfold6",
       "sort_order": 2,
-      "colors": [],
-      "variants": [],
-      "specs": [],
+      "colors": [
+        {
+          "name": "Silver Shadow",
+          "hex": "#bfbfc2"
+        },
+        {
+          "name": "Pink",
+          "hex": "#f5cfcf"
+        },
+        {
+          "name": "Navy",
+          "hex": "#1d2a44"
+        }
+      ],
+      "variants": [
+        {
+          "name": "256 ГБ",
+          "price_delta": 0
+        },
+        {
+          "name": "512 ГБ",
+          "price_delta": 20000
+        },
+        {
+          "name": "1 ТБ",
+          "price_delta": 50000
+        }
+      ],
+      "specs": [
+        {
+          "key": "Внутренний экран",
+          "value": "7.6″ Dynamic AMOLED 2X 120 Гц"
+        },
+        {
+          "key": "Внешний экран",
+          "value": "6.3″ AMOLED 120 Гц"
+        },
+        {
+          "key": "Процессор",
+          "value": "Snapdragon 8 Gen 3 for Galaxy"
+        },
+        {
+          "key": "Камера",
+          "value": "50 + 12 + 10 Мп"
+        },
+        {
+          "key": "ОЗУ",
+          "value": "12 ГБ"
+        }
+      ],
       "images": []
     },
     {
@@ -637,9 +731,44 @@
       "featured": false,
       "aliases": "сяоми",
       "sort_order": 1,
-      "colors": [],
-      "variants": [],
-      "specs": [],
+      "colors": [
+        {
+          "name": "Чёрный",
+          "hex": "#1d1d1f"
+        },
+        {
+          "name": "Белый",
+          "hex": "#f5f5f7"
+        }
+      ],
+      "variants": [
+        {
+          "name": "512 ГБ",
+          "price_delta": 0
+        },
+        {
+          "name": "1 ТБ",
+          "price_delta": 15000
+        }
+      ],
+      "specs": [
+        {
+          "key": "Экран",
+          "value": "6.73″ LTPO AMOLED 120 Гц"
+        },
+        {
+          "key": "Процессор",
+          "value": "Snapdragon 8 Gen 3"
+        },
+        {
+          "key": "Камера",
+          "value": "50 Мп Leica × 4 (1.0″ сенсор)"
+        },
+        {
+          "key": "Аккумулятор",
+          "value": "5300 мА·ч, 90 Вт"
+        }
+      ],
       "images": []
     },
     {
@@ -656,9 +785,48 @@
       "featured": false,
       "aliases": "редми note",
       "sort_order": 2,
-      "colors": [],
-      "variants": [],
-      "specs": [],
+      "colors": [
+        {
+          "name": "Midnight Black",
+          "hex": "#1d1d1f"
+        },
+        {
+          "name": "Forest Green",
+          "hex": "#3d5a4a"
+        },
+        {
+          "name": "Lavender Purple",
+          "hex": "#b8a3d4"
+        }
+      ],
+      "variants": [
+        {
+          "name": "8/256 ГБ",
+          "price_delta": 0
+        },
+        {
+          "name": "12/512 ГБ",
+          "price_delta": 5000
+        }
+      ],
+      "specs": [
+        {
+          "key": "Экран",
+          "value": "6.67″ AMOLED 120 Гц, 1.5K"
+        },
+        {
+          "key": "Процессор",
+          "value": "Snapdragon 7s Gen 2"
+        },
+        {
+          "key": "Камера",
+          "value": "200 Мп + 8 Мп + 2 Мп"
+        },
+        {
+          "key": "Аккумулятор",
+          "value": "5100 мА·ч, 67 Вт"
+        }
+      ],
       "images": []
     },
     {
@@ -675,9 +843,36 @@
       "featured": false,
       "aliases": "магсейф",
       "sort_order": 1,
-      "colors": [],
-      "variants": [],
-      "specs": [],
+      "colors": [
+        {
+          "name": "Белый",
+          "hex": "#ffffff"
+        }
+      ],
+      "variants": [
+        {
+          "name": "1 м",
+          "price_delta": 0
+        },
+        {
+          "name": "2 м",
+          "price_delta": 1500
+        }
+      ],
+      "specs": [
+        {
+          "key": "Мощность",
+          "value": "до 15 Вт (iPhone)"
+        },
+        {
+          "key": "Разъём",
+          "value": "USB-C"
+        },
+        {
+          "key": "Совместимость",
+          "value": "iPhone 12 и новее, AirPods с кейсом MagSafe"
+        }
+      ],
       "images": []
     },
     {
@@ -694,9 +889,36 @@
       "featured": false,
       "aliases": "пенсил",
       "sort_order": 2,
-      "colors": [],
-      "variants": [],
-      "specs": [],
+      "colors": [
+        {
+          "name": "Белый",
+          "hex": "#ffffff"
+        }
+      ],
+      "variants": [
+        {
+          "name": "Стандарт",
+          "price_delta": 0
+        }
+      ],
+      "specs": [
+        {
+          "key": "Совместимость",
+          "value": "iPad Pro M4, iPad Air M2"
+        },
+        {
+          "key": "Функции",
+          "value": "Squeeze, Barrel Roll, Haptic Feedback"
+        },
+        {
+          "key": "Поиск",
+          "value": "Find My"
+        },
+        {
+          "key": "Зарядка",
+          "value": "Беспроводная магнитная"
+        }
+      ],
       "images": []
     },
     {
@@ -713,9 +935,48 @@
       "featured": false,
       "aliases": "сони наушники",
       "sort_order": 1,
-      "colors": [],
-      "variants": [],
-      "specs": [],
+      "colors": [
+        {
+          "name": "Чёрный",
+          "hex": "#1d1d1f"
+        },
+        {
+          "name": "Серебристый",
+          "hex": "#d6d6d6"
+        },
+        {
+          "name": "Midnight Blue",
+          "hex": "#2a3a5a"
+        }
+      ],
+      "variants": [
+        {
+          "name": "Стандарт",
+          "price_delta": 0
+        }
+      ],
+      "specs": [
+        {
+          "key": "Тип",
+          "value": "Накладные, закрытые"
+        },
+        {
+          "key": "Шумоподавление",
+          "value": "Адаптивное ANC"
+        },
+        {
+          "key": "Автономность",
+          "value": "До 30 часов"
+        },
+        {
+          "key": "Кодеки",
+          "value": "LDAC, AAC, SBC"
+        },
+        {
+          "key": "Bluetooth",
+          "value": "5.2"
+        }
+      ],
       "images": []
     },
     {
@@ -732,9 +993,44 @@
       "featured": false,
       "aliases": "маршалл колонка",
       "sort_order": 2,
-      "colors": [],
-      "variants": [],
-      "specs": [],
+      "colors": [
+        {
+          "name": "Чёрный",
+          "hex": "#1d1d1f"
+        },
+        {
+          "name": "Кремовый",
+          "hex": "#e8dcc4"
+        },
+        {
+          "name": "Коричневый",
+          "hex": "#5a3a2a"
+        }
+      ],
+      "variants": [
+        {
+          "name": "Стандарт",
+          "price_delta": 0
+        }
+      ],
+      "specs": [
+        {
+          "key": "Мощность",
+          "value": "80 Вт"
+        },
+        {
+          "key": "Bluetooth",
+          "value": "5.2 aptX"
+        },
+        {
+          "key": "Входы",
+          "value": "RCA, 3.5 мм, HDMI ARC"
+        },
+        {
+          "key": "Wi-Fi",
+          "value": "Да (стриминг)"
+        }
+      ],
       "images": []
     },
     {
@@ -751,9 +1047,40 @@
       "featured": false,
       "aliases": "эпл тв",
       "sort_order": 1,
-      "colors": [],
-      "variants": [],
-      "specs": [],
+      "colors": [
+        {
+          "name": "Чёрный",
+          "hex": "#1d1d1f"
+        }
+      ],
+      "variants": [
+        {
+          "name": "Wi-Fi 64 ГБ",
+          "price_delta": 0
+        },
+        {
+          "name": "Wi-Fi + Ethernet 128 ГБ",
+          "price_delta": 3000
+        }
+      ],
+      "specs": [
+        {
+          "key": "Процессор",
+          "value": "Apple A15 Bionic"
+        },
+        {
+          "key": "Разрешение",
+          "value": "4K HDR, Dolby Vision"
+        },
+        {
+          "key": "Звук",
+          "value": "Dolby Atmos"
+        },
+        {
+          "key": "ОС",
+          "value": "tvOS"
+        }
+      ],
       "images": []
     },
     {
@@ -770,9 +1097,40 @@
       "featured": false,
       "aliases": "сяоми стик",
       "sort_order": 2,
-      "colors": [],
-      "variants": [],
-      "specs": [],
+      "colors": [
+        {
+          "name": "Чёрный",
+          "hex": "#1d1d1f"
+        }
+      ],
+      "variants": [
+        {
+          "name": "Стандарт",
+          "price_delta": 0
+        }
+      ],
+      "specs": [
+        {
+          "key": "Разрешение",
+          "value": "4K HDR10+"
+        },
+        {
+          "key": "ОС",
+          "value": "Google TV (Android TV 11)"
+        },
+        {
+          "key": "ОЗУ",
+          "value": "2 ГБ"
+        },
+        {
+          "key": "Память",
+          "value": "8 ГБ"
+        },
+        {
+          "key": "Пульт",
+          "value": "Голосовой, Google Assistant"
+        }
+      ],
       "images": []
     },
     {
@@ -789,9 +1147,36 @@
       "featured": false,
       "aliases": "пс5 ps5",
       "sort_order": 1,
-      "colors": [],
-      "variants": [],
-      "specs": [],
+      "colors": [
+        {
+          "name": "Белый",
+          "hex": "#f5f5f7"
+        }
+      ],
+      "variants": [
+        {
+          "name": "2 ТБ SSD",
+          "price_delta": 0
+        }
+      ],
+      "specs": [
+        {
+          "key": "GPU",
+          "value": "RDNA, ~67% быстрее PS5"
+        },
+        {
+          "key": "PSSR",
+          "value": "AI-апскейл до 4K"
+        },
+        {
+          "key": "SSD",
+          "value": "2 ТБ NVMe"
+        },
+        {
+          "key": "Трассировка",
+          "value": "Улучшенная Ray Tracing"
+        }
+      ],
       "images": []
     },
     {
@@ -808,9 +1193,36 @@
       "featured": false,
       "aliases": "иксбокс",
       "sort_order": 2,
-      "colors": [],
-      "variants": [],
-      "specs": [],
+      "colors": [
+        {
+          "name": "Чёрный",
+          "hex": "#1d1d1f"
+        }
+      ],
+      "variants": [
+        {
+          "name": "1 ТБ",
+          "price_delta": 0
+        }
+      ],
+      "specs": [
+        {
+          "key": "Процессор",
+          "value": "AMD Zen 2, 8 ядер"
+        },
+        {
+          "key": "GPU",
+          "value": "12 TFLOPS RDNA 2"
+        },
+        {
+          "key": "SSD",
+          "value": "1 ТБ NVMe"
+        },
+        {
+          "key": "Разрешение",
+          "value": "4K @ 120 fps"
+        }
+      ],
       "images": []
     },
     {
@@ -827,9 +1239,52 @@
       "featured": false,
       "aliases": "хоумпод",
       "sort_order": 1,
-      "colors": [],
-      "variants": [],
-      "specs": [],
+      "colors": [
+        {
+          "name": "Белый",
+          "hex": "#f5f5f7"
+        },
+        {
+          "name": "Серый космос",
+          "hex": "#56575a"
+        },
+        {
+          "name": "Жёлтый",
+          "hex": "#f5d76e"
+        },
+        {
+          "name": "Оранжевый",
+          "hex": "#f5a25a"
+        },
+        {
+          "name": "Синий",
+          "hex": "#4a6fa5"
+        }
+      ],
+      "variants": [
+        {
+          "name": "Стандарт",
+          "price_delta": 0
+        }
+      ],
+      "specs": [
+        {
+          "key": "Голос",
+          "value": "Siri"
+        },
+        {
+          "key": "Платформа",
+          "value": "Apple HomeKit"
+        },
+        {
+          "key": "Связь",
+          "value": "Wi-Fi, Bluetooth 5.0, Thread"
+        },
+        {
+          "key": "Звук",
+          "value": "Полнодиапазонный драйвер + 2 пассивных излучателя"
+        }
+      ],
       "images": []
     },
     {
@@ -846,9 +1301,40 @@
       "featured": false,
       "aliases": "робот пылесос",
       "sort_order": 2,
-      "colors": [],
-      "variants": [],
-      "specs": [],
+      "colors": [
+        {
+          "name": "Белый",
+          "hex": "#f5f5f7"
+        }
+      ],
+      "variants": [
+        {
+          "name": "С док-станцией",
+          "price_delta": 0
+        }
+      ],
+      "specs": [
+        {
+          "key": "Всасывание",
+          "value": "4000 Па"
+        },
+        {
+          "key": "Навигация",
+          "value": "LDS лазерная"
+        },
+        {
+          "key": "Влажная уборка",
+          "value": "Да, вибрирующая швабра"
+        },
+        {
+          "key": "Док-станция",
+          "value": "Самоочистка швабры и пылесборника"
+        },
+        {
+          "key": "Аккумулятор",
+          "value": "5200 мА·ч"
+        }
+      ],
       "images": []
     },
     {
@@ -865,9 +1351,40 @@
       "featured": false,
       "aliases": "дайсон",
       "sort_order": 1,
-      "colors": [],
-      "variants": [],
-      "specs": [],
+      "colors": [
+        {
+          "name": "Жёлтый/Никель",
+          "hex": "#d4b03a"
+        }
+      ],
+      "variants": [
+        {
+          "name": "Absolute",
+          "price_delta": 0
+        },
+        {
+          "name": "Complete",
+          "price_delta": 10000
+        }
+      ],
+      "specs": [
+        {
+          "key": "Двигатель",
+          "value": "Dyson Hyperdymium, 125 000 об/мин"
+        },
+        {
+          "key": "Автономность",
+          "value": "До 60 минут"
+        },
+        {
+          "key": "Фильтрация",
+          "value": "HEPA, 99.99%"
+        },
+        {
+          "key": "Лазер",
+          "value": "Подсветка пыли Fluffy"
+        }
+      ],
       "images": []
     },
     {
@@ -884,9 +1401,40 @@
       "featured": false,
       "aliases": "эирврап",
       "sort_order": 2,
-      "colors": [],
-      "variants": [],
-      "specs": [],
+      "colors": [
+        {
+          "name": "Никель/Медь",
+          "hex": "#b87333"
+        },
+        {
+          "name": "Розовый/Никель",
+          "hex": "#e8a4b8"
+        }
+      ],
+      "variants": [
+        {
+          "name": "Complete Long",
+          "price_delta": 0
+        }
+      ],
+      "specs": [
+        {
+          "key": "Эффект Коанда",
+          "value": "Завивка без экстремального нагрева"
+        },
+        {
+          "key": "Контроль температуры",
+          "value": "Интеллектуальный, до 150 °C"
+        },
+        {
+          "key": "Насадки",
+          "value": "6 в комплекте"
+        },
+        {
+          "key": "Двигатель",
+          "value": "Dyson V9"
+        }
+      ],
       "images": []
     }
   ]
