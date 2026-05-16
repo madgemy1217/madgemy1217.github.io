@@ -48,7 +48,7 @@ export default function CheckoutPage() {
         <Field label="Имя"><input required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className="input" /></Field>
         <Field label="Телефон"><input required value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className="input" /></Field>
         <Field label="Способ доставки">
-          <select value={form.delivery} onChange={(e) => setForm({ ...form, delivery: e.target.value })} className="input">
+          <select value={form.delivery} onChange={(e) => setDelivery(e.target.value)} className="input">
             <option value="pickup">Самовывоз</option>
             <option value="courier">Курьер</option>
             <option value="post">Почта</option>
@@ -56,7 +56,7 @@ export default function CheckoutPage() {
         </Field>
         <Field label="Способ оплаты">
           <select value={form.payment} onChange={(e) => setPayment(e.target.value)} className="input">
-            <option value="cash">Наличные (только самовывоз)</option>
+            {form.delivery === "pickup" && <option value="cash">Наличные при получении</option>}
             <option value="card">Оплата картой</option>
           </select>
         </Field>
