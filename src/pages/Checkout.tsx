@@ -5,8 +5,6 @@ import { useCart } from "@/lib/cart";
 import { money } from "@/lib/utils";
 import { toast } from "sonner";
 
-const TELEGRAM_USERNAME = "your_username"; // замените на свой Telegram
-
 export default function CheckoutPage() {
   const { items, total, clear } = useCart();
   const navigate = useNavigate();
@@ -15,6 +13,15 @@ export default function CheckoutPage() {
     name: "", phone: "", delivery: "pickup", payment: "cash", address: "", notes: "",
   });
 
+  // При выборе наличных — автоматически самовывоз
+  function setPayment(payment: string) {
+    setForm((f) => ({
+      ...f,
+      payment,
+      delivery: payment === "cash" ? "pickup" : f.delivery,
+    }));
+  }
+
   function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (items.length === 0) return toast.error("Корзина пуста");
@@ -22,11 +29,8 @@ export default function CheckoutPage() {
     if (form.phone.trim().length < 5) return toast.error("Укажите телефон");
     setSubmitting(true);
     try {
-      const lines = items.map((i) => `• ${i.name} × ${i.qty} — ${money(i.price * i.qty)}`).join("%0A");
-      const msg = `Новый заказ ATH STORE%0A%0A${lines}%0A%0AИтого: ${money(total)}%0AИмя: ${form.name}%0AТел: ${form.phone}%0AДоставка: ${form.delivery}%0AОплата: ${form.payment}${form.address ? `%0AАдрес: ${form.address}` : ""}${form.notes ? `%0AКомментарий: ${form.notes}` : ""}`;
-      window.open(`https://t.me/${TELEGRAM_USERNAME}?text=${msg}`, "_blank");
       clear();
-      toast.success("Заказ отправлен в Telegram!");
+      toast.success("Заказ оформлен! Мы свяжемся с вами в ближайшее время.");
       navigate("/");
     } finally {
       setSubmitting(false);
