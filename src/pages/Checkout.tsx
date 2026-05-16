@@ -13,13 +13,17 @@ export default function CheckoutPage() {
     name: "", phone: "", delivery: "pickup", payment: "cash", address: "", notes: "",
   });
 
-  // При выборе наличных — автоматически самовывоз
-  function setPayment(payment: string) {
+  // Наличные доступны только при самовывозе
+  function setDelivery(delivery: string) {
     setForm((f) => ({
       ...f,
-      payment,
-      delivery: payment === "cash" ? "pickup" : f.delivery,
+      delivery,
+      // Если ушли от самовывоза, а была оплата наличными — переключаем на карту
+      payment: delivery !== "pickup" && f.payment === "cash" ? "card" : f.payment,
     }));
+  }
+  function setPayment(payment: string) {
+    setForm((f) => ({ ...f, payment }));
   }
 
   function onSubmit(e: React.FormEvent) {
