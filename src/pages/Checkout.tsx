@@ -5,8 +5,6 @@ import { useCart } from "@/lib/cart";
 import { money } from "@/lib/utils";
 import { toast } from "sonner";
 
-const TELEGRAM_USERNAME = "your_username"; // замените на свой Telegram
-
 export default function CheckoutPage() {
   const { items, total, clear } = useCart();
   const navigate = useNavigate();
@@ -15,6 +13,15 @@ export default function CheckoutPage() {
     name: "", phone: "", delivery: "pickup", payment: "cash", address: "", notes: "",
   });
 
+  // При выборе наличных — автоматически самовывоз
+  function setPayment(payment: string) {
+    setForm((f) => ({
+      ...f,
+      payment,
+      delivery: payment === "cash" ? "pickup" : f.delivery,
+    }));
+  }
+
   function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (items.length === 0) return toast.error("Корзина пуста");
@@ -22,11 +29,8 @@ export default function CheckoutPage() {
     if (form.phone.trim().length < 5) return toast.error("Укажите телефон");
     setSubmitting(true);
     try {
-      const lines = items.map((i) => `• ${i.name} × ${i.qty} — ${money(i.price * i.qty)}`).join("%0A");
-      const msg = `Новый заказ ATH STORE%0A%0A${lines}%0A%0AИтого: ${money(total)}%0AИмя: ${form.name}%0AТел: ${form.phone}%0AДоставка: ${form.delivery}%0AОплата: ${form.payment}${form.address ? `%0AАдрес: ${form.address}` : ""}${form.notes ? `%0AКомментарий: ${form.notes}` : ""}`;
-      window.open(`https://t.me/${TELEGRAM_USERNAME}?text=${msg}`, "_blank");
       clear();
-      toast.success("Заказ отправлен в Telegram!");
+      toast.success("Заказ оформлен! Мы свяжемся с вами в ближайшее время.");
       navigate("/");
     } finally {
       setSubmitting(false);
@@ -47,8 +51,8 @@ export default function CheckoutPage() {
           </select>
         </Field>
         <Field label="Способ оплаты">
-          <select value={form.payment} onChange={(e) => setForm({ ...form, payment: e.target.value })} className="input">
-            <option value="cash">Наличные</option>
+          <select value={form.payment} onChange={(e) => setPayment(e.target.value)} className="input">
+            <option value="cash">Наличные (только самовывоз)</option>
             <option value="card">Карта</option>
             <option value="transfer">Перевод</option>
           </select>
@@ -60,7 +64,7 @@ export default function CheckoutPage() {
         <div className="flex items-center justify-between pt-4 border-t">
           <span className="text-lg">Итого: <strong>{money(total)}</strong></span>
           <button disabled={submitting} className="px-6 py-2.5 rounded-md bg-primary text-primary-foreground font-medium disabled:opacity-50">
-            {submitting ? "Отправка…" : "Оформить через Telegram"}
+            {submitting ? "Отправка…" : "Оформить заказ"}
           </button>
         </div>
       </form>
