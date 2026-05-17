@@ -43,7 +43,7 @@ export default function CategoryPage() {
   // сброс фильтров при смене категории
   useEffect(() => {
     setQuery(""); setOnlyInStock(false); setOnlySale(false);
-    setPriceMin(""); setPriceMax(""); setSort("popular"); setPickedColors([]);
+    setPriceMin(""); setPriceMax(""); setSort("popular"); setPickedColors([]); setSpecFilters({});
   }, [slug]);
 
   const category = useMemo(() => categories.find((c) => c.slug === slug), [categories, slug]);
