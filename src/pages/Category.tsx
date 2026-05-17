@@ -21,6 +21,7 @@ export default function CategoryPage() {
   const [priceMax, setPriceMax] = useState<string>("");
   const [sort, setSort] = useState<SortKey>("popular");
   const [pickedColors, setPickedColors] = useState<string[]>([]);
+  const [specFilters, setSpecFilters] = useState<Record<string, string[]>>({});
   const { add } = useCart();
 
   useEffect(() => {
