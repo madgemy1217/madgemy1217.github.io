@@ -209,6 +209,9 @@
       const t = e.target.closest('button,a,label'); if (!t) return;
       if (t.dataset.action === 'logout') { localStorage.removeItem(STORAGE_ADMIN); toast('Вы вышли'); go('/'); render(); }
       if (t.dataset.cat) { state.activeCat = t.dataset.cat; render(); }
+      if (t.dataset.resetFilters !== undefined) { state.query=''; state.sort='popular'; state.onlyStock=false; state.onlySale=false; state.priceMin=''; state.priceMax=''; state.colors=[]; state.specs={}; render(); }
+      if (t.dataset.filterColor) { state.colors = state.colors.includes(t.dataset.filterColor) ? state.colors.filter(x=>x!==t.dataset.filterColor) : [...state.colors, t.dataset.filterColor]; render(); }
+      if (t.dataset.filterSpecKey) { const key=t.dataset.filterSpecKey; const value=t.dataset.filterSpecValue; const cur=state.specs[key] || []; const next=cur.includes(value) ? cur.filter(x=>x!==value) : [...cur,value]; state.specs = {...state.specs}; if (next.length) state.specs[key]=next; else delete state.specs[key]; render(); }
       if (t.dataset.addSimple) { const c = await loadCatalog(); const p = c.products.find(x=>x.id===t.dataset.addSimple); if (p) addCart({id:p.id,name:p.name,price:p.price,image:p.image}); }
       if (t.dataset.variant) { state.variantIdx = Number(t.dataset.variant); render(); }
       if (t.dataset.color) { state.colorIdx = Number(t.dataset.color); render(); }
@@ -235,6 +238,11 @@
     document.addEventListener('input', (e) => {
       const t=e.target;
       if (t.id === 'search') { state.query = t.value; render(); }
+      if (t.id === 'sort') { state.sort = t.value; render(); }
+      if (t.id === 'price-min') { state.priceMin = t.value; render(); }
+      if (t.id === 'price-max') { state.priceMax = t.value; render(); }
+      if (t.id === 'only-stock') { state.onlyStock = t.checked; render(); }
+      if (t.id === 'only-sale') { state.onlySale = t.checked; render(); }
       if (t.name && t.closest('#checkout-form')) { state.checkout[t.name] = t.value; if (t.name === 'payment' && t.value === 'cash') state.checkout.delivery = 'pickup'; if (t.name === 'delivery' || t.name === 'payment') render(); }
       if (t.dataset && t.dataset.p) { if (!window.__editingProduct) return; const k=t.dataset.p; window.__editingProduct[k] = t.type==='checkbox' ? t.checked : (t.type==='number' ? (t.value===''?null:Number(t.value)) : (k==='category_id' ? (t.value||null) : t.value)); }
       if (t.dataset && t.dataset.rowField) { const row=t.closest('[data-row]'); const list=t.closest('[data-list]'); if (row && list && window.__editingProduct) { const key=list.dataset.list; const idx=Number(row.dataset.row); const field=t.dataset.rowField; window.__editingProduct[key][idx][field] = t.type==='number' ? Number(t.value) : t.value; const siblings = row.querySelectorAll(`[data-row-field="${field}"]`); siblings.forEach(s => { if (s !== t && s.type !== t.type) s.value = t.value; }); } }
@@ -243,6 +251,7 @@
 
     document.addEventListener('change', async (e) => {
       const t=e.target;
+      if (t.id === 'sort') { state.sort = t.value; render(); }
       if (t.id === 'json-import' && t.files && t.files[0]) { try { const parsed=JSON.parse(await t.files[0].text()); if (!parsed.categories || !parsed.products) throw new Error('Неверная структура'); saveCatalog(parsed); toast('Загружено'); } catch(err){ toast(err.message || 'Ошибка JSON'); } t.value=''; }
     });
 
