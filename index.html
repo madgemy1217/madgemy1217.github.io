@@ -26,7 +26,7 @@
     const SHOP_PHONE_TEL = "+79775529220";
     const SHOP_ADDRESS = "ТЦ «Горбушкин двор», г. Москва, Багратионовский проезд, 7к1";
     let catalogCache = null;
-    let state = { cart: readJson(STORAGE_CART, []), activeCat: "all", query: "", variantIdx: 0, colorIdx: 0, adminTab: "products", editingProduct: null, editingCategory: null, checkout: { name:"", phone:"", delivery:"pickup", payment:"cash", address:"", notes:"" }, login:"", password:"" };
+    let state = { cart: readJson(STORAGE_CART, []), activeCat: "all", query: "", sort:"popular", onlyStock:false, onlySale:false, priceMin:"", priceMax:"", colors:[], specs:{}, variantIdx: 0, colorIdx: 0, adminTab: "products", editingProduct: null, editingCategory: null, checkout: { name:"", phone:"", delivery:"pickup", payment:"cash", address:"", notes:"" }, login:"", password:"" };
     const app = document.getElementById("app");
 
     function readJson(key, fallback){ try { const raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : fallback; } catch { return fallback; } }
@@ -35,6 +35,16 @@
     function money(value){ return new Intl.NumberFormat("ru-RU", { style:"currency", currency:"RUB", maximumFractionDigits:0 }).format(Number(value || 0)); }
     function esc(value){ return String(value ?? "").replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[ch])); }
     function toast(message){ const box = document.getElementById("toasts"); const item = document.createElement("div"); item.className = "toast"; item.textContent = message; box.appendChild(item); setTimeout(() => item.remove(), 2600); }
+    function isSpecActive(key,value){ return (state.specs[key] || []).includes(value); }
+    function filterValues(products, key){ return [...new Set(products.flatMap(p => (p.specs || []).filter(s => s.key === key).map(s => s.value)).filter(Boolean))].sort((a,b)=>String(a).localeCompare(String(b),'ru')); }
+    function categoryFilters(slug, products){
+      const prices = products.map(p => Number(p.price || 0)).filter(Boolean);
+      const colorMap = new Map(); products.forEach(p => (p.colors || []).forEach(c => { if (!colorMap.has(c.name)) colorMap.set(c.name, c); }));
+      const specKeys = [...new Set(products.flatMap(p => (p.specs || []).map(s => s.key)).filter(Boolean))].sort((a,b)=>String(a).localeCompare(String(b),'ru'));
+      const preferred = slug === 'iphone' ? ['Модель','Процессор','Год релиза','Память','Тип разъема для зарядки','Тип разблокировки','Экран','Камера','Поддержка MagSafe','Беспроводная зарядка'] : slug === 'watch' ? ['Модель','Размер корпуса','Постоянная работа экрана','Объем встроенной памяти','Класс','Материал корпуса','Цвет корпуса','Ремешок','Экран','Чип'] : [];
+      const keys = [...preferred.filter(k => specKeys.includes(k)), ...specKeys.filter(k => !preferred.includes(k))];
+      return { min: prices.length ? Math.min(...prices) : 0, max: prices.length ? Math.max(...prices) : 0, colors: [...colorMap.values()], keys };
+    }
     function route(){ const h = location.hash || "#/"; const clean = h.replace(/^#/, "") || "/"; return clean.startsWith("/") ? clean : "/" + clean; }
     function go(path){ location.hash = "#" + path; }
     function uid(){ return (crypto && crypto.randomUUID) ? crypto.randomUUID() : "id-" + Date.now() + "-" + Math.random().toString(16).slice(2); }
@@ -43,7 +53,11 @@
     async function loadCatalog(force=false){
       if (catalogCache && !force) return catalogCache;
       const local = readJson(STORAGE_CATALOG, null);
-      if (local) { catalogCache = local; return catalogCache; }
+      if (local) {
+        const hasRichData = (local.products || []).some(p => (p.specs && p.specs.length) || (p.colors && p.colors.length));
+        if (hasRichData) { catalogCache = local; return catalogCache; }
+        localStorage.removeItem(STORAGE_CATALOG);
+      }
       const res = await fetch("./products.json", { cache:"no-cache" });
       if (!res.ok) throw new Error("Не удалось загрузить products.json");
       catalogCache = await res.json();
