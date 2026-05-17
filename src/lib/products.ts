@@ -47,8 +47,16 @@ export async function loadCatalog(force = false): Promise<Catalog> {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (raw) {
-      cache = JSON.parse(raw);
-      return cache!;
+      const parsed = JSON.parse(raw) as Catalog;
+      // если в локальной версии нет характеристик/цветов вообще — она устарела, сбрасываем
+      const hasRichData = parsed.products?.some(
+        (p) => (p.specs && p.specs.length > 0) || (p.colors && p.colors.length > 0),
+      );
+      if (hasRichData) {
+        cache = parsed;
+        return cache!;
+      }
+      localStorage.removeItem(STORAGE_KEY);
     }
   } catch {
     /* ignore */
