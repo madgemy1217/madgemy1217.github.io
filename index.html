@@ -231,6 +231,7 @@
       if (t.dataset.cancelEdit !== undefined) { window.__editingProduct=null; state.editingProduct=null; render(); }
       if (t.dataset.addRow) { const p=collectProduct(); p[t.dataset.addRow].push(blankRow(t.dataset.addRow)); window.__editingProduct=p; app.innerHTML = await pageAdmin(); }
       if (t.dataset.delRow) { const [key, idx] = t.dataset.delRow.split(':'); const p=collectProduct(); p[key].splice(Number(idx),1); window.__editingProduct=p; app.innerHTML = await pageAdmin(); }
+      if (t.dataset.specsTemplate !== undefined) { const p=collectProduct(); const existing=new Set((p.specs||[]).map(s=>s.key)); SPEC_TEMPLATE.forEach(k=>{ if(!existing.has(k)) p.specs.push({key:k, value:''}); }); window.__editingProduct=p; app.innerHTML = await pageAdmin(); toast('Шаблон добавлен'); }
       if (t.dataset.saveProduct !== undefined) { const p=collectProduct(); if (!p.name || !p.slug) return toast('Имя и slug обязательны'); const c=await loadCatalog(); const exists=c.products.some(x=>x.id===p.id); saveCatalog({...c, products: exists ? c.products.map(x=>x.id===p.id?p:x) : [...c.products,p]}); window.__editingProduct=null; state.editingProduct=null; toast('Сохранено'); render(); }
       if (t.dataset.newCategory !== undefined) { const c=await loadCatalog(); state.editingCategory = {id:uid(), name:'', slug:'', sort_order:c.categories.length+1}; render(); }
       if (t.dataset.editCategory) { const c=await loadCatalog(); state.editingCategory = structuredClone(c.categories.find(x=>x.id===t.dataset.editCategory)); render(); }
