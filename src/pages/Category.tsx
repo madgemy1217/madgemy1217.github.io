@@ -21,6 +21,7 @@ export default function CategoryPage() {
   const [priceMax, setPriceMax] = useState<string>("");
   const [sort, setSort] = useState<SortKey>("popular");
   const [pickedColors, setPickedColors] = useState<string[]>([]);
+  const [specFilters, setSpecFilters] = useState<Record<string, string[]>>({});
   const { add } = useCart();
 
   useEffect(() => {
@@ -42,7 +43,7 @@ export default function CategoryPage() {
   // сброс фильтров при смене категории
   useEffect(() => {
     setQuery(""); setOnlyInStock(false); setOnlySale(false);
-    setPriceMin(""); setPriceMax(""); setSort("popular"); setPickedColors([]);
+    setPriceMin(""); setPriceMax(""); setSort("popular"); setPickedColors([]); setSpecFilters({});
   }, [slug]);
 
   const category = useMemo(() => categories.find((c) => c.slug === slug), [categories, slug]);
@@ -52,10 +53,10 @@ export default function CategoryPage() {
     [products, category],
   );
 
-  // диапазон цен и доступные цвета для текущей категории
-  const { minPrice, maxPrice, availableColors } = useMemo(() => {
+  // диапазон цен, цвета и фильтры по характеристикам
+  const { minPrice, maxPrice, availableColors, specOptions } = useMemo(() => {
     if (categoryProducts.length === 0) {
-      return { minPrice: 0, maxPrice: 0, availableColors: [] as { name: string; hex: string }[] };
+      return { minPrice: 0, maxPrice: 0, availableColors: [] as { name: string; hex: string }[], specOptions: [] as { key: string; values: string[] }[] };
     }
     const prices = categoryProducts.map((p) => p.price);
     const colorMap = new Map<string, { name: string; hex: string }>();
@@ -64,10 +65,24 @@ export default function CategoryPage() {
         if (!colorMap.has(c.name)) colorMap.set(c.name, c);
       }
     }
+    // собираем по характеристикам: ключ -> множество значений
+    const specMap = new Map<string, Set<string>>();
+    for (const p of categoryProducts) {
+      for (const s of p.specs ?? []) {
+        if (!specMap.has(s.key)) specMap.set(s.key, new Set());
+        specMap.get(s.key)!.add(s.value);
+      }
+    }
+    const specOpts = Array.from(specMap.entries())
+      .map(([key, vals]) => ({ key, values: Array.from(vals).sort() }))
+      // показываем фильтр только если есть из чего выбрать (хотя бы 2 разных значения)
+      .filter((s) => s.values.length >= 2)
+      .sort((a, b) => a.key.localeCompare(b.key));
     return {
       minPrice: Math.min(...prices),
       maxPrice: Math.max(...prices),
       availableColors: Array.from(colorMap.values()),
+      specOptions: specOpts,
     };
   }, [categoryProducts]);
 
@@ -75,13 +90,15 @@ export default function CategoryPage() {
     const q = query.trim().toLowerCase();
     const pmin = priceMin ? Number(priceMin) : null;
     const pmax = priceMax ? Number(priceMax) : null;
+    const activeSpecs = Object.entries(specFilters).filter(([, v]) => v.length > 0);
     const result = categoryProducts
       .filter((p) => !q || `${p.name} ${p.tagline ?? ""} ${p.description ?? ""} ${p.aliases ?? ""}`.toLowerCase().includes(q))
       .filter((p) => !onlyInStock || p.in_stock)
       .filter((p) => !onlySale || (p.old_price && p.old_price > p.price))
       .filter((p) => pmin == null || p.price >= pmin)
       .filter((p) => pmax == null || p.price <= pmax)
-      .filter((p) => pickedColors.length === 0 || (p.colors ?? []).some((c) => pickedColors.includes(c.name)));
+      .filter((p) => pickedColors.length === 0 || (p.colors ?? []).some((c) => pickedColors.includes(c.name)))
+      .filter((p) => activeSpecs.every(([key, vals]) => (p.specs ?? []).some((s) => s.key === key && vals.includes(s.value))));
 
     switch (sort) {
       case "price-asc": result.sort((a, b) => a.price - b.price); break;
@@ -90,17 +107,27 @@ export default function CategoryPage() {
       default: result.sort((a, b) => a.sort_order - b.sort_order);
     }
     return result;
-  }, [categoryProducts, query, onlyInStock, onlySale, priceMin, priceMax, pickedColors, sort]);
+  }, [categoryProducts, query, onlyInStock, onlySale, priceMin, priceMax, pickedColors, specFilters, sort]);
 
   function toggleColor(name: string) {
     setPickedColors((prev) => prev.includes(name) ? prev.filter((n) => n !== name) : [...prev, name]);
   }
+  function toggleSpec(key: string, value: string) {
+    setSpecFilters((prev) => {
+      const cur = prev[key] ?? [];
+      const next = cur.includes(value) ? cur.filter((v) => v !== value) : [...cur, value];
+      const copy = { ...prev };
+      if (next.length === 0) delete copy[key]; else copy[key] = next;
+      return copy;
+    });
+  }
   function resetFilters() {
     setQuery(""); setOnlyInStock(false); setOnlySale(false);
-    setPriceMin(""); setPriceMax(""); setSort("popular"); setPickedColors([]);
+    setPriceMin(""); setPriceMax(""); setSort("popular"); setPickedColors([]); setSpecFilters({});
   }
 
-  const hasActiveFilters = !!query || onlyInStock || onlySale || !!priceMin || !!priceMax || pickedColors.length > 0 || sort !== "popular";
+  const activeSpecCount = Object.values(specFilters).reduce((n, v) => n + v.length, 0);
+  const hasActiveFilters = !!query || onlyInStock || onlySale || !!priceMin || !!priceMax || pickedColors.length > 0 || activeSpecCount > 0 || sort !== "popular";
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -206,6 +233,27 @@ export default function CategoryPage() {
                     </div>
                   </div>
                 )}
+
+                {specOptions.map((s) => (
+                  <div key={s.key}>
+                    <label className="text-sm font-medium block mb-2">{s.key}</label>
+                    <div className="flex flex-wrap gap-1.5">
+                      {s.values.map((v) => {
+                        const active = (specFilters[s.key] ?? []).includes(v);
+                        return (
+                          <button
+                            key={v}
+                            onClick={() => toggleSpec(s.key, v)}
+                            aria-pressed={active}
+                            className={`px-2.5 py-1 rounded-md border text-xs transition ${active ? "border-primary bg-primary/10 text-primary" : "border-border hover:bg-secondary"}`}
+                          >
+                            {v}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
               </aside>
 
               {/* Сетка товаров */}
