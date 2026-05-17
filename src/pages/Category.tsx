@@ -233,6 +233,27 @@ export default function CategoryPage() {
                     </div>
                   </div>
                 )}
+
+                {specOptions.map((s) => (
+                  <div key={s.key}>
+                    <label className="text-sm font-medium block mb-2">{s.key}</label>
+                    <div className="flex flex-wrap gap-1.5">
+                      {s.values.map((v) => {
+                        const active = (specFilters[s.key] ?? []).includes(v);
+                        return (
+                          <button
+                            key={v}
+                            onClick={() => toggleSpec(s.key, v)}
+                            aria-pressed={active}
+                            className={`px-2.5 py-1 rounded-md border text-xs transition ${active ? "border-primary bg-primary/10 text-primary" : "border-border hover:bg-secondary"}`}
+                          >
+                            {v}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
               </aside>
 
               {/* Сетка товаров */}
