@@ -154,110 +154,73 @@ export default function CategoryPage() {
             <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-2">{category.name}</h1>
             <p className="text-muted-foreground mb-6">{filtered.length} {plural(filtered.length, ["товар", "товара", "товаров"])}</p>
 
+            {/* Кнопка фильтров для мобильной версии */}
+            <div className="lg:hidden mb-4">
+              <button
+                onClick={() => setMobileOpen(true)}
+                className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-md border bg-card text-sm font-medium hover:bg-secondary"
+              >
+                <SlidersHorizontal className="h-4 w-4" />
+                Фильтры{activeSpecCount + pickedColors.length > 0 ? ` · ${activeSpecCount + pickedColors.length}` : ""}
+              </button>
+            </div>
+
             <div className="grid lg:grid-cols-[260px_1fr] gap-6">
-              {/* Сайдбар фильтров */}
-              <aside className="space-y-5 lg:sticky lg:top-4 lg:self-start rounded-xl border bg-card p-4">
-                <div className="flex items-center justify-between">
-                  <h2 className="font-semibold">Фильтры</h2>
-                  {hasActiveFilters && (
-                    <button onClick={resetFilters} className="text-xs text-muted-foreground hover:text-primary underline">
-                      Сбросить
-                    </button>
-                  )}
-                </div>
+              {/* Сайдбар фильтров (desktop) */}
+              <aside className="hidden lg:block space-y-5 lg:sticky lg:top-4 lg:self-start rounded-xl border bg-card p-4">
+                <FilterPanel
+                  hasActiveFilters={hasActiveFilters}
+                  resetFilters={resetFilters}
+                  query={query} setQuery={setQuery}
+                  sort={sort} setSort={setSort}
+                  minPrice={minPrice} maxPrice={maxPrice}
+                  priceMin={priceMin} setPriceMin={setPriceMin}
+                  priceMax={priceMax} setPriceMax={setPriceMax}
+                  onlyInStock={onlyInStock} setOnlyInStock={setOnlyInStock}
+                  onlySale={onlySale} setOnlySale={setOnlySale}
+                  availableColors={availableColors}
+                  pickedColors={pickedColors} toggleColor={toggleColor}
+                  specOptions={specOptions}
+                  specFilters={specFilters} toggleSpec={toggleSpec}
+                />
+              </aside>
 
-                <div>
-                  <label className="text-sm font-medium block mb-2">Поиск</label>
-                  <input
-                    type="search"
-                    placeholder="Название…"
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    className="w-full px-3 py-2 rounded-md border bg-background text-sm"
-                  />
-                </div>
-
-                <div>
-                  <label className="text-sm font-medium block mb-2">Сортировка</label>
-                  <select
-                    value={sort}
-                    onChange={(e) => setSort(e.target.value as SortKey)}
-                    className="w-full px-3 py-2 rounded-md border bg-background text-sm"
-                  >
-                    <option value="popular">По популярности</option>
-                    <option value="price-asc">Цена: по возрастанию</option>
-                    <option value="price-desc">Цена: по убыванию</option>
-                    <option value="name">По названию</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="text-sm font-medium block mb-2">
-                    Цена, ₽ <span className="text-xs text-muted-foreground">({money(minPrice)} – {money(maxPrice)})</span>
-                  </label>
-                  <div className="flex gap-2">
-                    <input
-                      type="number" inputMode="numeric" placeholder="от"
-                      value={priceMin} onChange={(e) => setPriceMin(e.target.value)}
-                      className="w-1/2 px-3 py-2 rounded-md border bg-background text-sm"
-                    />
-                    <input
-                      type="number" inputMode="numeric" placeholder="до"
-                      value={priceMax} onChange={(e) => setPriceMax(e.target.value)}
-                      className="w-1/2 px-3 py-2 rounded-md border bg-background text-sm"
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <label className="flex items-center gap-2 text-sm cursor-pointer">
-                    <input type="checkbox" checked={onlyInStock} onChange={(e) => setOnlyInStock(e.target.checked)} />
-                    Только в наличии
-                  </label>
-                  <label className="flex items-center gap-2 text-sm cursor-pointer">
-                    <input type="checkbox" checked={onlySale} onChange={(e) => setOnlySale(e.target.checked)} />
-                    Со скидкой
-                  </label>
-                </div>
-
-                {availableColors.length > 0 && (
-                  <div>
-                    <label className="text-sm font-medium block mb-2">Цвет</label>
-                    <div className="flex flex-wrap gap-2">
-                      {availableColors.map((c) => {
-                        const active = pickedColors.includes(c.name);
-                        return (
-                          <button
-                            key={c.name}
-                            onClick={() => toggleColor(c.name)}
-                            title={c.name}
-                            aria-label={c.name}
-                            aria-pressed={active}
-                            className={`h-8 w-8 rounded-full border-2 transition ${active ? "border-primary ring-2 ring-primary/30" : "border-border hover:border-primary/50"}`}
-                            style={{ background: c.hex }}
-                          />
-                        );
-                      })}
+              {/* Мобильный drawer */}
+              {mobileOpen && (
+                <div className="fixed inset-0 z-50 lg:hidden">
+                  <div className="absolute inset-0 bg-black/50" onClick={() => setMobileOpen(false)} />
+                  <div className="absolute left-0 top-0 bottom-0 w-[85%] max-w-sm bg-card overflow-y-auto p-4 space-y-5 shadow-xl">
+                    <div className="flex items-center justify-between sticky top-0 bg-card pb-2 -mt-1 pt-1 border-b">
+                      <h2 className="font-semibold text-lg">Фильтры</h2>
+                      <button onClick={() => setMobileOpen(false)} className="p-1.5 rounded-md hover:bg-secondary" aria-label="Закрыть">
+                        <X className="h-5 w-5" />
+                      </button>
                     </div>
+                    <FilterPanel
+                      hasActiveFilters={hasActiveFilters}
+                      resetFilters={resetFilters}
+                      query={query} setQuery={setQuery}
+                      sort={sort} setSort={setSort}
+                      minPrice={minPrice} maxPrice={maxPrice}
+                      priceMin={priceMin} setPriceMin={setPriceMin}
+                      priceMax={priceMax} setPriceMax={setPriceMax}
+                      onlyInStock={onlyInStock} setOnlyInStock={setOnlyInStock}
+                      onlySale={onlySale} setOnlySale={setOnlySale}
+                      availableColors={availableColors}
+                      pickedColors={pickedColors} toggleColor={toggleColor}
+                      specOptions={specOptions}
+                      specFilters={specFilters} toggleSpec={toggleSpec}
+                    />
+                    <button
+                      onClick={() => setMobileOpen(false)}
+                      className="w-full py-2.5 rounded-md bg-primary text-primary-foreground font-medium sticky bottom-0"
+                    >
+                      Показать {filtered.length}
+                    </button>
                   </div>
-                )}
+                </div>
+              )}
 
-                {specOptions.map((s) => (
-                  <div key={s.key}>
-                    <label className="text-sm font-medium block mb-2">{s.key}</label>
-                    <div className="flex flex-wrap gap-1.5">
-                      {s.values.map((v) => {
-                        const active = (specFilters[s.key] ?? []).includes(v);
-                        return (
-                          <button
-                            key={v}
-                            onClick={() => toggleSpec(s.key, v)}
-                            aria-pressed={active}
-                            className={`px-2.5 py-1 rounded-md border text-xs transition ${active ? "border-primary bg-primary/10 text-primary" : "border-border hover:bg-secondary"}`}
-                          >
-                            {v}
-                          </button>
-                        );
                       })}
                     </div>
                   </div>
