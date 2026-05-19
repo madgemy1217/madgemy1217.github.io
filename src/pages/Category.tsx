@@ -69,18 +69,22 @@ export default function CategoryPage() {
         if (!colorMap.has(c.name)) colorMap.set(c.name, c);
       }
     }
-    // собираем по характеристикам: ключ -> множество значений
-    const specMap = new Map<string, Set<string>>();
+    // собираем по характеристикам: ключ -> множество значений + счётчик товаров
+    const specMap = new Map<string, { values: Set<string>; count: number }>();
     for (const p of categoryProducts) {
+      const seenKeys = new Set<string>();
       for (const s of p.specs ?? []) {
-        if (!specMap.has(s.key)) specMap.set(s.key, new Set());
-        specMap.get(s.key)!.add(s.value);
+        if (!specMap.has(s.key)) specMap.set(s.key, { values: new Set(), count: 0 });
+        const entry = specMap.get(s.key)!;
+        entry.values.add(s.value);
+        if (!seenKeys.has(s.key)) { entry.count += 1; seenKeys.add(s.key); }
       }
     }
+    const minCount = Math.max(2, Math.ceil(categoryProducts.length * COMMON_SPEC_RATIO));
     const specOpts = Array.from(specMap.entries())
-      .map(([key, vals]) => ({ key, values: Array.from(vals).sort() }))
-      // показываем фильтр только если есть из чего выбрать (хотя бы 2 разных значения)
-      .filter((s) => s.values.length >= 2)
+      .map(([key, { values, count }]) => ({ key, values: Array.from(values).sort(), count }))
+      // показываем только «общие» характеристики: есть у большинства товаров и с выбором из >=2 значений
+      .filter((s) => s.values.length >= 2 && s.count >= minCount)
       .sort((a, b) => a.key.localeCompare(b.key));
     return {
       minPrice: Math.min(...prices),
