@@ -284,6 +284,14 @@ function ProductEditor({
         </div>
       </Section>
 
+      <Section title="Скидка">
+        <DiscountControl
+          price={p.price}
+          oldPrice={p.old_price}
+          onChange={(price, oldPrice) => setP({ ...p, price, old_price: oldPrice })}
+        />
+      </Section>
+
       <Section title="Цвета">
         <RowList<ProductColor>
           items={p.colors}
