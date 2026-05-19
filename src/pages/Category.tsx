@@ -277,3 +277,110 @@ function plural(n: number, forms: [string, string, string]) {
   if (b === 1) return forms[0];
   return forms[2];
 }
+
+type FilterPanelProps = {
+  hasActiveFilters: boolean;
+  resetFilters: () => void;
+  query: string; setQuery: (v: string) => void;
+  sort: SortKey; setSort: (v: SortKey) => void;
+  minPrice: number; maxPrice: number;
+  priceMin: string; setPriceMin: (v: string) => void;
+  priceMax: string; setPriceMax: (v: string) => void;
+  onlyInStock: boolean; setOnlyInStock: (v: boolean) => void;
+  onlySale: boolean; setOnlySale: (v: boolean) => void;
+  availableColors: { name: string; hex: string }[];
+  pickedColors: string[]; toggleColor: (n: string) => void;
+  specOptions: { key: string; values: string[] }[];
+  specFilters: Record<string, string[]>; toggleSpec: (k: string, v: string) => void;
+};
+
+function FilterPanel(p: FilterPanelProps) {
+  return (
+    <div className="space-y-5">
+      <div className="flex items-center justify-between">
+        <h2 className="font-semibold">Параметры</h2>
+        {p.hasActiveFilters && (
+          <button onClick={p.resetFilters} className="text-xs text-muted-foreground hover:text-primary underline">
+            Сбросить
+          </button>
+        )}
+      </div>
+
+      <div>
+        <label className="text-sm font-medium block mb-2">Поиск</label>
+        <input type="search" placeholder="Название…" value={p.query} onChange={(e) => p.setQuery(e.target.value)}
+          className="w-full px-3 py-2 rounded-md border bg-background text-sm" />
+      </div>
+
+      <div>
+        <label className="text-sm font-medium block mb-2">Сортировка</label>
+        <select value={p.sort} onChange={(e) => p.setSort(e.target.value as SortKey)}
+          className="w-full px-3 py-2 rounded-md border bg-background text-sm">
+          <option value="popular">По популярности</option>
+          <option value="price-asc">Цена: по возрастанию</option>
+          <option value="price-desc">Цена: по убыванию</option>
+          <option value="name">По названию</option>
+        </select>
+      </div>
+
+      <div>
+        <label className="text-sm font-medium block mb-2">
+          Цена, ₽ <span className="text-xs text-muted-foreground">({money(p.minPrice)} – {money(p.maxPrice)})</span>
+        </label>
+        <div className="flex gap-2">
+          <input type="number" inputMode="numeric" placeholder="от" value={p.priceMin}
+            onChange={(e) => p.setPriceMin(e.target.value)}
+            className="w-1/2 px-3 py-2 rounded-md border bg-background text-sm" />
+          <input type="number" inputMode="numeric" placeholder="до" value={p.priceMax}
+            onChange={(e) => p.setPriceMax(e.target.value)}
+            className="w-1/2 px-3 py-2 rounded-md border bg-background text-sm" />
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <label className="flex items-center gap-2 text-sm cursor-pointer">
+          <input type="checkbox" checked={p.onlyInStock} onChange={(e) => p.setOnlyInStock(e.target.checked)} />
+          Только в наличии
+        </label>
+        <label className="flex items-center gap-2 text-sm cursor-pointer">
+          <input type="checkbox" checked={p.onlySale} onChange={(e) => p.setOnlySale(e.target.checked)} />
+          Со скидкой
+        </label>
+      </div>
+
+      {p.availableColors.length > 0 && (
+        <div>
+          <label className="text-sm font-medium block mb-2">Цвет</label>
+          <div className="flex flex-wrap gap-2">
+            {p.availableColors.map((c) => {
+              const active = p.pickedColors.includes(c.name);
+              return (
+                <button key={c.name} onClick={() => p.toggleColor(c.name)} title={c.name} aria-label={c.name} aria-pressed={active}
+                  className={`h-8 w-8 rounded-full border-2 transition ${active ? "border-primary ring-2 ring-primary/30" : "border-border hover:border-primary/50"}`}
+                  style={{ background: c.hex }} />
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {p.specOptions.map((s) => (
+        <div key={s.key}>
+          <label className="text-sm font-medium block mb-2">{s.key}</label>
+          <div className="flex flex-wrap gap-1.5">
+            {s.values.map((v) => {
+              const active = (p.specFilters[s.key] ?? []).includes(v);
+              return (
+                <button key={v} onClick={() => p.toggleSpec(s.key, v)} aria-pressed={active}
+                  className={`px-2.5 py-1 rounded-md border text-xs transition ${active ? "border-primary bg-primary/10 text-primary" : "border-border hover:bg-secondary"}`}>
+                  {v}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
