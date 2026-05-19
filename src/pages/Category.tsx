@@ -221,11 +221,7 @@ export default function CategoryPage() {
                 </div>
               )}
 
-                      })}
-                    </div>
-                  </div>
-                ))}
-              </aside>
+
 
               {/* Сетка товаров */}
               <div>
