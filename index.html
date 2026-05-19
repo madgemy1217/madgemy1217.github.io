@@ -38,7 +38,7 @@
     const SHOP_PHONE_TEL = "+79775529220";
     const SHOP_ADDRESS = "ТЦ «Горбушкин двор», г. Москва, Багратионовский проезд, 7к1";
     let catalogCache = null;
-    let state = { cart: readJson(STORAGE_CART, []), activeCat: "all", query: "", sort:"popular", onlyStock:false, onlySale:false, priceMin:"", priceMax:"", colors:[], specs:{}, variantIdx: 0, colorIdx: 0, adminTab: "products", editingProduct: null, editingCategory: null, checkout: { name:"", phone:"", delivery:"pickup", payment:"cash", address:"", notes:"" }, login:"", password:"" };
+    let state = { cart: readJson(STORAGE_CART, []), activeCat: "all", query: "", sort:"popular", onlyStock:false, onlySale:false, priceMin:"", priceMax:"", colors:[], specs:{}, filtersOpen:false, variantIdx: 0, colorIdx: 0, adminTab: "products", editingProduct: null, editingCategory: null, checkout: { name:"", phone:"", delivery:"pickup", payment:"cash", address:"", notes:"" }, login:"", password:"" };
     const app = document.getElementById("app");
 
     function readJson(key, fallback){ try { const raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : fallback; } catch { return fallback; } }
