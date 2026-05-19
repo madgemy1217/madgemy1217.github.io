@@ -232,6 +232,7 @@
       if (t.dataset.action === 'logout') { localStorage.removeItem(STORAGE_ADMIN); toast('Вы вышли'); go('/'); render(); }
       if (t.dataset.cat) { state.activeCat = t.dataset.cat; render(); }
       if (t.dataset.resetFilters !== undefined) { state.query=''; state.sort='popular'; state.onlyStock=false; state.onlySale=false; state.priceMin=''; state.priceMax=''; state.colors=[]; state.specs={}; render(); }
+      if (t.dataset.filtersToggle !== undefined) { state.filtersOpen = !state.filtersOpen; render(); }
       if (t.dataset.filterColor) { state.colors = state.colors.includes(t.dataset.filterColor) ? state.colors.filter(x=>x!==t.dataset.filterColor) : [...state.colors, t.dataset.filterColor]; render(); }
       if (t.dataset.filterSpecKey) { const key=t.dataset.filterSpecKey; const value=t.dataset.filterSpecValue; const cur=state.specs[key] || []; const next=cur.includes(value) ? cur.filter(x=>x!==value) : [...cur,value]; state.specs = {...state.specs}; if (next.length) state.specs[key]=next; else delete state.specs[key]; render(); }
       if (t.dataset.addSimple) { const c = await loadCatalog(); const p = c.products.find(x=>x.id===t.dataset.addSimple); if (p) addCart({id:p.id,name:p.name,price:p.price,image:p.image}); }
