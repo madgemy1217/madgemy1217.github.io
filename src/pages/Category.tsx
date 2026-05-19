@@ -5,9 +5,12 @@ import { loadCatalog, subscribeCatalog, type Category, type Product } from "@/li
 import { money } from "@/lib/utils";
 import { useCart } from "@/lib/cart";
 import { toast } from "sonner";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, SlidersHorizontal, X } from "lucide-react";
 
 type SortKey = "popular" | "price-asc" | "price-desc" | "name";
+
+// Порог: считаем характеристику «общей», если она есть хотя бы у этой доли товаров категории
+const COMMON_SPEC_RATIO = 0.5;
 
 export default function CategoryPage() {
   const { slug } = useParams<{ slug: string }>();
