@@ -25,6 +25,7 @@ export default function CategoryPage() {
   const [sort, setSort] = useState<SortKey>("popular");
   const [pickedColors, setPickedColors] = useState<string[]>([]);
   const [specFilters, setSpecFilters] = useState<Record<string, string[]>>({});
+  const [mobileOpen, setMobileOpen] = useState(false);
   const { add } = useCart();
 
   useEffect(() => {
