@@ -304,7 +304,7 @@
     }
     function collectCategory(){ document.querySelectorAll('[data-cat-field]').forEach(t => { state.editingCategory[t.dataset.catField] = t.type==='number' ? Number(t.value) : t.value; }); return state.editingCategory; }
 
-    window.addEventListener('hashchange', render);
+    window.addEventListener('hashchange', () => { state.filtersOpen = false; render(); });
     if (!location.hash) location.hash = '#/';
     render();
 
