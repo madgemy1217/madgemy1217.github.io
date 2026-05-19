@@ -284,6 +284,14 @@ function ProductEditor({
         </div>
       </Section>
 
+      <Section title="Скидка">
+        <DiscountControl
+          price={p.price}
+          oldPrice={p.old_price}
+          onChange={(price, oldPrice) => setP({ ...p, price, old_price: oldPrice })}
+        />
+      </Section>
+
       <Section title="Цвета">
         <RowList<ProductColor>
           items={p.colors}
@@ -347,6 +355,59 @@ function ProductEditor({
       </div>
 
       <style>{`.input{width:100%;padding:.5rem .65rem;border:1px solid var(--border);border-radius:.5rem;background:var(--background);font-size:.875rem}`}</style>
+    </div>
+  );
+}
+
+/* =============== Discount Control =============== */
+function DiscountControl({
+  price, oldPrice, onChange,
+}: {
+  price: number; oldPrice: number | null;
+  onChange: (price: number, oldPrice: number | null) => void;
+}) {
+  const [mode, setMode] = useState<"percent" | "amount">("percent");
+  const base = oldPrice ?? price;
+  const currentPercent = oldPrice && oldPrice > 0 ? Math.round((1 - price / oldPrice) * 100) : 0;
+
+  function applyPercent(pct: number) {
+    if (!pct || pct <= 0) { onChange(base, null); return; }
+    const newPrice = Math.round(base * (1 - pct / 100));
+    onChange(newPrice, base);
+  }
+  function applyAmount(newPrice: number) {
+    if (!newPrice || newPrice >= base) { onChange(base, null); return; }
+    onChange(newPrice, base);
+  }
+  function reset() {
+    if (oldPrice) onChange(oldPrice, null);
+  }
+
+  return (
+    <div className="space-y-3">
+      <div className="text-sm text-muted-foreground">
+        Базовая цена: <strong>{base.toLocaleString("ru-RU")} ₽</strong>
+        {oldPrice && <> · Сейчас со скидкой: <strong>{price.toLocaleString("ru-RU")} ₽</strong> (−{currentPercent}%)</>}
+      </div>
+      <div className="flex gap-2">
+        <button type="button" onClick={() => setMode("percent")} className={`px-3 py-1.5 rounded-md text-sm border ${mode === "percent" ? "bg-primary text-primary-foreground" : ""}`}>В процентах</button>
+        <button type="button" onClick={() => setMode("amount")} className={`px-3 py-1.5 rounded-md text-sm border ${mode === "amount" ? "bg-primary text-primary-foreground" : ""}`}>Своя цена</button>
+        {oldPrice && <button type="button" onClick={reset} className="px-3 py-1.5 rounded-md text-sm border text-destructive ml-auto">Убрать скидку</button>}
+      </div>
+      {mode === "percent" ? (
+        <Field label="Скидка, %">
+          <input type="number" min={0} max={99} defaultValue={currentPercent || ""}
+            onBlur={(e) => applyPercent(Number(e.target.value))}
+            placeholder="например, 10" className="input" />
+        </Field>
+      ) : (
+        <Field label="Новая цена со скидкой, ₽">
+          <input type="number" min={0} defaultValue={oldPrice ? price : ""}
+            onBlur={(e) => applyAmount(Number(e.target.value))}
+            placeholder={`меньше ${base}`} className="input" />
+        </Field>
+      )}
+      <p className="text-xs text-muted-foreground">Значение применяется после ухода из поля. Старая цена сохранится зачёркнутой на карточке.</p>
     </div>
   );
 }
