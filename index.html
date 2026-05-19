@@ -119,7 +119,10 @@
     }
 
     function pageCheckout(){
-      const paymentField = `<label class="field"><span>Способ оплаты</span><select class="input" name="payment"><option value="cash" ${state.checkout.payment==='cash'?'selected':''}>Наличные (только самовывоз)</option><option value="card" ${state.checkout.payment==='card'?'selected':''}>Оплата картой</option></select></label>`;
+      const cashAllowed = state.checkout.delivery === 'pickup';
+      if (!cashAllowed && state.checkout.payment === 'cash') state.checkout.payment = 'card';
+      const cashOpt = cashAllowed ? `<option value="cash" ${state.checkout.payment==='cash'?'selected':''}>Наличные при получении</option>` : '';
+      const paymentField = `<label class="field"><span>Способ оплаты</span><select class="input" name="payment">${cashOpt}<option value="card" ${state.checkout.payment==='card'?'selected':''}>Оплата картой</option></select></label>`;
       return shell(`<h1 class="page-title">Оформление заказа</h1><form class="form" id="checkout-form"><label class="field"><span>Имя</span><input required class="input" name="name" value="${esc(state.checkout.name)}"></label><label class="field"><span>Телефон</span><input required class="input" name="phone" value="${esc(state.checkout.phone)}"></label><label class="field"><span>Способ доставки</span><select class="input" name="delivery"><option value="pickup" ${state.checkout.delivery==='pickup'?'selected':''}>Самовывоз</option><option value="courier" ${state.checkout.delivery==='courier'?'selected':''}>Курьер</option><option value="post" ${state.checkout.delivery==='post'?'selected':''}>Почта</option></select></label><label class="field ${state.checkout.delivery==='pickup'?'hide':''}" id="address-field"><span>Адрес</span><input class="input" name="address" value="${esc(state.checkout.address)}"></label>${paymentField}<label class="field"><span>Комментарий</span><textarea class="input" name="notes">${esc(state.checkout.notes)}</textarea></label><div class="form-bottom"><span style="font-size:19px">Итого: <strong>${money(cartTotal())}</strong></span><button class="btn primary">Оформить заказ</button></div></form>`);
     }
 
