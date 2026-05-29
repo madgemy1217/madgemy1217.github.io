@@ -4,8 +4,8 @@
 
 1. Собери проект:
    ```bash
-   npm install
-   npm run build
+   bun install
+   bun run build
    ```
    Готовый сайт будет в папке `dist/`.
 
