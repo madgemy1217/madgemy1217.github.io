@@ -1,10 +1,45 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Shell } from "@/components/Layout";
-import { loadCatalog, type Product } from "@/lib/products";
+import { loadCatalog, type Product, type ProductSpec } from "@/lib/products";
 import { money } from "@/lib/utils";
 import { useCart } from "@/lib/cart";
 import { toast } from "sonner";
+
+const SPEC_TABS = [
+  "Общие",
+  "Экран",
+  "Камера",
+  "Запись видео",
+  "Связь",
+  "Память и процессор",
+  "Питание",
+  "Другие функции",
+  "Дополнительная информация",
+] as const;
+
+function getSpecGroup(key: string): string {
+  const k = key.toLowerCase();
+  if (/экран|дисплей|диагональ|разрешение|яркость|пиксел|частота обновления|тип экрана|соотношение сторон|always.on/.test(k)) return "Экран";
+  if (/запись видео|видеосъ|формат видео|видео hdr|cinematic|dolby vision|slow.motion|slow motion/.test(k)) return "Запись видео";
+  if (/камер|lider|lidar|апертур|зум|фокус|стабилизац|вспышк|автофокус|фронталь|селфи|широкоугол|телефото/.test(k)) return "Камера";
+  if (/wi.fi|bluetooth|sim|gps|глонасс|навигац|сотовой|5g|lte|4g|3g|2g|nfc|диапазон|беспровод сеть|hotspot|usb|lightning|type.c/.test(k)) return "Связь";
+  if (/процессор|чип|память|озу|ram|оперативн|встроенн/.test(k)) return "Память и процессор";
+  if (/аккумул|батаре|зарядк|magsafe|беспровод зарядк|быстрая зарядк|мощность зарядк|ёмкость|емкость/.test(k)) return "Питание";
+  if (/face id|touch id|датчик|сенсор|биометр|динамик|микрофон|стерео|haptic|taptic|акселеро|гироскоп|барометр|компас|сейсмо|инфракрас|ultra wideband|u1/.test(k)) return "Другие функции";
+  if (/артикул|страна|срок службы|гарантий|производ|бренд/.test(k)) return "Дополнительная информация";
+  return "Общие";
+}
+
+function groupSpecs(specs: ProductSpec[]): Record<string, ProductSpec[]> {
+  const groups: Record<string, ProductSpec[]> = {};
+  for (const tab of SPEC_TABS) groups[tab] = [];
+  for (const spec of specs) {
+    const group = getSpecGroup(spec.key);
+    groups[group].push(spec);
+  }
+  return groups;
+}
 
 export default function ProductPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -13,6 +48,7 @@ export default function ProductPage() {
   const [variantIdx, setVariantIdx] = useState(0);
   const [colorIdx, setColorIdx] = useState(0);
   const { add } = useCart();
+  const [activeTab, setActiveTab] = useState<string>("Общие");
 
   useEffect(() => {
     setLoading(true);
@@ -24,6 +60,9 @@ export default function ProductPage() {
 
   if (loading) return <Shell><p className="text-muted-foreground">Загрузка…</p></Shell>;
   if (!product) return <Shell><p>Товар не найден. <Link to="/" className="text-primary underline">На главную</Link></p></Shell>;
+
+  const specGroups = useMemo(() => groupSpecs(product.specs), [product.specs]);
+  const visibleTabs = SPEC_TABS.filter((t) => specGroups[t].length > 0);
 
   const variant = product.variants[variantIdx];
   const color = product.colors[colorIdx];
@@ -97,12 +136,29 @@ export default function ProductPage() {
 
           {product.specs.length > 0 && (
             <div className="mt-8">
-              <h2 className="text-lg font-semibold mb-3">Характеристики</h2>
-              <dl className="divide-y border rounded-lg overflow-hidden">
-                {product.specs.map((s, i) => (
-                  <div key={i} className="grid grid-cols-2 px-4 py-2 text-sm">
+              <h2 className="text-xl font-bold mb-4">О модели</h2>
+              <div className="overflow-x-auto -mx-1 px-1">
+                <div className="flex gap-0 border-b min-w-max">
+                  {visibleTabs.map((tab) => (
+                    <button
+                      key={tab}
+                      onClick={() => setActiveTab(tab)}
+                      className={`px-3 py-2 text-sm whitespace-nowrap border-b-2 transition-colors ${
+                        activeTab === tab
+                          ? "border-primary text-foreground font-medium"
+                          : "border-transparent text-muted-foreground hover:text-foreground"
+                      }`}
+                    >
+                      {tab}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <dl className="divide-y border-x border-b rounded-b-lg overflow-hidden">
+                {(specGroups[activeTab] ?? []).map((s, i) => (
+                  <div key={i} className="grid grid-cols-2 px-4 py-2.5 text-sm">
                     <dt className="text-muted-foreground">{s.key}</dt>
-                    <dd>{s.value}</dd>
+                    <dd className="font-medium">{s.value}</dd>
                   </div>
                 ))}
               </dl>
